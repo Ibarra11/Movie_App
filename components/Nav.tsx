@@ -17,7 +17,7 @@ const screens = {
 };
 const Nav = () => {
   return (
-    <div className="bg-semiDarkBlue flex items-center h-14 px-4">
+    <div className="bg-semiDarkBlue flex items-center h-14 px-4  md:h-16 md:mx-6 md:translate-y-6 md:px-6 md:rounded-lg">
       <div>
         {/* Mobile Logo */}
         <div className="md:hidden flex items-center">
@@ -68,7 +68,7 @@ const Nav = () => {
           />
         </div>
         {/* Tablet Nav */}
-        <div className="hidden md:flex justify-center gap-6">
+        <div className="hidden md:flex justify-center gap-8">
           <Image
             src="/icons/icon-nav-home.svg"
             width={screens.tablet.nav.width}
