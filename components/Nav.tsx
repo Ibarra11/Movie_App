@@ -17,7 +17,7 @@ const screens = {
 };
 const Nav = () => {
   return (
-    <div className="bg-semiDarkBlue flex items-center h-14 px-4  md:h-16 md:mx-6 md:translate-y-6 md:px-6 md:rounded-lg">
+    <div className="bg-semiDarkBlue flex items-center h-14 px-4 border-2 border-red  md:h-16  md:px-6 md:rounded-lg xl:flex-col  xl:w-24 xl:h-full xl:p-0 xl:py-8 ">
       <div>
         {/* Mobile Logo */}
         <div className="md:hidden flex items-center">
@@ -60,7 +60,6 @@ const Nav = () => {
             alt="Tv series"
           />
           <Image
-            className="md:hidden"
             src="/icons/icon-nav-bookmark.svg"
             width={screens.mobile.nav.width}
             height={screens.mobile.nav.height}
@@ -68,7 +67,7 @@ const Nav = () => {
           />
         </div>
         {/* Tablet Nav */}
-        <div className="hidden md:flex justify-center gap-8">
+        <div className="hidden md:flex justify-center gap-8 xl:flex-col xl:h-full">
           <Image
             src="/icons/icon-nav-home.svg"
             width={screens.tablet.nav.width}
@@ -76,7 +75,6 @@ const Nav = () => {
             alt="Home"
           />
           <Image
-            className="md:hidden"
             src="/icons/icon-nav-movies.svg"
             width={screens.tablet.nav.width}
             height={screens.tablet.nav.height}
