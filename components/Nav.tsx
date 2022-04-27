@@ -51,7 +51,7 @@ const Nav = () => {
         </div>
 
         {/* Nav  */}
-        <div className="flex-1  border-2 border-white">
+        <div className="flex-1">
           <div className="md:hidden">
             {NavLayout({ type: "nav", size: "mobile" })}
           </div>
