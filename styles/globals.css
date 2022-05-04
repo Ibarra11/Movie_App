@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .aspect-thumbnail {
+    aspect-ratio: 1 / 0.75;
+  }
+}
