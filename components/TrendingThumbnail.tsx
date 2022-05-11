@@ -4,6 +4,7 @@ import thumbnail_112_sm from "/public/thumbnails/112/regular/small.jpg";
 import thumbnail_112_md from "/public/thumbnails/112/regular/medium.jpg";
 import thumbnail_112_lg from "/public/thumbnails/112/regular/large.jpg";
 import movie_icon from "/public/icons/icon-category-movie.svg";
+import empty_bookmark from "/public/icons/icon-bookmark-empty.svg";
 
 export type Ref = HTMLDivElement;
 
@@ -43,6 +44,15 @@ const TrendingThumbnail = forwardRef<Ref, { val: number }>(({ val }, ref) => {
             <p className="text-xs text-white uppercase ">pg</p>
           </div>
         </div>
+      </div>
+      <div className="absolute top-2 right-2 grid place-content-center w-8 h-8 bg-darkBlue/50 rounded-full ">
+        <Image
+          layout="fixed"
+          width={12}
+          height={14}
+          src={empty_bookmark}
+          alt="bookmark"
+        />
       </div>
     </div>
   );
