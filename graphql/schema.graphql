@@ -2,7 +2,8 @@ import { gql } from "apollo-server-micro";
 
 export const typeDefs = gql`
   type User {
-    email: ID!
+    id: Int!
+    email: String!
   }
 
   type Movie {
@@ -23,6 +24,11 @@ export const typeDefs = gql`
   type Query {
     getBookmarkedMovies(userId: ID!): [Movie!]!
     getAllMovies: [Movie!]!
+  }
+
+  type Mutation{
+    signup(email: String!, password: String!): User
+    login(email: String! password: String!): User
   }
 
 `;

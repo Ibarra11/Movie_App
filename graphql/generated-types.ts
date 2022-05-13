@@ -31,6 +31,24 @@ export type Movie = {
   year: Scalars['Int'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  login?: Maybe<User>;
+  signup?: Maybe<User>;
+};
+
+
+export type MutationLoginArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
+export type MutationSignupArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   getAllMovies: Array<Movie>;
@@ -44,7 +62,8 @@ export type QueryGetBookmarkedMoviesArgs = {
 
 export type User = {
   __typename?: 'User';
-  email: Scalars['ID'];
+  email: Scalars['String'];
+  id: Scalars['Int'];
 };
 
 
@@ -120,6 +139,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Movie: ResolverTypeWrapper<Movie>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
@@ -131,6 +151,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   Movie: Movie;
+  Mutation: {};
   Query: {};
   String: Scalars['String'];
   User: User;
@@ -152,18 +173,25 @@ export type MovieResolvers<ContextType = Context, ParentType extends ResolversPa
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  login?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
+  signup?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignupArgs, 'email' | 'password'>>;
+};
+
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAllMovies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
   getBookmarkedMovies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryGetBookmarkedMoviesArgs, 'userId'>>;
 };
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  email?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = Context> = {
   Movie?: MovieResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
