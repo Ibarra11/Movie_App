@@ -1,4 +1,4 @@
-import type { Movie } from "../prisma/generated/client";
+import { Movie } from "@prisma/client";
 
 export type TrendingMovie = {
   [K in keyof Movie]: Movie[K] extends infer R
@@ -7,3 +7,5 @@ export type TrendingMovie = {
       : R
     : never;
 };
+
+export type HandleChange = (val: string) => void;
