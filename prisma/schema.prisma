@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
+
 }
 
 datasource db {
@@ -12,8 +12,24 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+model User {
+  id        Int         @id @default(autoincrement())
+  email     String      @unique
+  password  String
+  Bookmarks Bookmarks[]
+}
+
+model Bookmarks {
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+  movie   Movie @relation(fields: [movieId], references: [id])
+  movieId Int
+
+  @@id([userId, movieId])
+}
+
 model Movie {
-  id           Int     @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   title        String
   year         Int
   category     String
@@ -25,4 +41,5 @@ model Movie {
   regular_sm   String
   regular_md   String
   regular_lg   String
+  Bookmarks    Bookmarks[]
 }
