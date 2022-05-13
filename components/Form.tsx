@@ -65,7 +65,10 @@ const Form = ({ formType }: { formType: Form }) => {
         ) : null}
       </div>
       <div className="flex flex-col gap-6 ">
-        <button className=" bg-red py-4 rounded-md text-center text-white  ">
+        <button
+          type="submit"
+          className=" bg-red py-4 rounded-md text-center text-white"
+        >
           {kind === "signup" ? "Create an account" : "Login to your account"}
         </button>
         <div className="flex gap-2 justify-center">
