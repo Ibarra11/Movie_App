@@ -1,15 +1,8 @@
-import { useState } from "react";
 import Image from "next/image";
 import { HandleChange } from "../../types";
 import Form from "../../components/Form";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleEmailChange: HandleChange = (e) => setEmail(e);
-  const handlePasswordChange: HandleChange = (val) => setPassword(val);
-
   return (
     <div className=" flex flex-col gap-14 items-center  py-12 px-6">
       <Image
@@ -19,15 +12,40 @@ const Login = () => {
         layout="fixed"
         alt="logo"
       />
-      <Form
-        formType={{
-          kind: "login",
-          emailValue: email,
-          passwordValue: password,
-          onEmailChange: handleEmailChange,
-          onPasswordChange: handlePasswordChange,
-        }}
-      />
+      {Form<"email" | "password">({
+        type: "login",
+        fields: {
+          email: {
+            type: "email",
+            initialValue: "",
+          },
+          password: {
+            type: "password",
+            initialValue: "",
+          },
+        },
+        validations: {
+          email: {
+            required: {
+              message: "Email is a required field",
+            },
+          },
+          password: {
+            required: {
+              message: "Password is a required field",
+            },
+            minLength: {
+              value: 6,
+              message: "Password must be atleast 6 characters long",
+            },
+            maxLength: {
+              value: 30,
+              message: "Password must be less than 30 characters",
+            },
+          },
+        },
+        onSubmit: () => console.log("what"),
+      })}
     </div>
   );
 };

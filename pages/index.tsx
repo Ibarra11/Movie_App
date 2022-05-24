@@ -1,7 +1,7 @@
 import type { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
 import type { TrendingMovie } from "../types";
-import { Movie } from "../prisma/generated/client";
+import { Movie } from "@prisma/client";
 import Nav from "../components/Nav";
 import Input from "../components/Input";
 import TrendingRow from "../components/TrendingRow";
