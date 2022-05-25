@@ -1,12 +1,14 @@
-import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Image from "next/image";
 import SignupForm from "../../components/SignupForm";
 import { SIGNUP } from "../../graphql/mutations";
-import { HandleChange } from "../../types";
-import Form from "../../components/Form";
+import { SignupFormInputs } from "../../types";
 
 const Signup = () => {
+  const [signup, { data, loading, error }] = useMutation(SIGNUP);
+  function handleSignup(formData: SignupFormInputs) {
+    console.log(formData);
+  }
   return (
     <div className=" flex flex-col gap-14 items-center  py-12 px-6">
       <Image
@@ -16,7 +18,8 @@ const Signup = () => {
         layout="fixed"
         alt="logo"
       />
-      <SignupForm />
+
+      <SignupForm onSignup={handleSignup} />
     </div>
   );
 };

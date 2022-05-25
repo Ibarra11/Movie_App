@@ -1,10 +1,7 @@
 import Link from "next/link";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-interface Inputs {
-  email: string;
-  password: string;
-  repeatPassword: string;
-}
+import { SignupFormInputs } from "../types";
 
 const errorMessage: (arg: string) => React.ReactNode = (message) => {
   return (
@@ -14,7 +11,11 @@ const errorMessage: (arg: string) => React.ReactNode = (message) => {
   );
 };
 
-const SignupForm = () => {
+interface IProps {
+  onSignup: (arg: SignupFormInputs) => void;
+}
+
+const SignupForm: (props: IProps) => React.ReactElement = ({ onSignup }) => {
   const {
     register,
     handleSubmit,
@@ -22,9 +23,12 @@ const SignupForm = () => {
     getFieldState,
     setError,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-  console.log(errors);
+  } = useForm<SignupFormInputs>();
+
+  const onSubmit: SubmitHandler<SignupFormInputs> = (data) => {
+    onSignup(data);
+  };
+
   return (
     <form
       className="bg-semiDarkBlue w-full flex flex-col gap-10 rounded-xl p-6 pb-8"
