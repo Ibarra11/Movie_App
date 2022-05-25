@@ -6,7 +6,11 @@ interface Inputs {
 }
 
 const errorMessage: (arg: string) => React.ReactNode = (message) => {
-  return <span className="absolute text-red text-xs right-0">{message}</span>;
+  return (
+    <span className="absolute text-red text-xs right-0 bottom-0">
+      {message}
+    </span>
+  );
 };
 
 const LoginForm = () => {
@@ -16,7 +20,6 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-
   return (
     <form
       className="bg-semiDarkBlue w-full flex flex-col gap-10 rounded-xl p-6 pb-8"
@@ -25,23 +28,29 @@ const LoginForm = () => {
       <h3 className=" text-4xl text-white text ">Login</h3>
       <div className="flex flex-col gap-6">
         <div className="relative flex flex-col gap-3">
-          <label className=" text-sm text-slate-400" htmlFor="email">
+          <label className="relative text-sm text-slate-400" htmlFor="email">
             Email Address
+            {errors.email?.type === "required" &&
+              errorMessage("This field is required")}
+            {errors.email?.type === "pattern" &&
+              errorMessage("Please enter a valid email address")}
           </label>
           <input
-            className="appearance-none  bg-transparent h-full text-slate-300 pb-0.5  border-b border-b-greyishBlue focus:outline-none  "
+            className="appearance-none bg-transparent h-full text-slate-300 pb-0.5  border-b border-b-greyishBlue invalid:border-b-red focus:outline-none  "
             id="email"
             type="text"
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
           />
-          {errors.email?.type === "required" &&
-            errorMessage("This field is required")}
-          {errors.email?.type === "pattern" &&
-            errorMessage("Please enter a valid email address")}
         </div>
         <div className="relative flex flex-col gap-3">
-          <label className="text-sm text-slate-400" htmlFor="email">
+          <label className="relative text-sm text-slate-400" htmlFor="email">
             Password
+            {errors.password?.type === "required" &&
+              errorMessage("This field is required")}
+            {errors.password?.type === "minLength" &&
+              errorMessage("Password must be atleast 6 characters")}
+            {errors.password?.type === "maxLength" &&
+              errorMessage("Password must be less than 30 characters")}
           </label>
           <input
             className="appearance-none bg-transparent h-full text-slate-300 pb-0.5  border-b border-b-greyishBlue focus:outline-none  "
@@ -53,12 +62,6 @@ const LoginForm = () => {
               maxLength: 30,
             })}
           />
-          {errors.password?.type === "required" &&
-            errorMessage("This field is required")}
-          {errors.password?.type === "minLength" &&
-            errorMessage("Password must be atleast 6 characters")}
-          {errors.password?.type === "maxLength" &&
-            errorMessage("Password must be less than 30 characters")}
         </div>
       </div>
       <div className="flex flex-col gap-6 ">
