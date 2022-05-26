@@ -29,7 +29,7 @@ export const resolvers: Resolvers = {
       } catch (e: unknown) {
         if (e instanceof Error) {
           if (e.message.includes("Unique constraint")) {
-            throw new Error("Failed signup: duplicate email");
+            throw new Error(`Sorry, an account with ${email} already exist.`);
           }
         }
         throw new Error("failed signup");
