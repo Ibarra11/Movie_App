@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Router from "next/router";
 import { useState } from "react";
 import { useSignupMutation } from "../../types/apollo-generated";
 import { ErrorFormState, FormState } from "../../types";
@@ -11,7 +12,7 @@ const Signup = () => {
     error: false,
     message: "",
   });
-  const [signup, { data, loading, error }] = useSignupMutation();
+  const [signup, { data, loading }] = useSignupMutation();
 
   const formState: FormState = errorState.error
     ? errorState
@@ -34,6 +35,10 @@ const Signup = () => {
         });
       },
     });
+  }
+
+  if (data) {
+    Router.push("/");
   }
   return (
     <div className=" flex flex-col gap-14 items-center  py-12 px-6">

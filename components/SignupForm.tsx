@@ -26,8 +26,6 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
     getValues,
     getFieldState,
     setError,
-    setFocus,
-    clearErrors,
     formState: { errors },
   } = useForm<SignupFormInputs>();
 
@@ -74,8 +72,6 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
               errorMessage("Password must be atleast 6 characters")}
             {errors.password?.type === "maxLength" &&
               errorMessage("Password must be less than 30 characters")}
-            {errors.password?.type === "matchesPassword" &&
-              errorMessage("Passwords don't match")}
           </label>
           <input
             className="appearance-none bg-transparent h-full text-slate-300 pb-0.5  border-b border-b-greyishBlue focus:outline-none  "
@@ -85,15 +81,6 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
               required: true,
               minLength: 6,
               maxLength: 30,
-              validate: {
-                matchesPassword: (e) => {
-                  const passwordValue = getValues("repeatPassword");
-                  if (passwordValue !== e) {
-                    return false;
-                  }
-                  return true;
-                },
-              },
             })}
           />
         </div>
@@ -123,10 +110,7 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
                   if (e !== passwordValue) {
                     return false;
                   }
-                  if (passwordState.error && e === passwordValue) {
-                    console.log("test");
-                    clearErrors("password");
-                  }
+
                   return true;
                 },
               },
