@@ -132,7 +132,9 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
           type="submit"
           className=" bg-red py-4 rounded-md text-center text-white"
         >
-          {formState.state === "loading" ? "Loading" : "Create an account"}
+          {formState.state === "loading" && formState.loading
+            ? "Loading"
+            : "Create an account"}
         </button>
         <div className="flex gap-2 justify-center">
           <p className="text-white text-base">Already have an account?</p>

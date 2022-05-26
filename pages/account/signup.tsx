@@ -19,6 +19,11 @@ const Signup = () => {
 
   function handleSignup(formData: SignupFormInputs) {
     const { email, password } = formData;
+    setFormState({
+      state: "error",
+      error: false,
+      message: "",
+    });
     signup({
       variables: { email, password },
       onError: (error) => {
