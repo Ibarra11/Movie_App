@@ -26,6 +26,8 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
     getValues,
     getFieldState,
     setError,
+    setFocus,
+    clearErrors,
     formState: { errors },
   } = useForm<SignupFormInputs>();
 
@@ -115,10 +117,15 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
               validate: {
                 matchesPassword: (e) => {
                   const passwordState = getFieldState("password");
+                  console.log(passwordState);
                   const passwordValue = getValues("password");
-
+                  // Inital check for password
                   if (e !== passwordValue) {
                     return false;
+                  }
+                  if (passwordState.error && e === passwordValue) {
+                    console.log("test");
+                    clearErrors("password");
                   }
                   return true;
                 },
