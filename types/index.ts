@@ -18,3 +18,15 @@ export interface LoginFormInputs {
 export interface SignupFormInputs extends LoginFormInputs {
   repeatPassword: string;
 }
+
+export type FormState = LoadingFormState | ErrorFormState;
+
+interface LoadingFormState {
+  state: "loading";
+  loading: boolean;
+}
+export interface ErrorFormState {
+  state: "error";
+  error: boolean;
+  message: string;
+}

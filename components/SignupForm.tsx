@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SignupFormInputs } from "../types";
+import { SignupFormInputs, FormState } from "../types";
 
 const errorMessage: (arg: string) => React.ReactNode = (message) => {
   return (
@@ -13,9 +13,13 @@ const errorMessage: (arg: string) => React.ReactNode = (message) => {
 
 interface IProps {
   onSignup: (arg: SignupFormInputs) => void;
+  formState: FormState;
 }
 
-const SignupForm: (props: IProps) => React.ReactElement = ({ onSignup }) => {
+const SignupForm: (props: IProps) => React.ReactElement = ({
+  onSignup,
+  formState,
+}) => {
   const {
     register,
     handleSubmit,
@@ -31,10 +35,18 @@ const SignupForm: (props: IProps) => React.ReactElement = ({ onSignup }) => {
 
   return (
     <form
-      className="bg-semiDarkBlue w-full flex flex-col gap-10 rounded-xl p-6 pb-8"
+      className=" bg-semiDarkBlue w-full flex flex-col gap-10 rounded-xl p-6 pb-8"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h3 className=" text-4xl text-white text ">Sign Up</h3>
+      <header className="relative">
+        <h3 className=" text-4xl text-white text ">Sign Up</h3>
+        {formState.state === "error" && (
+          <span className="absolute  text-xs text-red translate-y-3">
+            {formState.message}
+          </span>
+        )}
+      </header>
+
       <div className="flex flex-col gap-6">
         <div className="relative flex flex-col gap-3">
           <label className="relative text-sm text-slate-400" htmlFor="email">
@@ -120,10 +132,10 @@ const SignupForm: (props: IProps) => React.ReactElement = ({ onSignup }) => {
           type="submit"
           className=" bg-red py-4 rounded-md text-center text-white"
         >
-          Create an account
+          {formState.state === "loading" ? "Loading" : "Create an account"}
         </button>
         <div className="flex gap-2 justify-center">
-          <p className="text-white text-base">Already have an account</p>
+          <p className="text-white text-base">Already have an account?</p>
           <Link href="/account/login">
             <a className="text-red text-base">Login</a>
           </Link>

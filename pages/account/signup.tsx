@@ -1,13 +1,34 @@
-import { useMutation } from "@apollo/client";
 import Image from "next/image";
+import { useState } from "react";
+import { useSignupMutation } from "../../types/apollo-generated";
+import { ErrorFormState, FormState } from "../../types";
 import SignupForm from "../../components/SignupForm";
-import { SIGNUP } from "../../graphql/mutations";
 import { SignupFormInputs } from "../../types";
 
 const Signup = () => {
-  const [signup, { data, loading, error }] = useMutation(SIGNUP);
+  const [errorState, setFormState] = useState<ErrorFormState>({
+    state: "error",
+    error: false,
+    message: "",
+  });
+  const [signup, { data, loading, error }] = useSignupMutation();
+
+  const formState: FormState = errorState.error
+    ? errorState
+    : { state: "loading", loading };
+
   function handleSignup(formData: SignupFormInputs) {
-    console.log(formData);
+    const { email, password } = formData;
+    signup({
+      variables: { email, password },
+      onError: (error) => {
+        setFormState({
+          ...errorState,
+          error: true,
+          message: error.message,
+        });
+      },
+    });
   }
   return (
     <div className=" flex flex-col gap-14 items-center  py-12 px-6">
@@ -19,7 +40,7 @@ const Signup = () => {
         alt="logo"
       />
 
-      <SignupForm onSignup={handleSignup} />
+      <SignupForm formState={formState} onSignup={handleSignup} />
     </div>
   );
 };
