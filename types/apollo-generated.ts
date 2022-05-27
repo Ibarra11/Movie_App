@@ -34,7 +34,7 @@ export type Movie = {
 export type Mutation = {
   __typename?: 'Mutation';
   login?: Maybe<User>;
-  signup?: Maybe<User>;
+  signup: User;
 };
 
 
@@ -72,7 +72,7 @@ export type SignupMutationVariables = Exact<{
 }>;
 
 
-export type SignupMutation = { __typename?: 'Mutation', signup?: { __typename?: 'User', id: number, email: string } | null };
+export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'User', id: number, email: string } };
 
 
 export const SignupDocument = gql`

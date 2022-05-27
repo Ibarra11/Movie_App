@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSignupMutation } from "../../types/apollo-generated";
 import { ErrorFormState, FormState } from "../../types";
@@ -7,12 +7,13 @@ import SignupForm from "../../components/SignupForm";
 import { SignupFormInputs } from "../../types";
 
 const Signup = () => {
+  const router = useRouter();
   const [errorState, setFormState] = useState<ErrorFormState>({
     state: "error",
     error: false,
     message: "",
   });
-  const [signup, { data, loading }] = useSignupMutation();
+  const [signup, { loading }] = useSignupMutation();
 
   const formState: FormState = errorState.error
     ? errorState
@@ -34,12 +35,20 @@ const Signup = () => {
           message: error.message,
         });
       },
+      async onCompleted(data) {
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: data.signup.id }),
+        });
+
+        if (response.ok) {
+          router.push("/");
+        }
+      },
     });
   }
 
-  if (data) {
-    Router.push("/");
-  }
   return (
     <div className=" flex flex-col gap-14 items-center  py-12 px-6">
       <Image

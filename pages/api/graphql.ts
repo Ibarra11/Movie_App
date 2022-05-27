@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server-micro";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
-import { loadSchema, loadSchemaSync } from "@graphql-tools/load";
+import { loadSchemaSync } from "@graphql-tools/load";
 import { resolvers } from "../../graphql/resolvers";
 import { createContext } from "../../graphql/context";
 import Cors from "micro-cors";
