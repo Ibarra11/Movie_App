@@ -1,10 +1,14 @@
 import { ApolloServer } from "apollo-server-micro";
-import { typeDefs } from "../../graphql/schema.graphql";
+import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
+import { loadSchema, loadSchemaSync } from "@graphql-tools/load";
 import { resolvers } from "../../graphql/resolvers";
 import { createContext } from "../../graphql/context";
 import Cors from "micro-cors";
 
 const cors = Cors();
+const typeDefs = loadSchemaSync("./graphql/schema.graphql", {
+  loaders: [new GraphQLFileLoader()],
+});
 
 const apolloServer = new ApolloServer({
   typeDefs,
