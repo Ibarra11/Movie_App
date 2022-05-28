@@ -1,13 +1,7 @@
 import Image from "next/image";
-import LoginForm from "../../components/LoginForm";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { HandleChange } from "../../types";
-import Form from "../../components/Form";
 
-type Inputs = {
-  email: string;
-  password: string;
-};
+import LoginForm from "../../components/LoginForm";
+
 const Login = () => {
   return (
     <div className=" flex flex-col gap-14 items-center  py-12 px-6">

@@ -35,5 +35,23 @@ export const resolvers: Resolvers = {
         throw new Error("failed signup");
       }
     },
+    login: async (_parent, { email, password }, { prisma }) => {
+      console.log(email, password);
+      const user = await prisma.user.findUnique({
+        where: {
+          email,
+        },
+      });
+      // if there is no user will just return null
+      if (!user) {
+        return null;
+      }
+      const match = await bcrypt.compare(user.password, password);
+      if (match) {
+        return user;
+      }
+      // the passwords dont match
+      return null;
+    },
   },
 };

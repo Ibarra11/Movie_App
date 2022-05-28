@@ -1,5 +1,10 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useLoginMutation } from "../types/apollo-generated";
+
 interface Inputs {
   email: string;
   password: string;
@@ -14,18 +19,62 @@ const errorMessage: (arg: string) => React.ReactNode = (message) => {
 };
 
 const LoginForm = () => {
+  const router = useRouter();
+  const [formError, setFormError] = useState(false);
   const {
     register,
     handleSubmit,
+    resetField,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const [loginMutation, { loading }] = useLoginMutation();
+
+  useEffect(() => {
+    resetField("email");
+    resetField("password");
+  }, [formError, resetField]);
+
+  const onSubmit: SubmitHandler<Inputs> = ({ email, password }) => {
+    loginMutation({
+      variables: { email, password },
+      onError: async () => {
+        setFormError(true);
+      },
+      onCompleted: async (data) => {
+        console.log(data);
+        if (data.login) {
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user: data.login.id }),
+          });
+
+          if (response.ok) {
+            router.push("/");
+          }
+        } else {
+          // no user was found
+          setFormError(true);
+        }
+      },
+    });
+  };
+
   return (
     <form
       className="bg-semiDarkBlue w-full flex flex-col gap-10 rounded-xl p-6 pb-8"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h3 className=" text-4xl text-white text ">Login</h3>
+      <header className="relative border-2 border-red">
+        <h3 className=" text-4xl text-white text ">Login</h3>
+        {formError && (
+          <span className="absolute translate-y-3 text-xs text-red">
+            No user found with this email
+          </span>
+        )}
+      </header>
+
       <div className="flex flex-col gap-6">
         <div className="relative flex flex-col gap-3">
           <label className="relative text-sm text-slate-400" htmlFor="email">
