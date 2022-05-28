@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -8,6 +7,7 @@ import { useLoginMutation } from "../types/apollo-generated";
 interface Inputs {
   email: string;
   password: string;
+  submit: string;
 }
 
 const errorMessage: (arg: string) => React.ReactNode = (message) => {
@@ -20,29 +20,28 @@ const errorMessage: (arg: string) => React.ReactNode = (message) => {
 
 const LoginForm = () => {
   const router = useRouter();
-  const [formError, setFormError] = useState(false);
+
   const {
     register,
     handleSubmit,
     resetField,
-    formState: { errors },
+    getValues,
+    setError,
+    clearErrors,
+    formState: { errors, isDirty },
   } = useForm<Inputs>();
-
+  console.log("isDirty", isDirty);
   const [loginMutation, { loading }] = useLoginMutation();
-
-  useEffect(() => {
-    resetField("email");
-    resetField("password");
-  }, [formError, resetField]);
 
   const onSubmit: SubmitHandler<Inputs> = ({ email, password }) => {
     loginMutation({
       variables: { email, password },
       onError: async () => {
-        setFormError(true);
+        setError("submit", { type: "submit" });
+        resetField("email");
+        resetField("password");
       },
       onCompleted: async (data) => {
-        console.log(data);
         if (data.login) {
           const response = await fetch("/api/auth/login", {
             method: "POST",
@@ -55,20 +54,30 @@ const LoginForm = () => {
           }
         } else {
           // no user was found
-          setFormError(true);
+          setError("submit", { type: "submit" });
+          resetField("email");
+          resetField("password");
         }
       },
     });
   };
+  // if we had submitted the form, but it was unsuccessful and they either enter into
+  // the email address field or password, we just reset the error state.
+  if (isDirty && errors.submit) {
+    const { email, password } = getValues();
+    if (email || password) {
+      clearErrors("submit");
+    }
+  }
 
   return (
     <form
       className="bg-semiDarkBlue w-full flex flex-col gap-10 rounded-xl p-6 pb-8"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <header className="relative border-2 border-red">
+      <header className="relative">
         <h3 className=" text-4xl text-white text ">Login</h3>
-        {formError && (
+        {errors.submit?.type === "submit" && (
           <span className="absolute translate-y-3 text-xs text-red">
             No user found with this email
           </span>
@@ -118,12 +127,12 @@ const LoginForm = () => {
           type="submit"
           className=" bg-red py-4 rounded-md text-center text-white"
         >
-          Login to your account
+          {loading ? "loading" : "Login to your account"}
         </button>
         <div className="flex gap-2 justify-center">
-          <p className="text-white text-base">Don&#39;t have an account</p>
-          <Link href="/signup">
-            <a className="text-red text-base">Login</a>
+          <p className="text-white text-base">Don&#39;t have an account?</p>
+          <Link href="/account/signup">
+            <a className="text-red text-base">Sign Up</a>
           </Link>
         </div>
       </div>
