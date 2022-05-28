@@ -36,17 +36,19 @@ export const resolvers: Resolvers = {
       }
     },
     login: async (_parent, { email, password }, { prisma }) => {
-      console.log(email, password);
       const user = await prisma.user.findUnique({
         where: {
           email,
         },
       });
+
       // if there is no user will just return null
       if (!user) {
         return null;
       }
-      const match = await bcrypt.compare(user.password, password);
+
+      const match = await bcrypt.compare(password, user.password);
+      console.log(match);
       if (match) {
         return user;
       }

@@ -30,7 +30,7 @@ const LoginForm = () => {
     clearErrors,
     formState: { errors, isDirty },
   } = useForm<Inputs>();
-  console.log("isDirty", isDirty);
+
   const [loginMutation, { loading }] = useLoginMutation();
 
   const onSubmit: SubmitHandler<Inputs> = ({ email, password }) => {
@@ -48,7 +48,7 @@ const LoginForm = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ user: data.login.id }),
           });
-
+          console.log(data);
           if (response.ok) {
             router.push("/");
           }
