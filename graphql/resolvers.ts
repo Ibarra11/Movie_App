@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { Resolvers } from "./generated-types";
-import type { User } from "@prisma/client";
+import { User } from "./generated-types";
 export const resolvers: Resolvers = {
   Query: {
     getBookmarkedMovies: (_parent, { userId }, { prisma }) => {
@@ -13,15 +13,18 @@ export const resolvers: Resolvers = {
   Mutation: {
     signup: async (_parent, { email, password }, { prisma }) => {
       const saltRounds = 10;
-      let user: User;
+      // let user: User;
 
       try {
         const hash = await bcrypt.hash(password, saltRounds);
 
-        user = await prisma.user.create({
+        const user = await prisma.user.create({
           data: {
             email,
             password: hash,
+          },
+          include: {
+            bookmarks: true,
           },
         });
 
@@ -39,6 +42,9 @@ export const resolvers: Resolvers = {
       const user = await prisma.user.findUnique({
         where: {
           email,
+        },
+        include: {
+          bookmarks: true,
         },
       });
 

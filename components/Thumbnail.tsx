@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Movie } from "../prisma/generated/client";
+import { Movie } from "@prisma/client";
 import movie_icon from "/public/icons/icon-category-movie.svg";
 import icon_bookmark_empty from "/public/icons/icon-bookmark-empty.svg";
 

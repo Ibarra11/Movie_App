@@ -13,23 +13,14 @@ datasource db {
 }
 
 model User {
-  id        Int         @id @default(autoincrement())
-  email     String      @unique
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
   password  String
-  Bookmarks Bookmarks[]
-}
-
-model Bookmarks {
-  user    User  @relation(fields: [userId], references: [id])
-  userId  Int
-  movie   Movie @relation(fields: [movieId], references: [id])
-  movieId Int
-
-  @@id([userId, movieId])
+  bookmarks Movie[]
 }
 
 model Movie {
-  id           Int         @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   title        String
   year         Int
   category     String
@@ -41,5 +32,5 @@ model Movie {
   regular_sm   String
   regular_md   String
   regular_lg   String
-  Bookmarks    Bookmarks[]
+  users        User[]
 }

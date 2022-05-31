@@ -1,6 +1,7 @@
 type User {
   id: Int!
   email: String!
+  bookmarks: [Movie!]!
 }
 
 type Movie {
@@ -26,4 +27,5 @@ type Query {
 type Mutation {
   signup(email: String!, password: String!): User!
   login(email: String!, password: String!): User
+  addBookmark(userId: Int!, movieId: Int!): User!
 }
