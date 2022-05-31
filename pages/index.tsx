@@ -12,15 +12,27 @@ const Home: NextPage<{
   trendingMovies: TrendingMovie[];
   regularMovies: Movie[];
 }> = ({ trendingMovies, regularMovies }) => {
-  const { data, loading } = useGetBookmarkedMoviesQuery();
-
+  const { data, loading, refetch } = useGetBookmarkedMoviesQuery();
+  let bookmarkedMovieIds: { [key: string]: true } = {};
+  if (data) {
+    const { getBookmarkedMovies } = data;
+    getBookmarkedMovies.forEach(({ id }) => {
+      bookmarkedMovieIds[id] = true;
+    });
+  }
   return (
     <div className="h-full flex flex-col gap-6 md:gap-9 xl:flex-row xl:gap-9 ">
       <Nav />
       <div className="border-4 flex flex-col gap-6 px-4 border-red flex-1 md:px-6">
         <Input />
-        <TrendingRow bookmarkedMovies={data} trendingMovies={trendingMovies} />
-        <MovieGrid bookmarkedMovies={data} movies={regularMovies} />
+        {/* <TrendingRow
+          bookmarkedMovieIds={bookmarkedMovieIds}
+          trendingMovies={trendingMovies}
+        /> */}
+        <MovieGrid
+          bookmarkedMovieIds={bookmarkedMovieIds}
+          movies={regularMovies}
+        />
       </div>
     </div>
   );

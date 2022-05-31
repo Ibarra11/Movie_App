@@ -19,7 +19,6 @@ export type Movie = {
   __typename?: 'Movie';
   category: Scalars['String'];
   id: Scalars['Int'];
-  isBookmarked: Scalars['Boolean'];
   isTrending: Scalars['Boolean'];
   rating: Scalars['String'];
   regular_lg: Scalars['String'];

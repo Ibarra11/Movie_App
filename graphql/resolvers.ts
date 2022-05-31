@@ -1,10 +1,22 @@
 import bcrypt from "bcrypt";
 import { Resolvers } from "./generated-types";
-import { User } from "./generated-types";
 export const resolvers: Resolvers = {
   Query: {
-    getBookmarkedMovies: (_parent, _, { prisma, session }) => {
-      return prisma.movie.findMany();
+    getBookmarkedMovies: async (_parent, _, { prisma, session }) => {
+      const userId = session.user && session.user.id;
+      if (userId) {
+        const data = await prisma.user.findUnique({
+          where: {
+            id: userId,
+          },
+          select: {
+            bookmarks: true,
+          },
+        });
+        return data == null ? [] : data.bookmarks;
+      } else {
+        throw new Error("Not authorized");
+      }
     },
     getAllMovies: (_parent, _args, { prisma }) => {
       return prisma.movie.findMany();

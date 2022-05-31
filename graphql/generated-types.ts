@@ -19,7 +19,6 @@ export type Movie = {
   __typename?: 'Movie';
   category: Scalars['String'];
   id: Scalars['Int'];
-  isBookmarked: Scalars['Boolean'];
   isTrending: Scalars['Boolean'];
   rating: Scalars['String'];
   regular_lg: Scalars['String'];
@@ -160,7 +159,6 @@ export type ResolversParentTypes = {
 export type MovieResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
   category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  isBookmarked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isTrending?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   regular_lg?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

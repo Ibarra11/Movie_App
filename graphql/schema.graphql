@@ -10,7 +10,7 @@ type Movie {
   year: Int!
   category: String!
   rating: String!
-  isBookmarked: Boolean!
+
   isTrending: Boolean!
   trending_sm: String
   trending_lg: String

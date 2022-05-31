@@ -3,7 +3,7 @@ import { Movie } from "@prisma/client";
 import { useAddBookmarkMutation } from "../types/apollo-generated";
 import movie_icon from "/public/icons/icon-category-movie.svg";
 import icon_bookmark_empty from "/public/icons/icon-bookmark-empty.svg";
-
+import icon_bookmark_full from "/public/icons/icon-bookmark-full.svg";
 const Thumbnail = ({
   id,
   title,
@@ -14,7 +14,7 @@ const Thumbnail = ({
   regular_sm,
   regular_md,
   regular_lg,
-}: Movie) => {
+}: Movie & { isBookmarked: boolean }) => {
   const [mutation] = useAddBookmarkMutation();
   return (
     <div className="w-full space-y-2">
@@ -25,7 +25,7 @@ const Thumbnail = ({
           onClick={() => mutation({ variables: { movieId: id } })}
         >
           <Image
-            src={icon_bookmark_empty}
+            src={isBookmarked ? icon_bookmark_full : icon_bookmark_empty}
             layout="fixed"
             width={12}
             height={14}

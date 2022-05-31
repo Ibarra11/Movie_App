@@ -20,17 +20,17 @@ model User {
 }
 
 model Movie {
-  id           Int     @id @default(autoincrement())
-  title        String
-  year         Int
-  category     String
-  rating       String
-  isBookmarked Boolean
-  isTrending   Boolean
-  trending_sm  String?
-  trending_lg  String?
-  regular_sm   String
-  regular_md   String
-  regular_lg   String
-  users        User[]
+  id       Int    @id @default(autoincrement())
+  title    String
+  year     Int
+  category String
+  rating   String
+
+  isTrending  Boolean
+  trending_sm String?
+  trending_lg String?
+  regular_sm  String
+  regular_md  String
+  regular_lg  String
+  users       User[]
 }
