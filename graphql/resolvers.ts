@@ -48,7 +48,7 @@ export const resolvers: Resolvers = {
       }
 
       const match = await bcrypt.compare(password, user.password);
-      console.log(match);
+
       if (match) {
         return user;
       }

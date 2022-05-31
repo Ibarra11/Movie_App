@@ -40,7 +40,7 @@ const screens = {
 const Nav = () => {
   return (
     <div className="md:px-6  xl:p-0 xl:py-8 xl:pl-8 ">
-      <div className="bg-semiDarkBlue flex items-center h-14  px-4 md:h-16 md:rounded-lg xl:flex-col xl:w-24 xl:h-full xl:px-0 xl:py-8 xl:rounded-2xl">
+      <div className="bg-semiDarkBlue flex items-center h-14 px-4 md:h-16 md:rounded-lg xl:flex-col xl:w-24 xl:h-[720px] xl:px-0 xl:py-8 xl:rounded-2xl">
         {/* Logo */}
         {/* Flex to get rid of the extra space for the image on the bottom */}
         <div className=" flex md:hidden items-center ">
@@ -93,7 +93,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
     case "nav": {
       return (
         <div
-          className={`flex justify-center gap-6 md:gap-8  xl:h-full xl:gap-10 xl:flex-col`}
+          className={`flex justify-center gap-6 md:gap-8  xl:h-full  xl:gap-10 xl:flex-col xl:justify-start xl:pt-20`}
         >
           <Image
             src="/icons/icon-nav-home.svg"
