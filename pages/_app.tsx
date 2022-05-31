@@ -1,7 +1,8 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { ApolloProvider } from "@apollo/client";
+import type { AppProps } from "next/app";
 import apolloClient from "../lib/apollo";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -13,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.push("/account/login");
     }
   }
+
   if (pageProps.protected) {
     checkLoginStatus();
   }

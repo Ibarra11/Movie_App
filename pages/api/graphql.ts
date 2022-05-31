@@ -1,9 +1,12 @@
 import { ApolloServer } from "apollo-server-micro";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { loadSchemaSync } from "@graphql-tools/load";
+import { withIronSessionApiRoute } from "iron-session/next";
+import { sessionOptions } from "../../lib/session";
 import { resolvers } from "../../graphql/resolvers";
 import { createContext } from "../../graphql/context";
 import Cors from "micro-cors";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const cors = Cors();
 const typeDefs = loadSchemaSync("./graphql/schema.graphql", {
@@ -18,17 +21,21 @@ const apolloServer = new ApolloServer({
 
 const startServer = apolloServer.start();
 
-export default cors(async function handler(req, res) {
-  if (req.method === "OPTIONS") {
-    res.end();
-    return false;
-  }
-  await startServer;
+export default withIronSessionApiRoute(
+  cors(async (req, res) => {
+    console.log(req.session.user);
+    if (req.method === "OPTIONS") {
+      res.end();
+      return false;
+    }
+    await startServer;
 
-  await apolloServer.createHandler({
-    path: "/api/graphql",
-  })(req, res);
-});
+    await apolloServer.createHandler({
+      path: "/api/graphql",
+    })(req, res);
+  }),
+  sessionOptions
+);
 
 export const config = {
   api: {

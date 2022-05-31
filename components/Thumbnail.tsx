@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { Movie } from "@prisma/client";
+import { useAddBookmarkMutation } from "../types/apollo-generated";
 import movie_icon from "/public/icons/icon-category-movie.svg";
 import icon_bookmark_empty from "/public/icons/icon-bookmark-empty.svg";
 
 const Thumbnail = ({
+  id,
   title,
   year,
   category,
@@ -13,11 +15,15 @@ const Thumbnail = ({
   regular_md,
   regular_lg,
 }: Movie) => {
+  const [mutation] = useAddBookmarkMutation();
   return (
     <div className="w-full space-y-2">
       <div className="relative  w-full aspect-video">
         {/* bookmark icon */}
-        <div className="absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full ">
+        <div
+          className="absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full"
+          onClick={() => mutation({ variables: { movieId: id } })}
+        >
           <Image
             src={icon_bookmark_empty}
             layout="fixed"

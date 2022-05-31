@@ -20,12 +20,12 @@ type Movie {
 }
 
 type Query {
-  getBookmarkedMovies(userId: ID!): [Movie!]!
+  getBookmarkedMovies: [Movie!]!
   getAllMovies: [Movie!]!
 }
 
 type Mutation {
   signup(email: String!, password: String!): User!
   login(email: String!, password: String!): User
-  addBookmark(userId: Int!, movieId: Int!): User!
+  addBookmark(movieId: Int!): User!
 }

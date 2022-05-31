@@ -1,5 +1,6 @@
 import type { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
+import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
 import type { TrendingMovie } from "../types";
 import { Movie } from "@prisma/client";
 import Nav from "../components/Nav";
@@ -11,13 +12,15 @@ const Home: NextPage<{
   trendingMovies: TrendingMovie[];
   regularMovies: Movie[];
 }> = ({ trendingMovies, regularMovies }) => {
+  const { data, loading } = useGetBookmarkedMoviesQuery();
+
   return (
     <div className="h-full flex flex-col gap-6 md:gap-9 xl:flex-row xl:gap-9 ">
       <Nav />
       <div className="border-4 flex flex-col gap-6 px-4 border-red flex-1 md:px-6">
         <Input />
-        <TrendingRow trendingMovies={trendingMovies} />
-        <MovieGrid movies={regularMovies} />
+        <TrendingRow bookmarkedMovies={data} trendingMovies={trendingMovies} />
+        <MovieGrid bookmarkedMovies={data} movies={regularMovies} />
       </div>
     </div>
   );

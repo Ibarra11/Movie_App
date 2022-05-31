@@ -41,7 +41,6 @@ export type Mutation = {
 
 export type MutationAddBookmarkArgs = {
   movieId: Scalars['Int'];
-  userId: Scalars['Int'];
 };
 
 
@@ -60,11 +59,6 @@ export type Query = {
   __typename?: 'Query';
   getAllMovies: Array<Movie>;
   getBookmarkedMovies: Array<Movie>;
-};
-
-
-export type QueryGetBookmarkedMoviesArgs = {
-  userId: Scalars['ID'];
 };
 
 export type User = {
@@ -144,7 +138,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Movie: ResolverTypeWrapper<Movie>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -156,7 +149,6 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
-  ID: Scalars['ID'];
   Int: Scalars['Int'];
   Movie: Movie;
   Mutation: {};
@@ -182,14 +174,14 @@ export type MovieResolvers<ContextType = Context, ParentType extends ResolversPa
 };
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addBookmark?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddBookmarkArgs, 'movieId' | 'userId'>>;
+  addBookmark?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddBookmarkArgs, 'movieId'>>;
   login?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
   signup?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignupArgs, 'email' | 'password'>>;
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAllMovies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
-  getBookmarkedMovies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryGetBookmarkedMoviesArgs, 'userId'>>;
+  getBookmarkedMovies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {

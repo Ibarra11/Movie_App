@@ -33,8 +33,14 @@ export type Movie = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addBookmark: User;
   login?: Maybe<User>;
   signup: User;
+};
+
+
+export type MutationAddBookmarkArgs = {
+  movieId: Scalars['Int'];
 };
 
 
@@ -55,13 +61,9 @@ export type Query = {
   getBookmarkedMovies: Array<Movie>;
 };
 
-
-export type QueryGetBookmarkedMoviesArgs = {
-  userId: Scalars['ID'];
-};
-
 export type User = {
   __typename?: 'User';
+  bookmarks: Array<Movie>;
   email: Scalars['String'];
   id: Scalars['Int'];
 };
@@ -81,6 +83,18 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: number, email: string } | null };
+
+export type AddBookmarkMutationVariables = Exact<{
+  movieId: Scalars['Int'];
+}>;
+
+
+export type AddBookmarkMutation = { __typename?: 'Mutation', addBookmark: { __typename?: 'User', id: number } };
+
+export type GetBookmarkedMoviesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetBookmarkedMoviesQuery = { __typename?: 'Query', getBookmarkedMovies: Array<{ __typename?: 'Movie', id: number }> };
 
 
 export const SignupDocument = gql`
@@ -153,3 +167,70 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const AddBookmarkDocument = gql`
+    mutation addBookmark($movieId: Int!) {
+  addBookmark(movieId: $movieId) {
+    id
+  }
+}
+    `;
+export type AddBookmarkMutationFn = Apollo.MutationFunction<AddBookmarkMutation, AddBookmarkMutationVariables>;
+
+/**
+ * __useAddBookmarkMutation__
+ *
+ * To run a mutation, you first call `useAddBookmarkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddBookmarkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addBookmarkMutation, { data, loading, error }] = useAddBookmarkMutation({
+ *   variables: {
+ *      movieId: // value for 'movieId'
+ *   },
+ * });
+ */
+export function useAddBookmarkMutation(baseOptions?: Apollo.MutationHookOptions<AddBookmarkMutation, AddBookmarkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddBookmarkMutation, AddBookmarkMutationVariables>(AddBookmarkDocument, options);
+      }
+export type AddBookmarkMutationHookResult = ReturnType<typeof useAddBookmarkMutation>;
+export type AddBookmarkMutationResult = Apollo.MutationResult<AddBookmarkMutation>;
+export type AddBookmarkMutationOptions = Apollo.BaseMutationOptions<AddBookmarkMutation, AddBookmarkMutationVariables>;
+export const GetBookmarkedMoviesDocument = gql`
+    query getBookmarkedMovies {
+  getBookmarkedMovies {
+    id
+  }
+}
+    `;
+
+/**
+ * __useGetBookmarkedMoviesQuery__
+ *
+ * To run a query within a React component, call `useGetBookmarkedMoviesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBookmarkedMoviesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBookmarkedMoviesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetBookmarkedMoviesQuery(baseOptions?: Apollo.QueryHookOptions<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>(GetBookmarkedMoviesDocument, options);
+      }
+export function useGetBookmarkedMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>(GetBookmarkedMoviesDocument, options);
+        }
+export type GetBookmarkedMoviesQueryHookResult = ReturnType<typeof useGetBookmarkedMoviesQuery>;
+export type GetBookmarkedMoviesLazyQueryHookResult = ReturnType<typeof useGetBookmarkedMoviesLazyQuery>;
+export type GetBookmarkedMoviesQueryResult = Apollo.QueryResult<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>;

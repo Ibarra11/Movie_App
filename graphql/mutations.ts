@@ -16,3 +16,11 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const ADD_BOOKMARK = gql`
+  mutation addBookmark($movieId: Int!) {
+    addBookmark(movieId: $movieId) {
+      id
+    }
+  }
+`;

@@ -3,7 +3,7 @@ import { Resolvers } from "./generated-types";
 import { User } from "./generated-types";
 export const resolvers: Resolvers = {
   Query: {
-    getBookmarkedMovies: (_parent, { userId }, { prisma }) => {
+    getBookmarkedMovies: (_parent, _, { prisma, session }) => {
       return prisma.movie.findMany();
     },
     getAllMovies: (_parent, _args, { prisma }) => {
@@ -60,6 +60,30 @@ export const resolvers: Resolvers = {
       }
       // the passwords dont match
       return null;
+    },
+    addBookmark: async (_parent, { movieId }, { prisma, session }) => {
+      const userId = session.user && session.user.id;
+      if (userId) {
+        const data = await prisma.user.update({
+          where: {
+            id: userId,
+          },
+          include: {
+            bookmarks: true,
+          },
+          data: {
+            bookmarks: {
+              connect: {
+                id: movieId,
+              },
+            },
+          },
+        });
+
+        return data;
+      } else {
+        throw new Error("not authorized");
+      }
     },
   },
 };

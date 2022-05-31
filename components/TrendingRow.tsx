@@ -2,6 +2,11 @@ import { useState, useLayoutEffect, useEffect, useRef } from "react";
 import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { TrendingMovie } from "../types";
+import {
+  GetBookmarkedMoviesQuery,
+  GetBookmarkedMoviesQueryResult,
+} from "../types/apollo-generated";
+
 import TrendingThumbnail from "./TrendingThumbnail";
 import data from "../data.json";
 export interface Movie {
@@ -24,12 +29,12 @@ export interface Movie {
   };
 }
 
-const trendingMovies = data.filter((movie) => movie.isTrending) as Movie[];
-
 const TrendingRow = ({
   trendingMovies,
+  bookmarkedMovies,
 }: {
   trendingMovies: TrendingMovie[];
+  bookmarkedMovies: GetBookmarkedMoviesQuery | undefined;
 }) => {
   const slider = useRef<null | HTMLDivElement>(null);
   const sliderItem = useRef<null | HTMLDivElement>(null);
@@ -79,8 +84,6 @@ const TrendingRow = ({
     // sliderCount.current++;
     // setMovieData([...rest, firstMovie]);
   }
-
-  console.log(movieData);
 
   return (
     <div className="flex flex-col gap-4">

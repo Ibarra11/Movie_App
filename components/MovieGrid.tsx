@@ -1,8 +1,12 @@
 import Thumbnail from "./Thumbnail";
+import { Movie } from "@prisma/client";
+import { GetBookmarkedMoviesQuery } from "../types/apollo-generated";
+import { ReactElement } from "react";
 
-import { Movie } from "../prisma/generated/client";
-// const RegularThumbnails = data.filter((movie) => !movie.isTrending) as Movie[];
-const MovieGrid = ({ movies }: { movies: Movie[] }) => {
+const MovieGrid: (props: {
+  movies: Movie[];
+  bookmarkedMovies: GetBookmarkedMoviesQuery | undefined;
+}) => ReactElement = ({ movies, bookmarkedMovies }) => {
   return (
     <div className="border-2 border-white">
       <h4 className="text-white mb-4">Recommended for you</h4>
