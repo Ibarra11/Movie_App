@@ -1,12 +1,14 @@
 import Thumbnail from "./Thumbnail";
 import { Movie } from "@prisma/client";
-import { GetBookmarkedMoviesQuery } from "../types/apollo-generated";
+import { GetBookmarkedMoviesQueryHookResult } from "../types/apollo-generated";
+
 import { ReactElement } from "react";
 
 const MovieGrid: (props: {
   movies: Movie[];
   bookmarkedMovieIds: { [key: string]: true };
-}) => ReactElement = ({ movies, bookmarkedMovieIds }) => {
+  onBookmark: GetBookmarkedMoviesQueryHookResult["refetch"];
+}) => ReactElement = ({ movies, bookmarkedMovieIds, onBookmark }) => {
   return (
     <div className="border-2 border-white">
       <h4 className="text-white mb-4">Recommended for you</h4>
@@ -18,6 +20,7 @@ const MovieGrid: (props: {
               key={movie.title}
               {...movie}
               isBookmarked={bookmarkedMovieIds[id]}
+              onBookmark={onBookmark}
             />
           );
         })}

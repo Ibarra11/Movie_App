@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Movie } from "@prisma/client";
+import { GetBookmarkedMoviesQueryHookResult } from "../types/apollo-generated";
 import { useAddBookmarkMutation } from "../types/apollo-generated";
 import movie_icon from "/public/icons/icon-category-movie.svg";
 import icon_bookmark_empty from "/public/icons/icon-bookmark-empty.svg";
@@ -14,7 +15,11 @@ const Thumbnail = ({
   regular_sm,
   regular_md,
   regular_lg,
-}: Movie & { isBookmarked: boolean }) => {
+  onBookmark,
+}: Movie & {
+  isBookmarked: boolean;
+  onBookmark: GetBookmarkedMoviesQueryHookResult["refetch"];
+}) => {
   const [mutation] = useAddBookmarkMutation();
   return (
     <div className="w-full space-y-2">
@@ -22,7 +27,14 @@ const Thumbnail = ({
         {/* bookmark icon */}
         <div
           className="absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full"
-          onClick={() => mutation({ variables: { movieId: id } })}
+          onClick={() =>
+            mutation({
+              variables: { movieId: id },
+              onCompleted: (data) => {
+                onBookmark();
+              },
+            })
+          }
         >
           <Image
             src={isBookmarked ? icon_bookmark_full : icon_bookmark_empty}

@@ -2,11 +2,14 @@ import type { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
 import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
 import type { TrendingMovie } from "../types";
+import { GetBookmarkedMoviesQueryHookResult } from "../types/apollo-generated";
 import { Movie } from "@prisma/client";
 import Nav from "../components/Nav";
 import Input from "../components/Input";
 import TrendingRow from "../components/TrendingRow";
 import MovieGrid from "../components/MovieGrid";
+
+type Result = GetBookmarkedMoviesQueryHookResult["fetchMore"];
 
 const Home: NextPage<{
   trendingMovies: TrendingMovie[];
@@ -32,6 +35,7 @@ const Home: NextPage<{
         <MovieGrid
           bookmarkedMovieIds={bookmarkedMovieIds}
           movies={regularMovies}
+          onBookmark={() => refetch()}
         />
       </div>
     </div>
