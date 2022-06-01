@@ -13,6 +13,7 @@ export const resolvers: Resolvers = {
             bookmarks: true,
           },
         });
+
         return data == null ? [] : data.bookmarks;
       } else {
         throw new Error("Not authorized");

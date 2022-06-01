@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Movie } from "@prisma/client";
 import { GetBookmarkedMoviesQueryHookResult } from "../types/apollo-generated";
 import { useAddBookmarkMutation } from "../types/apollo-generated";
@@ -20,24 +21,33 @@ const Thumbnail = ({
   isBookmarked: boolean;
   onBookmark: GetBookmarkedMoviesQueryHookResult["refetch"];
 }) => {
+  const [bookmarkStatus, setBookmarkStatus] = useState(isBookmarked);
   const [mutation] = useAddBookmarkMutation();
+  console.log(bookmarkStatus);
+  console.log(isBookmarked);
+  useEffect(() => {
+    if (bookmarkStatus) {
+      onBookmark();
+    }
+  }, [bookmarkStatus, onBookmark]);
   return (
     <div className="w-full space-y-2">
       <div className="relative  w-full aspect-video">
         {/* bookmark icon */}
         <div
           className="absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full"
-          onClick={() =>
-            mutation({
+          onClick={async () => {
+            setBookmarkStatus(true);
+            const data = await mutation({
               variables: { movieId: id },
               onCompleted: (data) => {
-                onBookmark();
+                setBookmarkStatus(true);
               },
-            })
-          }
+            });
+          }}
         >
           <Image
-            src={isBookmarked ? icon_bookmark_full : icon_bookmark_empty}
+            src={bookmarkStatus ? icon_bookmark_full : icon_bookmark_empty}
             layout="fixed"
             width={12}
             height={14}
