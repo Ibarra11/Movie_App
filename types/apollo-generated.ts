@@ -32,7 +32,7 @@ export type Movie = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addBookmark: User;
+  addBookmark: Movie;
   login?: Maybe<User>;
   signup: User;
 };
@@ -88,7 +88,7 @@ export type AddBookmarkMutationVariables = Exact<{
 }>;
 
 
-export type AddBookmarkMutation = { __typename?: 'Mutation', addBookmark: { __typename?: 'User', id: number } };
+export type AddBookmarkMutation = { __typename?: 'Mutation', addBookmark: { __typename?: 'Movie', id: number } };
 
 export type GetBookmarkedMoviesQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -21,15 +21,8 @@ const Thumbnail = ({
   isBookmarked: boolean;
   onBookmark: GetBookmarkedMoviesQueryHookResult["refetch"];
 }) => {
-  const [bookmarkStatus, setBookmarkStatus] = useState(isBookmarked);
   const [mutation] = useAddBookmarkMutation();
-  console.log(bookmarkStatus);
-  console.log(isBookmarked);
-  useEffect(() => {
-    if (bookmarkStatus) {
-      onBookmark();
-    }
-  }, [bookmarkStatus, onBookmark]);
+
   return (
     <div className="w-full space-y-2">
       <div className="relative  w-full aspect-video">
@@ -37,17 +30,14 @@ const Thumbnail = ({
         <div
           className="absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full"
           onClick={async () => {
-            setBookmarkStatus(true);
-            const data = await mutation({
+            mutation({
               variables: { movieId: id },
-              onCompleted: (data) => {
-                setBookmarkStatus(true);
-              },
+              refetchQueries: ["getBookmarkedMovies"],
             });
           }}
         >
           <Image
-            src={bookmarkStatus ? icon_bookmark_full : icon_bookmark_empty}
+            src={isBookmarked ? icon_bookmark_full : icon_bookmark_empty}
             layout="fixed"
             width={12}
             height={14}

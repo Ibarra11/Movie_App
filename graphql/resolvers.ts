@@ -77,22 +77,18 @@ export const resolvers: Resolvers = {
     addBookmark: async (_parent, { movieId }, { prisma, session }) => {
       const userId = session.user && session.user.id;
       if (userId) {
-        const data = await prisma.user.update({
+        const data = await prisma.movie.update({
           where: {
-            id: userId,
-          },
-          include: {
-            bookmarks: true,
+            id: movieId,
           },
           data: {
-            bookmarks: {
+            users: {
               connect: {
-                id: movieId,
+                id: userId,
               },
             },
           },
         });
-
         return data;
       } else {
         throw new Error("not authorized");

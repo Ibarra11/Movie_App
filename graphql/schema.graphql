@@ -10,7 +10,6 @@ type Movie {
   year: Int!
   category: String!
   rating: String!
-
   isTrending: Boolean!
   trending_sm: String
   trending_lg: String
@@ -27,5 +26,5 @@ type Query {
 type Mutation {
   signup(email: String!, password: String!): User!
   login(email: String!, password: String!): User
-  addBookmark(movieId: Int!): User!
+  addBookmark(movieId: Int!): Movie!
 }

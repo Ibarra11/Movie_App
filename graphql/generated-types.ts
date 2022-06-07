@@ -32,7 +32,7 @@ export type Movie = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addBookmark: User;
+  addBookmark: Movie;
   login?: Maybe<User>;
   signup: User;
 };
@@ -172,7 +172,7 @@ export type MovieResolvers<ContextType = Context, ParentType extends ResolversPa
 };
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addBookmark?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddBookmarkArgs, 'movieId'>>;
+  addBookmark?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationAddBookmarkArgs, 'movieId'>>;
   login?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
   signup?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignupArgs, 'email' | 'password'>>;
 };
