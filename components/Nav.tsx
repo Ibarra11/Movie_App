@@ -95,12 +95,17 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
         <div
           className={`flex justify-center gap-6 md:gap-8  xl:h-full  xl:gap-10 xl:flex-col xl:justify-start xl:pt-20`}
         >
+          {/* <svg viewBox="0 0 20 20" className="w-5 h-5 fill-red">
+            <path xmlns="/icons/icon-nav-home.svg" />
+          </svg> */}
           <Image
+            className="hover:filter-icon"
             src="/icons/icon-nav-home.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
             alt="Home"
           />
+
           <Image
             src="/icons/icon-nav-movies.svg"
             width={screens[size][type].width}

@@ -6,4 +6,8 @@
   .aspect-thumbnail {
     aspect-ratio: 1 / 0.75;
   }
+  .filter-icon {
+    filter: invert(45%) sepia(90%) saturate(4687%) hue-rotate(339deg)
+      brightness(110%) contrast(98%);
+  }
 }
