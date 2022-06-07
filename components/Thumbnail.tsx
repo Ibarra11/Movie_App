@@ -16,10 +16,8 @@ const Thumbnail = ({
   regular_sm,
   regular_md,
   regular_lg,
-  onBookmark,
 }: Movie & {
   isBookmarked: boolean;
-  onBookmark: GetBookmarkedMoviesQueryHookResult["refetch"];
 }) => {
   const [mutation] = useAddBookmarkMutation();
 
