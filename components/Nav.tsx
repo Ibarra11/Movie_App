@@ -107,6 +107,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
           />
 
           <Image
+            onClick={() => router.push("/tv_series")}
             className="hover:filter-icon"
             src="/icons/icon-nav-movies.svg"
             width={screens[size][type].width}
