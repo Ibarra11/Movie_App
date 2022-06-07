@@ -16,16 +16,12 @@ const Home: NextPage<{
   regularMovies: Movie[];
 }> = ({ trendingMovies, regularMovies }) => {
   return (
-    <div className="h-full flex flex-col gap-6 md:gap-9 xl:flex-row xl:gap-9 ">
-      <Nav />
-      <div className="border-4 flex flex-col gap-6 px-4 border-red flex-1 md:px-6">
-        <Input />
-        {/* <TrendingRow
+    <div>
+      {/* <TrendingRow
           bookmarkedMovieIds={bookmarkedMovieIds}
           trendingMovies={trendingMovies}
         /> */}
-        <MovieGrid movies={regularMovies} />
-      </div>
+      <MovieGrid title="Recommended for you" movies={regularMovies} />
     </div>
   );
 };

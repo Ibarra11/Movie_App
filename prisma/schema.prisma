@@ -20,12 +20,11 @@ model User {
 }
 
 model Movie {
-  id       Int    @id @default(autoincrement())
-  title    String
-  year     Int
-  category String
-  rating   String
-
+  id          Int     @id @default(autoincrement())
+  title       String
+  year        Int
+  category    String
+  rating      String
   isTrending  Boolean
   trending_sm String?
   trending_lg String?
