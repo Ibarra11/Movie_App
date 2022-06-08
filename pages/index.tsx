@@ -21,7 +21,7 @@ const Home: NextPage<{
           bookmarkedMovieIds={bookmarkedMovieIds}
           trendingMovies={trendingMovies}
         /> */}
-      <MovieGrid title="Recommended for you" movies={regularMovies} />
+      <MovieGrid title="Recommended for you2" movies={regularMovies} />
     </div>
   );
 };

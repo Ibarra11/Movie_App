@@ -5,7 +5,7 @@ import MovieGrid from "../components/MovieGrid";
 const TvSeries: NextPage<{ tvSeries: Movie[] }> = ({ tvSeries }) => {
   return (
     <>
-      <MovieGrid title="Movies" movies={tvSeries} />
+      <MovieGrid title="Tv Series" movies={tvSeries} />
     </>
   );
 };
