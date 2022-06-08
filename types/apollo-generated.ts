@@ -93,7 +93,7 @@ export type AddBookmarkMutation = { __typename?: 'Mutation', addBookmark: { __ty
 export type GetBookmarkedMoviesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetBookmarkedMoviesQuery = { __typename?: 'Query', getBookmarkedMovies: Array<{ __typename?: 'Movie', id: number }> };
+export type GetBookmarkedMoviesQuery = { __typename?: 'Query', getBookmarkedMovies: Array<{ __typename?: 'Movie', id: number, title: string, year: number, category: string, rating: string, isTrending: boolean, trending_sm?: string | null, trending_lg?: string | null, regular_sm: string, regular_md: string, regular_lg: string }> };
 
 
 export const SignupDocument = gql`
@@ -203,6 +203,16 @@ export const GetBookmarkedMoviesDocument = gql`
     query getBookmarkedMovies {
   getBookmarkedMovies {
     id
+    title
+    year
+    category
+    rating
+    isTrending
+    trending_sm
+    trending_lg
+    regular_sm
+    regular_md
+    regular_lg
   }
 }
     `;

@@ -123,6 +123,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
             alt="Tv series"
           />
           <Image
+            onClick={() => router.push("/bookmarked")}
             className="hover:filter-icon"
             src="/icons/icon-nav-bookmark.svg"
             width={screens[size][type].width}

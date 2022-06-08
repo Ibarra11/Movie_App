@@ -19,7 +19,7 @@ const MovieGrid: (props: {
   }
   return (
     <>
-      <h4 className="text-white mb-4">{title}</h4>
+      <h4 className="text-white">{title}</h4>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-7 md:gap-y-6 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-8   ">
         {movies.map((movie) => {
           const { id } = movie;
