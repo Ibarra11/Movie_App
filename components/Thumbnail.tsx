@@ -19,7 +19,7 @@ const Thumbnail = ({
 }: Movie & {
   isBookmarked: boolean;
 }) => {
-  const [mutation] = useAddBookmarkMutation();
+  const [mutation, { loading }] = useAddBookmarkMutation();
 
   return (
     <div className="w-full space-y-2">
@@ -28,10 +28,14 @@ const Thumbnail = ({
         <div
           className="absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full"
           onClick={async () => {
-            mutation({
-              variables: { movieId: id },
-              refetchQueries: ["getBookmarkedMovies"],
-            });
+            // just to ensure that only one request is made at a time.
+            if (!loading) {
+              console.log("test");
+              mutation({
+                variables: { movieId: id },
+                refetchQueries: ["getBookmarkedMovies"],
+              });
+            }
           }}
         >
           <Image
