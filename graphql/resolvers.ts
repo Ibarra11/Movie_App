@@ -90,9 +90,26 @@ export const resolvers: Resolvers = {
           },
         });
         return data;
-      } else {
-        throw new Error("not authorized");
       }
+      throw new Error("Not  Authorized");
+    },
+    removeBookmark: (_parent, { movieId }, { prisma, session }) => {
+      const userId = session.user && session.user.id;
+      if (userId) {
+        return prisma.movie.update({
+          where: {
+            id: movieId,
+          },
+          data: {
+            users: {
+              disconnect: {
+                id: userId,
+              },
+            },
+          },
+        });
+      }
+      throw new Error("Not Authorzied");
     },
   },
 };

@@ -34,6 +34,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addBookmark: Movie;
   login?: Maybe<User>;
+  removeBookmark: Movie;
   signup: User;
 };
 
@@ -46,6 +47,11 @@ export type MutationAddBookmarkArgs = {
 export type MutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationRemoveBookmarkArgs = {
+  movieId: Scalars['Int'];
 };
 
 
@@ -89,6 +95,13 @@ export type AddBookmarkMutationVariables = Exact<{
 
 
 export type AddBookmarkMutation = { __typename?: 'Mutation', addBookmark: { __typename?: 'Movie', id: number } };
+
+export type RemoveBookmarkMutationVariables = Exact<{
+  movieId: Scalars['Int'];
+}>;
+
+
+export type RemoveBookmarkMutation = { __typename?: 'Mutation', removeBookmark: { __typename?: 'Movie', id: number } };
 
 export type GetBookmarkedMoviesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -199,6 +212,39 @@ export function useAddBookmarkMutation(baseOptions?: Apollo.MutationHookOptions<
 export type AddBookmarkMutationHookResult = ReturnType<typeof useAddBookmarkMutation>;
 export type AddBookmarkMutationResult = Apollo.MutationResult<AddBookmarkMutation>;
 export type AddBookmarkMutationOptions = Apollo.BaseMutationOptions<AddBookmarkMutation, AddBookmarkMutationVariables>;
+export const RemoveBookmarkDocument = gql`
+    mutation removeBookmark($movieId: Int!) {
+  removeBookmark(movieId: $movieId) {
+    id
+  }
+}
+    `;
+export type RemoveBookmarkMutationFn = Apollo.MutationFunction<RemoveBookmarkMutation, RemoveBookmarkMutationVariables>;
+
+/**
+ * __useRemoveBookmarkMutation__
+ *
+ * To run a mutation, you first call `useRemoveBookmarkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveBookmarkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeBookmarkMutation, { data, loading, error }] = useRemoveBookmarkMutation({
+ *   variables: {
+ *      movieId: // value for 'movieId'
+ *   },
+ * });
+ */
+export function useRemoveBookmarkMutation(baseOptions?: Apollo.MutationHookOptions<RemoveBookmarkMutation, RemoveBookmarkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveBookmarkMutation, RemoveBookmarkMutationVariables>(RemoveBookmarkDocument, options);
+      }
+export type RemoveBookmarkMutationHookResult = ReturnType<typeof useRemoveBookmarkMutation>;
+export type RemoveBookmarkMutationResult = Apollo.MutationResult<RemoveBookmarkMutation>;
+export type RemoveBookmarkMutationOptions = Apollo.BaseMutationOptions<RemoveBookmarkMutation, RemoveBookmarkMutationVariables>;
 export const GetBookmarkedMoviesDocument = gql`
     query getBookmarkedMovies {
   getBookmarkedMovies {

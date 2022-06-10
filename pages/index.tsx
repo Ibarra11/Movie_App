@@ -1,6 +1,5 @@
 import type { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
-
 import type { TrendingMovie } from "../types";
 import { GetBookmarkedMoviesQueryHookResult } from "../types/apollo-generated";
 import { Movie } from "@prisma/client";
@@ -18,7 +17,7 @@ const Home: NextPage<{
   return (
     <div>
       {/* <TrendingRow
-          bookmarkedMovieIds={bookmarkedMovieIds}
+          bookmarkedMovieIds={bookm darkedMovieIds}
           trendingMovies={trendingMovies}
         /> */}
       <MovieGrid title="Recommended for you2" movies={regularMovies} />

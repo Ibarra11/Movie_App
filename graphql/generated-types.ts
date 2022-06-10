@@ -34,6 +34,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addBookmark: Movie;
   login?: Maybe<User>;
+  removeBookmark: Movie;
   signup: User;
 };
 
@@ -46,6 +47,11 @@ export type MutationAddBookmarkArgs = {
 export type MutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationRemoveBookmarkArgs = {
+  movieId: Scalars['Int'];
 };
 
 
@@ -174,6 +180,7 @@ export type MovieResolvers<ContextType = Context, ParentType extends ResolversPa
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addBookmark?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationAddBookmarkArgs, 'movieId'>>;
   login?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
+  removeBookmark?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationRemoveBookmarkArgs, 'movieId'>>;
   signup?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignupArgs, 'email' | 'password'>>;
 };
 

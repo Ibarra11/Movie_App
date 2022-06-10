@@ -24,3 +24,11 @@ export const ADD_BOOKMARK = gql`
     }
   }
 `;
+
+export const REMOVE_BOOKMARK = gql`
+  mutation removeBookmark($movieId: Int!) {
+    removeBookmark(movieId: $movieId) {
+      id
+    }
+  }
+`;
