@@ -80,6 +80,7 @@ const Nav = () => {
 
 function NavLayout(navBarElement: NavBarElements): JSX.Element {
   const router = useRouter();
+  const currentRoute = router.pathname;
   const { type, size } = navBarElement;
   switch (type) {
     case "logo": {
@@ -99,7 +100,9 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
         >
           <Image
             onClick={() => router.push("/")}
-            className="hover:filter-icon"
+            className={`${
+              currentRoute === "/" ? "filter-icon-white " : ""
+            }hover:filter-icon`}
             src="/icons/icon-nav-home.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
@@ -108,7 +111,9 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
 
           <Image
             onClick={() => router.push("/movies")}
-            className="hover:filter-icon"
+            className={`${
+              currentRoute === "/movies" ? "filter-icon-white " : ""
+            }hover:filter-icon`}
             src="/icons/icon-nav-movies.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
@@ -116,7 +121,9 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
           />
           <Image
             onClick={() => router.push("/tv_series")}
-            className="hover:filter-icon"
+            className={`${
+              currentRoute === "/tv_series" ? "filter-icon-white " : ""
+            }hover:filter-icon`}
             src="/icons/icon-nav-tv-series.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
@@ -124,7 +131,9 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
           />
           <Image
             onClick={() => router.push("/bookmarked")}
-            className="hover:filter-icon"
+            className={`${
+              currentRoute === "/bookmarked" ? "filter-icon-white " : ""
+            }hover:filter-icon`}
             src="/icons/icon-nav-bookmark.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
