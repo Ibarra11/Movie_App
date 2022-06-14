@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
@@ -22,10 +22,21 @@ function MyApp({ Component, pageProps }: AppProps) {
     checkLoginStatus();
   }
 
+  useEffect(() => {
+    if (
+      router.pathname === "/" ||
+      router.pathname === "/movies" ||
+      router.pathname === "/tv_series" ||
+      router.pathname === "/bookmarked"
+    ) {
+      setSearchValue("");
+    }
+  }, [router.pathname]);
+
   return (
     <div className="bg-darkBlue min-h-screen pb-14">
       <ApolloProvider client={apolloClient}>
-        <Layout setSearchValue={setSearchValue}>
+        <Layout setSearchValue={setSearchValue} searchValue={searchValue}>
           <Component searchValue={searchValue} {...pageProps} />
         </Layout>
       </ApolloProvider>

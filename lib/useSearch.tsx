@@ -23,7 +23,7 @@ export const useSearch: <T extends Movie[]>(
           clearTimeout(timeoutId.current);
         }
       };
-    }, 300);
+    }, 500);
   }, [searchValue, state]);
 
   return [filteredState];

@@ -1,8 +1,9 @@
 import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
 import MovieGrid from "../components/MovieGrid";
 import { Movie } from "@prisma/client";
+import { NextPage } from "next";
 
-const BookMarked = () => {
+const BookMarked: NextPage<{ searchValue: string }> = ({ searchValue }) => {
   const { data, loading, error } = useGetBookmarkedMoviesQuery();
   if (loading) {
     return <p>Loading</p>;
@@ -24,8 +25,16 @@ const BookMarked = () => {
   console.log(bookmarkedMovies);
   return (
     <div className="flex flex-col xl:gap-10 ">
-      <MovieGrid movies={bookmarkedMovies} title="Bookmarked Movies" />
-      <MovieGrid movies={bookmarkedTvSeries} title="Bookmarked TV Series" />
+      <MovieGrid
+        searchValue={searchValue}
+        movies={bookmarkedMovies}
+        title="Bookmarked Movies"
+      />
+      <MovieGrid
+        searchValue={searchValue}
+        movies={bookmarkedTvSeries}
+        title="Bookmarked TV Series"
+      />
     </div>
   );
 };
