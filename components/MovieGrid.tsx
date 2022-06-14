@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
 import Thumbnail from "./Thumbnail";
-import { Movie } from "@prisma/client";
+import { useSearch } from "../lib/useSearch";
+import { Movie } from "../graphql/generated-types";
 import {
   useGetBookmarkedMoviesQuery,
   useRemoveBookmarkMutation,
@@ -11,8 +13,11 @@ import { ReactElement } from "react";
 const MovieGrid: (props: {
   movies: Movie[];
   title: string;
-}) => ReactElement = ({ movies, title }) => {
+  searchValue: string;
+}) => ReactElement = ({ movies, title, searchValue }) => {
   const { data, loading } = useGetBookmarkedMoviesQuery();
+  const [filteredMovies] = useSearch(movies, searchValue);
+
   const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =
     useRemoveBookmarkMutation();
   const [handleAddBookmark, { loading: addBookmarkLoading }] =
@@ -28,10 +33,9 @@ const MovieGrid: (props: {
     <>
       <h4 className="text-white">{title}</h4>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-7 md:gap-y-6 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-8   ">
-        {movies.map((movie) => {
+        {filteredMovies.map((movie) => {
           const { id } = movie;
           const isBookmarked = bookmarkedMovieIds[id];
-
           return (
             <Thumbnail
               key={movie.title}

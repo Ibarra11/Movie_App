@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Movie } from "@prisma/client";
+import { Movie } from "../graphql/generated-types";
+
 import {
   RemoveBookmarkMutationFn,
   AddBookmarkMutationFn,

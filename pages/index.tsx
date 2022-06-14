@@ -13,14 +13,19 @@ type Result = GetBookmarkedMoviesQueryHookResult["fetchMore"];
 const Home: NextPage<{
   trendingMovies: TrendingMovie[];
   regularMovies: Movie[];
-}> = ({ trendingMovies, regularMovies }) => {
+  searchValue: string;
+}> = ({ trendingMovies, regularMovies, searchValue }) => {
   return (
     <div>
       {/* <TrendingRow
           bookmarkedMovieIds={bookm darkedMovieIds}
           trendingMovies={trendingMovies}
         /> */}
-      <MovieGrid title="Recommended for you2" movies={regularMovies} />
+      <MovieGrid
+        searchValue={searchValue}
+        title="Recommended for you2"
+        movies={regularMovies}
+      />
     </div>
   );
 };

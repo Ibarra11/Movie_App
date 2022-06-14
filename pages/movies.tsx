@@ -2,10 +2,13 @@ import { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
 import { Movie } from "@prisma/client";
 import MovieGrid from "../components/MovieGrid";
-const Movies: NextPage<{ movies: Movie[] }> = ({ movies }) => {
+const Movies: NextPage<{ movies: Movie[]; searchValue: string }> = ({
+  movies,
+  searchValue,
+}) => {
   return (
     <>
-      <MovieGrid title="Movies" movies={movies} />
+      <MovieGrid title="Movies" movies={movies} searchValue={searchValue} />
     </>
   );
 };
