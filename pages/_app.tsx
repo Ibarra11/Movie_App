@@ -17,7 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.push("/account/login");
     }
   }
-
   if (pageProps.protected) {
     checkLoginStatus();
   }
@@ -36,9 +35,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div className="bg-darkBlue min-h-screen pb-14">
       <ApolloProvider client={apolloClient}>
-        <Layout setSearchValue={setSearchValue} searchValue={searchValue}>
-          <Component searchValue={searchValue} {...pageProps} />
-        </Layout>
+        {pageProps.protected ? (
+          <Layout setSearchValue={setSearchValue} searchValue={searchValue}>
+            <Component searchValue={searchValue} {...pageProps} />
+          </Layout>
+        ) : (
+          <Component {...pageProps} />
+        )}
       </ApolloProvider>
     </div>
   );
