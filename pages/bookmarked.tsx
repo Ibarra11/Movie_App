@@ -1,11 +1,11 @@
 import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
 import MovieGrid from "../components/MovieGrid";
 import { Movie } from "@prisma/client";
-import { NextPage } from "next";
+import type { ProtectedPage } from "../types";
 
-const BookMarked: NextPage<{ searchValue: string }> & {
-  protected: boolean;
-} = ({ searchValue }) => {
+const BookMarked: ProtectedPage<{ searchValue: string }> = ({
+  searchValue,
+}) => {
   const { data, loading, error } = useGetBookmarkedMoviesQuery();
   if (loading) {
     return <p>Loading</p>;

@@ -2,9 +2,11 @@ import { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
 import { Movie } from "@prisma/client";
 import MovieGrid from "../components/MovieGrid";
-const TvSeries: NextPage<{ tvSeries: Movie[]; searchValue: string }> & {
-  protected: boolean;
-} = ({ tvSeries, searchValue }) => {
+import { ProtectedPage } from "../types";
+const TvSeries: ProtectedPage<{ tvSeries: Movie[]; searchValue: string }> = ({
+  tvSeries,
+  searchValue,
+}) => {
   return (
     <>
       <MovieGrid

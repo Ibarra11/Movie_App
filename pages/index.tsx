@@ -1,6 +1,6 @@
 import type { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
-import type { TrendingMovie } from "../types";
+import type { TrendingMovie, ProtectedPage } from "../types";
 import { GetBookmarkedMoviesQueryHookResult } from "../types/apollo-generated";
 import { Movie } from "@prisma/client";
 import Nav from "../components/Nav";
@@ -10,15 +10,11 @@ import MovieGrid from "../components/MovieGrid";
 
 type Result = GetBookmarkedMoviesQueryHookResult["fetchMore"];
 
-const Home: NextPage<{
+const Home: ProtectedPage<{
   trendingMovies: TrendingMovie[];
   regularMovies: Movie[];
   searchValue: string;
-}> & { protected: boolean } = ({
-  trendingMovies,
-  regularMovies,
-  searchValue,
-}) => {
+}> = ({ trendingMovies, regularMovies, searchValue }) => {
   return (
     <div>
       {/* <TrendingRow

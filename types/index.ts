@@ -1,4 +1,5 @@
 import { Movie } from "@prisma/client";
+import { NextPage } from "next";
 import { HTMLInputTypeAttribute } from "react";
 export type TrendingMovie = {
   [K in keyof Movie]: Movie[K] extends infer R
@@ -18,6 +19,10 @@ export interface LoginFormInputs {
 export interface SignupFormInputs extends LoginFormInputs {
   repeatPassword: string;
 }
+
+export type ProtectedPage<T extends { [key: string]: any }> = NextPage<T> & {
+  protected: boolean;
+};
 
 export type FormState = LoadingFormState | ErrorFormState;
 
