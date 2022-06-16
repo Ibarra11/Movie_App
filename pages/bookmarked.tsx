@@ -3,7 +3,9 @@ import MovieGrid from "../components/MovieGrid";
 import { Movie } from "@prisma/client";
 import { NextPage } from "next";
 
-const BookMarked: NextPage<{ searchValue: string }> = ({ searchValue }) => {
+const BookMarked: NextPage<{ searchValue: string }> & {
+  protected: boolean;
+} = ({ searchValue }) => {
   const { data, loading, error } = useGetBookmarkedMoviesQuery();
   if (loading) {
     return <p>Loading</p>;
@@ -11,7 +13,6 @@ const BookMarked: NextPage<{ searchValue: string }> = ({ searchValue }) => {
   if (error) {
     return <p>Error</p>;
   }
-  console.log(data);
   const bookmarkedMovies = data
     ? (data.getBookmarkedMovies.filter(
         ({ category }) => category === "Movie"
@@ -39,18 +40,6 @@ const BookMarked: NextPage<{ searchValue: string }> = ({ searchValue }) => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = withIronSessionSsr(
-//   async function getServerSideProps({ req }) {
-//     const user = req.session.user;
-//     if (!user) {
-//       return {
-//         redirect: "/account/login",
-//       };
-//     }
-
-//     const films = awai
-//   },
-//   sessionOptions
-// );
+BookMarked.protected = true;
 
 export default BookMarked;

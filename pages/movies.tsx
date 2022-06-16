@@ -2,10 +2,9 @@ import { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
 import { Movie } from "@prisma/client";
 import MovieGrid from "../components/MovieGrid";
-const Movies: NextPage<{ movies: Movie[]; searchValue: string }> = ({
-  movies,
-  searchValue,
-}) => {
+const Movies: NextPage<{ movies: Movie[]; searchValue: string }> & {
+  protected: boolean;
+} = ({ movies, searchValue }) => {
   return (
     <>
       <MovieGrid title="Movies" movies={movies} searchValue={searchValue} />
@@ -19,9 +18,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       movies,
-      protected: true,
     },
   };
 };
+
+Movies.protected = true;
 
 export default Movies;

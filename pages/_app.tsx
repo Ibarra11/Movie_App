@@ -5,8 +5,17 @@ import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
 import apolloClient from "../lib/apollo";
 import Layout from "../components/Layout";
+import { NextComponentType, NextPage } from "next";
 
-function MyApp({ Component, pageProps }: AppProps) {
+type CustomNextPage = NextPage & {
+  protected?: boolean;
+};
+
+type CustomAppProps = AppProps & {
+  Component: CustomNextPage;
+};
+
+function MyApp({ Component, pageProps }: CustomAppProps) {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
 
@@ -35,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div className="bg-darkBlue min-h-screen pb-14">
       <ApolloProvider client={apolloClient}>
-        {pageProps.protected ? (
+        {Component.protected ? (
           <Layout setSearchValue={setSearchValue} searchValue={searchValue}>
             <Component searchValue={searchValue} {...pageProps} />
           </Layout>

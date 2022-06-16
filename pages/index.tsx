@@ -14,7 +14,11 @@ const Home: NextPage<{
   trendingMovies: TrendingMovie[];
   regularMovies: Movie[];
   searchValue: string;
-}> = ({ trendingMovies, regularMovies, searchValue }) => {
+}> & { protected: boolean } = ({
+  trendingMovies,
+  regularMovies,
+  searchValue,
+}) => {
   return (
     <div>
       {/* <TrendingRow
@@ -41,9 +45,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       trendingMovies,
       regularMovies,
-      protected: true,
     },
   };
 };
-
+Home.protected = true;
 export default Home;

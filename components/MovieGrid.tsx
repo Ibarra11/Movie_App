@@ -23,6 +23,7 @@ const MovieGrid: (props: {
   const [handleAddBookmark, { loading: addBookmarkLoading }] =
     useAddBookmarkMutation();
   let bookmarkedMovieIds: { [key: string]: true } = {};
+
   if (data) {
     const { getBookmarkedMovies } = data;
     getBookmarkedMovies.forEach(({ id }) => {
