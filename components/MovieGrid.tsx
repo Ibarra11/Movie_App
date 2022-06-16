@@ -16,7 +16,7 @@ const MovieGrid: (props: {
   searchValue: string;
 }) => ReactElement = ({ movies, title, searchValue }) => {
   const { data, loading } = useGetBookmarkedMoviesQuery();
-  const [filteredMovies] = useSearch(movies, searchValue);
+  const filteredMovies = useSearch<Movie>(movies, searchValue, "title");
 
   const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =
     useRemoveBookmarkMutation();
