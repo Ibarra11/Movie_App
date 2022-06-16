@@ -35,7 +35,7 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
 
   return (
     <form
-      className=" bg-semiDarkBlue w-full flex flex-col gap-10 rounded-xl p-6 pb-8"
+      className=" bg-semiDarkBlue w-full flex flex-col gap-10 rounded-xl p-6 pb-8 md:w-96 md:p-8"
       onSubmit={handleSubmit(onSubmit)}
     >
       <header className="relative">
