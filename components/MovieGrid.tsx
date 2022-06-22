@@ -10,19 +10,39 @@ import {
 
 import { ReactElement } from "react";
 
+function getFilmsByType(
+  films: Movie[],
+  filmType: "allFilms" | "movies" | "tvSeries"
+): Movie[] {
+  if (filmType === "movies") {
+    return films.filter(({ category, isTrending }) => {
+      return category === "Movie";
+    });
+  } else if (filmType === "tvSeries") {
+    return films.filter(({ category, isTrending }) => {
+      return category === "Tv Series";
+    });
+  } else {
+    return films.filter(({ isTrending }) => !isTrending);
+  }
+}
+
 const MovieGrid: (props: {
-  allFilms: Movie[];
-  nonTrendingFilms: Movie[];
+  films: Movie[];
   title: string;
+
   searchValue: string;
-}) => ReactElement = ({ allFilms, nonTrendingFilms, title, searchValue }) => {
+}) => ReactElement = ({ films, title, searchValue }) => {
   const { data, loading } = useGetBookmarkedMoviesQuery();
-  const filteredFilms = useSearch<Movie>(allFilms, searchValue, "title");
-  const filmsToDisplay = searchValue !== "" ? filteredFilms : nonTrendingFilms;
-  const titleToDisplay =
-    searchValue !== ""
-      ? `Found ${filteredFilms.length} results for '${searchValue}'`
-      : title;
+  const [filteredFilms, isSearching] = useSearch<Movie>(
+    films,
+    searchValue,
+    "title"
+  );
+  const searchState = searchValue !== "";
+  const titleToDisplay = searchState
+    ? `Found ${filteredFilms.length} results for '${searchValue}'`
+    : title;
   const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =
     useRemoveBookmarkMutation();
   const [handleAddBookmark, { loading: addBookmarkLoading }] =
@@ -35,12 +55,13 @@ const MovieGrid: (props: {
       bookmarkedMovieIds[id] = true;
     });
   }
-
-  return (
+  return isSearching ? (
+    <p>loading</p>
+  ) : (
     <>
       <h4 className="text-white">{titleToDisplay}</h4>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-7 md:gap-y-6 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-8   ">
-        {filmsToDisplay.map((movie) => {
+        {filteredFilms.map((movie) => {
           const { id } = movie;
           const isBookmarked = bookmarkedMovieIds[id];
           return (

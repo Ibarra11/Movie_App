@@ -12,9 +12,9 @@ type Result = GetBookmarkedMoviesQueryHookResult["fetchMore"];
 const Home: ProtectedPage<{
   allFilms: Movie[];
   trendingFilms: TrendingMovie[];
-  regularFilms: Movie[];
+  nonTrendingFilms: Movie[];
   searchValue: string;
-}> = ({ allFilms, trendingFilms, regularFilms, searchValue }) => {
+}> = ({ allFilms, trendingFilms, nonTrendingFilms, searchValue }) => {
   return (
     <div>
       {/* <TrendingRow
@@ -24,8 +24,7 @@ const Home: ProtectedPage<{
       <MovieGrid
         searchValue={searchValue}
         title="Recommended for you"
-        nonTrendingFilms={regularFilms}
-        allFilms={allFilms}
+        films={searchValue !== "" ? allFilms : nonTrendingFilms}
       />
     </div>
   );
@@ -34,12 +33,12 @@ const Home: ProtectedPage<{
 export const getStaticProps: GetStaticProps = async (context) => {
   const allFilms = await prisma.movie.findMany();
   const trendingFilms = allFilms.filter(isTrendingMovie);
-  const regularFilms = allFilms.filter((film) => !isTrendingMovie(film));
+  const nonTrendingFilms = allFilms.filter((film) => !isTrendingMovie(film));
   return {
     props: {
       allFilms,
       trendingFilms,
-      regularFilms,
+      nonTrendingFilms,
     },
   };
 };
