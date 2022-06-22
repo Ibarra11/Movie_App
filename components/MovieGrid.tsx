@@ -11,13 +11,18 @@ import {
 import { ReactElement } from "react";
 
 const MovieGrid: (props: {
-  movies: Movie[];
+  allFilms: Movie[];
+  nonTrendingFilms: Movie[];
   title: string;
   searchValue: string;
-}) => ReactElement = ({ movies, title, searchValue }) => {
+}) => ReactElement = ({ allFilms, nonTrendingFilms, title, searchValue }) => {
   const { data, loading } = useGetBookmarkedMoviesQuery();
-  const filteredMovies = useSearch<Movie>(movies, searchValue, "title");
-
+  const filteredFilms = useSearch<Movie>(allFilms, searchValue, "title");
+  const filmsToDisplay = searchValue !== "" ? filteredFilms : nonTrendingFilms;
+  const titleToDisplay =
+    searchValue !== ""
+      ? `Found ${filteredFilms.length} results for '${searchValue}'`
+      : title;
   const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =
     useRemoveBookmarkMutation();
   const [handleAddBookmark, { loading: addBookmarkLoading }] =
@@ -30,11 +35,12 @@ const MovieGrid: (props: {
       bookmarkedMovieIds[id] = true;
     });
   }
+
   return (
     <>
-      <h4 className="text-white">{title}</h4>
+      <h4 className="text-white">{titleToDisplay}</h4>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-7 md:gap-y-6 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-8   ">
-        {filteredMovies.map((movie) => {
+        {filmsToDisplay.map((movie) => {
           const { id } = movie;
           const isBookmarked = bookmarkedMovieIds[id];
           return (

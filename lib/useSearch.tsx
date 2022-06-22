@@ -27,7 +27,7 @@ export const useSearch: <T extends { [key: string]: any }>(
         }
       };
     }, 500);
-  }, [searchValue, state, filterValue]);
+  }, [data, searchValue, state, filterValue]);
 
   return filteredState;
 };

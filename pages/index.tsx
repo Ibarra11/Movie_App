@@ -1,20 +1,20 @@
 import type { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
-import type { TrendingMovie, ProtectedPage } from "../types";
+import { TrendingMovie, ProtectedPage, isTrendingMovie } from "../types";
 import { GetBookmarkedMoviesQueryHookResult } from "../types/apollo-generated";
 import { Movie } from "@prisma/client";
 import Nav from "../components/Nav";
 import Input from "../components/Input";
 import TrendingRow from "../components/TrendingRow";
 import MovieGrid from "../components/MovieGrid";
-
 type Result = GetBookmarkedMoviesQueryHookResult["fetchMore"];
 
 const Home: ProtectedPage<{
-  trendingMovies: TrendingMovie[];
-  regularMovies: Movie[];
+  allFilms: Movie[];
+  trendingFilms: TrendingMovie[];
+  regularFilms: Movie[];
   searchValue: string;
-}> = ({ trendingMovies, regularMovies, searchValue }) => {
+}> = ({ allFilms, trendingFilms, regularFilms, searchValue }) => {
   return (
     <div>
       {/* <TrendingRow
@@ -23,24 +23,23 @@ const Home: ProtectedPage<{
         /> */}
       <MovieGrid
         searchValue={searchValue}
-        title="Recommended for you2"
-        movies={regularMovies}
+        title="Recommended for you"
+        nonTrendingFilms={regularFilms}
+        allFilms={allFilms}
       />
     </div>
   );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  function isTrendingMovie(movie: Movie): movie is TrendingMovie {
-    return movie.isTrending;
-  }
-  const movies = await prisma.movie.findMany();
-  const trendingMovies = movies.filter(isTrendingMovie);
-  const regularMovies = movies.filter((movie) => !movie.isTrending);
+  const allFilms = await prisma.movie.findMany();
+  const trendingFilms = allFilms.filter(isTrendingMovie);
+  const regularFilms = allFilms.filter((film) => !isTrendingMovie(film));
   return {
     props: {
-      trendingMovies,
-      regularMovies,
+      allFilms,
+      trendingFilms,
+      regularFilms,
     },
   };
 };

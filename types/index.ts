@@ -1,6 +1,7 @@
 import { Movie } from "@prisma/client";
 import { NextPage } from "next";
 import { HTMLInputTypeAttribute } from "react";
+
 export type TrendingMovie = {
   [K in keyof Movie]: Movie[K] extends infer R
     ? R extends null
@@ -34,4 +35,8 @@ export interface ErrorFormState {
   state: "error";
   error: boolean;
   message: string;
+}
+
+export function isTrendingMovie(movie: Movie): movie is TrendingMovie {
+  return movie.isTrending;
 }

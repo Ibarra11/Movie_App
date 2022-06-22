@@ -1,11 +1,13 @@
 import "../styles/globals.css";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
 import apolloClient from "../lib/apollo";
 import Layout from "../components/Layout";
 import { NextComponentType, NextPage } from "next";
+import { Movie } from "../types/apollo-generated";
+import MovieGrid from "../components/MovieGrid";
 
 type CustomNextPage = NextPage & {
   protected?: boolean;
@@ -26,6 +28,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
       router.push("/account/login");
     }
   }
+
   if (pageProps.protected) {
     checkLoginStatus();
   }

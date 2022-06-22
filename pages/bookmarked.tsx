@@ -23,7 +23,7 @@ const BookMarked: ProtectedPage<{ searchValue: string }> = ({
         ({ category }) => category === "TV Series"
       ) as Movie[])
     : ([] as Movie[]);
-  console.log(bookmarkedMovies);
+
   return (
     <div className="flex flex-col xl:gap-10 ">
       <MovieGrid
