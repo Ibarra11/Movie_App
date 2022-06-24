@@ -9,11 +9,7 @@ const TvSeries: ProtectedPage<{ tvSeries: Movie[]; searchValue: string }> = ({
 }) => {
   return (
     <>
-      <MovieGrid
-        searchValue={searchValue}
-        title="Tv Series"
-        movies={tvSeries}
-      />
+      <MovieGrid searchValue={searchValue} title="Tv Series" films={tvSeries} />
     </>
   );
 };

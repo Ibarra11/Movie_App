@@ -28,12 +28,12 @@ const BookMarked: ProtectedPage<{ searchValue: string }> = ({
     <div className="flex flex-col xl:gap-10 ">
       <MovieGrid
         searchValue={searchValue}
-        movies={bookmarkedMovies}
+        films={bookmarkedMovies}
         title="Bookmarked Movies"
       />
       <MovieGrid
         searchValue={searchValue}
-        movies={bookmarkedTvSeries}
+        films={bookmarkedTvSeries}
         title="Bookmarked TV Series"
       />
     </div>
