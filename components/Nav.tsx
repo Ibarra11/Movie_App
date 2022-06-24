@@ -101,8 +101,10 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
           <Image
             onClick={() => router.push("/")}
             className={`${
-              currentRoute === "/" ? "filter-icon-white " : ""
-            }hover:filter-icon`}
+              currentRoute === "/"
+                ? "filter-icon-white "
+                : "hover:filter-icon-red "
+            }hover:cursor-pointer`}
             src="/icons/icon-nav-home.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
@@ -112,8 +114,10 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
           <Image
             onClick={() => router.push("/movies")}
             className={`${
-              currentRoute === "/movies" ? "filter-icon-white " : ""
-            }hover:filter-icon`}
+              currentRoute === "/movies"
+                ? "filter-icon-white "
+                : "hover:filter-icon-red "
+            } hover:cursor-pointer`}
             src="/icons/icon-nav-movies.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
@@ -122,8 +126,10 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
           <Image
             onClick={() => router.push("/tv_series")}
             className={`${
-              currentRoute === "/tv_series" ? "filter-icon-white " : ""
-            }hover:filter-icon`}
+              currentRoute === "/tv_series"
+                ? "filter-icon-white "
+                : "hover:filter-icon-red "
+            }  hover:cursor-pointer`}
             src="/icons/icon-nav-tv-series.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
@@ -132,8 +138,10 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
           <Image
             onClick={() => router.push("/bookmarked")}
             className={`${
-              currentRoute === "/bookmarked" ? "filter-icon-white " : ""
-            }hover:filter-icon`}
+              currentRoute === "/bookmarked"
+                ? "filter-icon-white "
+                : "hover:filter-icon-red "
+            } hover:cursor-pointer`}
             src="/icons/icon-nav-bookmark.svg"
             width={screens[size][type].width}
             height={screens[size][type].height}
