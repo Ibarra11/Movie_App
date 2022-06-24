@@ -1,12 +1,10 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { Movie } from "../graphql/generated-types";
-
+import { BsFillPlayFill } from "react-icons/bs";
 import {
   RemoveBookmarkMutationFn,
   AddBookmarkMutationFn,
 } from "../types/apollo-generated";
-
 import movie_icon from "/public/icons/icon-category-movie.svg";
 import icon_bookmark_empty from "/public/icons/icon-bookmark-empty.svg";
 import icon_bookmark_full from "/public/icons/icon-bookmark-full.svg";
@@ -28,15 +26,29 @@ const Thumbnail = ({
   loadingMutation: boolean;
 }) => {
   return (
-    <div className="w-full space-y-2">
-      <div className="relative  w-full aspect-video">
+    <div className="w-full space-y-2 ">
+      <div className="group relative   w-full aspect-video hover:cursor-pointer">
+        {/* overlay */}
+        <div className="absolute bg-black opacity-0 duration-200 z-10  h-full w-full   group-hover:opacity-50 group-hover:duration-400 "></div>{" "}
+        ``
+        {/* Play button */}
+        <div
+          className=" absolute opacity-0 z-10 w-32 h-12 flex items-center justify-center gap-5 inset-0 m-auto rounded-3xl overflow-hidden 
+                    group-hover:opacity-100 group-hover:delay-400  "
+        >
+          <div className="absolute -z-10 w-full h-full bg-play opacity-25 "></div>
+          <div className=" relative grid text-2xl place-content-center w-8 h-8 rounded-full overflow-hidden">
+            <div className="absolute w-full h-full bg-white -z-10 "></div>
+            <BsFillPlayFill />
+          </div>
+          <p className="text-lg text-white font-medium">Play</p>
+        </div>
         {/* bookmark icon */}
         <div
           className="absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full"
           onClick={async () => {
             // just to ensure that only one request is made at a time.
             if (!loadingMutation) {
-              console.log("test");
               onBookmarkMutation({
                 variables: { movieId: id },
                 refetchQueries: ["getBookmarkedMovies"],
@@ -68,7 +80,7 @@ const Thumbnail = ({
             alt="Movie 112 thumbnail"
           />
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden lg:block ">
           <Image
             layout="fill"
             src={regular_lg}
