@@ -11,6 +11,7 @@ export const useSearch: <T extends { [key: string]: any }>(
 
   useEffect(() => {
     setState(data);
+    setFilteredState(data);
   }, [data]);
 
   useEffect(() => {
