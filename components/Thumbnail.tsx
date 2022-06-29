@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Movie } from "../graphql/generated-types";
+import { GetBookmarkedMoviesDocument } from "../types/apollo-generated";
 import { BsFillPlayFill } from "react-icons/bs";
 import {
   RemoveBookmarkMutationFn,
@@ -51,7 +52,7 @@ const Thumbnail = ({
             if (!loadingMutation) {
               onBookmarkMutation({
                 variables: { movieId: id },
-                refetchQueries: ["getBookmarkedMovies"],
+                refetchQueries: [{ query: GetBookmarkedMoviesDocument }],
               });
             }
           }}
