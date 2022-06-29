@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
 import Thumbnail from "./Thumbnail";
 import { useSearch } from "../lib/useSearch";
 import { Movie } from "../graphql/generated-types";
+import { RefetchQueriesFunction } from "@apollo/client";
 import {
   useGetBookmarkedMoviesQuery,
   useRemoveBookmarkMutation,
@@ -10,31 +10,31 @@ import {
 
 import { ReactElement } from "react";
 
-function getFilmsByType(
-  films: Movie[],
-  filmType: "allFilms" | "movies" | "tvSeries"
-): Movie[] {
-  if (filmType === "movies") {
-    return films.filter(({ category, isTrending }) => {
-      return category === "Movie";
-    });
-  } else if (filmType === "tvSeries") {
-    return films.filter(({ category, isTrending }) => {
-      return category === "Tv Series";
-    });
-  } else {
-    return films.filter(({ isTrending }) => !isTrending);
-  }
-}
+export type MovieType = Movie & { isBookmarked: boolean };
+
+// function getFilmsByType(
+//   films: (Movie & isBookmarked: boolean)[],
+//   filmType: "allFilms" | "movies" | "tvSeries"
+// ): Movie[] {
+//   if (filmType === "movies") {
+//     return films.filter(({ category, isTrending }) => {
+//       return category === "Movie";
+//     });
+//   } else if (filmType === "tvSeries") {
+//     return films.filter(({ category, isTrending }) => {
+//       return category === "Tv Series";
+//     });
+//   } else {
+//     return films.filter(({ isTrending }) => !isTrending);
+//   }
+// }
 
 const MovieGrid: (props: {
-  films: Movie[];
+  films: MovieType[];
   title: string;
-
   searchValue: string;
 }) => ReactElement = ({ films, title, searchValue }) => {
-  const { data, loading } = useGetBookmarkedMoviesQuery();
-  const [filteredFilms, isSearching] = useSearch<Movie>(
+  const [filteredFilms, isSearching] = useSearch<MovieType>(
     films,
     searchValue,
     "title"
@@ -47,14 +47,15 @@ const MovieGrid: (props: {
     useRemoveBookmarkMutation();
   const [handleAddBookmark, { loading: addBookmarkLoading }] =
     useAddBookmarkMutation();
+
   let bookmarkedMovieIds: { [key: string]: true } = {};
 
-  if (data) {
-    const { getBookmarkedMovies } = data;
-    getBookmarkedMovies.forEach(({ id }) => {
-      bookmarkedMovieIds[id] = true;
-    });
-  }
+  // if (data) {
+  //   const { getBookmarkedMovies } = data;
+  //   getBookmarkedMovies.forEach(({ id }) => {
+  //     bookmarkedMovieIds[id] = true;
+  //   });
+  // }
   return isSearching ? (
     <p>loading</p>
   ) : (
@@ -68,12 +69,12 @@ const MovieGrid: (props: {
             <Thumbnail
               key={movie.title}
               {...movie}
-              isBookmarked={bookmarkedMovieIds[id]}
+              isBookmarked={movie.isBookmarked}
               onBookmarkMutation={
-                isBookmarked ? handleRemoveBookmark : handleAddBookmark
+                movie.isBookmarked ? handleRemoveBookmark : handleAddBookmark
               }
               loadingMutation={
-                isBookmarked ? removeBookmarkLoading : addBookmarkLoading
+                movie.isBookmarked ? removeBookmarkLoading : addBookmarkLoading
               }
             />
           );
