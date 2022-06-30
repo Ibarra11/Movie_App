@@ -40,23 +40,23 @@ const BookMarked: ProtectedPage<{ searchValue: string }> = ({
   );
 
   return (
-    <div className="h-full flex flex-col xl:gap-10 ">
-      <div className="relative h-1/2 flex flex-col gap-9 ">
+    <div className=" space-y-3">
+      <div className="relative min-h-[320px]   flex flex-col gap-9 ">
         {/* Bookmarked Movies */}
         <h3 className=" text-[32px] text-white ">Bookmarked Movies</h3>
         {bookmarkedMovies.length > 0 ? (
           <MovieGrid searchValue={searchValue} films={bookmarkedMovies} />
         ) : (
-          <EmptyBookmark />
+          <EmptyBookmark text="Movie" />
         )}
       </div>
-      <div className="relative h-1/2 flex flex-col gap-9 ">
+      <div className="relative  min-h-[320px]   flex flex-col gap-9 ">
         {/* Bookmarked Tv Series */}
         <h3 className=" text-[32px] text-white ">Bookmarked TV Series</h3>
         {bookmarkedTvSeries.length > 0 ? (
           <MovieGrid searchValue={searchValue} films={bookmarkedTvSeries} />
         ) : (
-          <EmptyBookmark />
+          <EmptyBookmark text="TV Series" />
         )}
       </div>
     </div>
