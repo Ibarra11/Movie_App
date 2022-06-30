@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
   }, [router.pathname]);
 
   return (
-    <div className="bg-darkBlue min-h-screen pb-14">
+    <div>
       <ApolloProvider client={apolloClient}>
         {Component.protected ? (
           <Layout setSearchValue={setSearchValue} searchValue={searchValue}>

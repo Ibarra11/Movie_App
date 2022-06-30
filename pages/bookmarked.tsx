@@ -1,41 +1,64 @@
 import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
 import MovieGrid from "../components/MovieGrid";
-import { Movie } from "@prisma/client";
+import EmptyBookmark from "../components/EmptyBookmark";
+import { Movie } from "../types/apollo-generated";
 import type { ProtectedPage } from "../types";
+import type { MovieType } from "../components/MovieGrid";
+
+function getBookmarksByType(
+  type: "Movie" | "TV Series",
+  data: Movie[] | undefined
+): MovieType[] {
+  return (
+    data
+      ? data
+          .filter(({ category }) => category === type)
+          .map((movie) => ({ ...movie, isBookmarked: true }))
+      : []
+  ) as MovieType[];
+}
 
 const BookMarked: ProtectedPage<{ searchValue: string }> = ({
   searchValue,
 }) => {
-  const { data, loading, error } = useGetBookmarkedMoviesQuery();
+  const { data, loading, error, refetch } = useGetBookmarkedMoviesQuery();
+
   if (loading) {
     return <p>Loading</p>;
   }
   if (error) {
     return <p>Error</p>;
   }
-  const bookmarkedMovies = data
-    ? (data.getBookmarkedMovies.filter(
-        ({ category }) => category === "Movie"
-      ) as Movie[])
-    : ([] as Movie[]);
-  const bookmarkedTvSeries = data
-    ? (data.getBookmarkedMovies.filter(
-        ({ category }) => category === "TV Series"
-      ) as Movie[])
-    : ([] as Movie[]);
+
+  const bookmarkedMovies = getBookmarksByType(
+    "Movie",
+    data?.getBookmarkedMovies
+  );
+  const bookmarkedTvSeries = getBookmarksByType(
+    "TV Series",
+    data?.getBookmarkedMovies
+  );
 
   return (
-    <div className="flex flex-col xl:gap-10 ">
-      <MovieGrid
-        searchValue={searchValue}
-        films={bookmarkedMovies}
-        title="Bookmarked Movies"
-      />
-      <MovieGrid
-        searchValue={searchValue}
-        films={bookmarkedTvSeries}
-        title="Bookmarked TV Series"
-      />
+    <div className="h-full flex flex-col xl:gap-10 ">
+      <div className="relative h-1/2 flex flex-col gap-9 ">
+        {/* Bookmarked Movies */}
+        <h3 className=" text-[32px] text-white ">Bookmarked Movies</h3>
+        {bookmarkedMovies.length > 0 ? (
+          <MovieGrid searchValue={searchValue} films={bookmarkedMovies} />
+        ) : (
+          <EmptyBookmark />
+        )}
+      </div>
+      <div className="relative h-1/2 flex flex-col gap-9 ">
+        {/* Bookmarked Tv Series */}
+        <h3 className=" text-[32px] text-white ">Bookmarked TV Series</h3>
+        {bookmarkedTvSeries.length > 0 ? (
+          <MovieGrid searchValue={searchValue} films={bookmarkedTvSeries} />
+        ) : (
+          <EmptyBookmark />
+        )}
+      </div>
     </div>
   );
 };
