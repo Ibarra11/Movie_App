@@ -31,18 +31,18 @@ export type MovieType = Movie & { isBookmarked: boolean };
 
 const MovieGrid: (props: {
   films: MovieType[];
-  title: string;
+
   searchValue: string;
-}) => ReactElement = ({ films, title, searchValue }) => {
+}) => ReactElement = ({ films, searchValue }) => {
   const [filteredFilms, isSearching] = useSearch<MovieType>(
     films,
     searchValue,
     "title"
   );
   const searchState = searchValue !== "";
-  const titleToDisplay = searchState
-    ? `Found ${filteredFilms.length} results for '${searchValue}'`
-    : title;
+  const titleToDisplay =
+    searchState && `Found ${filteredFilms.length} results for '${searchValue}'`;
+
   const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =
     useRemoveBookmarkMutation();
   const [handleAddBookmark, { loading: addBookmarkLoading }] =
