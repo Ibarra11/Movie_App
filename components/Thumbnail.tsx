@@ -27,8 +27,8 @@ const Thumbnail = ({
   loadingMutation: boolean;
 }) => {
   return (
-    <div className="w-full space-y-2 ">
-      <div className="group relative   w-full aspect-video hover:cursor-pointer">
+    <div className="space-y-2  ">
+      <div className="group relative   w-full aspect-video hover:cursor-pointer rounded-lg overflow-hidden">
         {/* overlay */}
         <div className="absolute bg-black opacity-0 duration-200 z-10  h-full w-full   group-hover:opacity-50 group-hover:duration-400 "></div>{" "}
         ``
@@ -92,23 +92,22 @@ const Thumbnail = ({
         </div>
       </div>
       <div className=" space-y-1">
-        <div className="flex items-center text-slate-300  text-xs ">
-          <p>{year}</p>
-          <span className=" h-0.5 w-0.5 bg-slate-300 mx-2 rounded-full"></span>
-          <div className="flex gap-1 items-center  ">
-            <Image
-              src={movie_icon}
-              width={10}
-              height={10}
-              alt="movie icon"
-              layout="fixed"
-            />
-            <p>{category}</p>
+        <div className="flex items-center text-slate-300 text-xs ">
+          <p className="lg:text-xs">{year}</p>
+          <span className="h-0.5 w-0.5 bg-slate-300 mx-2 rounded-full"></span>
+          <div className="flex gap-2 items-center ">
+            <div className=" relative w-[10px] h-[10px] lg:w-3 lg:h-3">
+              <Image src={movie_icon} alt="movie icon" layout="fill" />
+            </div>
+
+            <p className="lg:text-xs"> {category}</p>
           </div>
-          <span className=" h-0.5 w-0.5 bg-slate-300 mx-2  rounded-full"></span>
-          <p>{rating}</p>
+          <span className="h-0.5 w-0.5 bg-slate-300 mx-2  rounded-full"></span>
+          <p className="lg:text-xs">{rating}</p>
         </div>
-        <h5 className="text-white text-sm font-medium">{title}</h5>
+        <h5 className="text-white text-sm font-medium md:text-lg lg:text-lg">
+          {title}
+        </h5>
       </div>
     </div>
   );
