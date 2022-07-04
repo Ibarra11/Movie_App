@@ -20,7 +20,6 @@ type CustomAppProps = AppProps & {
 function MyApp({ Component, pageProps }: CustomAppProps) {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
-
   async function checkLoginStatus() {
     const res = await fetch("/api/auth/user");
     const data = await res.json();
@@ -29,7 +28,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     }
   }
 
-  if (pageProps.protected) {
+  if (Component.protected) {
     checkLoginStatus();
   }
 
