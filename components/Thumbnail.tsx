@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useState } from "react";
 import { Movie } from "../graphql/generated-types";
 import { GetBookmarkedMoviesDocument } from "../types/apollo-generated";
 import { BsFillPlayFill } from "react-icons/bs";
@@ -40,7 +41,7 @@ const Thumbnail = ({
           <div className="absolute -z-10 w-full h-full bg-play opacity-25 "></div>
           <div className=" relative grid text-2xl place-content-center w-8 h-8 rounded-full overflow-hidden">
             <div className="absolute w-full h-full bg-white -z-10 "></div>
-            <BsFillPlayFill />
+            <BsFillPlayFill color="black" />
           </div>
           <p className="text-lg text-white font-medium">Play</p>
         </div>
