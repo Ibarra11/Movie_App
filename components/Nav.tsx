@@ -1,5 +1,7 @@
 import Image from "next/image";
+
 import { useRouter } from "next/router";
+import { BiLogOut } from "react-icons/bi";
 type Screen = "mobile" | "tablet" | "desktop";
 
 interface LogoType {
@@ -39,6 +41,20 @@ const screens = {
 };
 
 const Nav = () => {
+  const router = useRouter();
+  async function handleLogout() {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}api/auth/logout`
+      );
+      await response.json();
+      router.push("/account/login");
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
+    }
+  }
   return (
     <div className="md:px-6  xl:p-0 xl:py-8 xl:pl-8 ">
       <div className="bg-semiDarkBlue flex items-center h-14 px-4 md:h-16 md:rounded-lg xl:flex-col xl:w-24 xl:h-[720px] xl:px-0 xl:py-8 xl:rounded-2xl">
@@ -65,13 +81,19 @@ const Nav = () => {
         </div>
         {/* Avatar */}
         <div className="md:hidden">
-          {NavLayout({ type: "avatar", size: "mobile" })}
+          <button onClick={handleLogout}>
+            {NavLayout({ type: "avatar", size: "mobile" })}
+          </button>
         </div>
         <div className="hidden md:block xl:hidden">
-          {NavLayout({ type: "avatar", size: "tablet" })}
+          <button onClick={handleLogout}>
+            {NavLayout({ type: "avatar", size: "tablet" })}
+          </button>
         </div>
         <div className="hidden xl:block">
-          {NavLayout({ type: "avatar", size: "desktop" })}
+          <button onClick={handleLogout}>
+            {NavLayout({ type: "avatar", size: "desktop" })}
+          </button>
         </div>
       </div>
     </div>
@@ -152,14 +174,10 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
     }
     case "avatar": {
       return (
-        <div className="flex items-center">
-          <Image
-            src="/icons/image-avatar.png"
-            width={screens[size][type].width}
-            height={screens[size][type].height}
-            alt="image avatar"
-          />
-        </div>
+        <BiLogOut
+          className="text-white cursor-pointer hover:filter-icon-red"
+          size={screens[size][type].width}
+        />
       );
     }
   }
