@@ -1,35 +1,42 @@
-import type { NextPage, GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
+import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
 import { TrendingMovie, ProtectedPage, isTrendingMovie } from "../types";
-import { GetBookmarkedMoviesQueryHookResult } from "../types/apollo-generated";
-import { Movie } from "@prisma/client";
-import Nav from "../components/Nav";
-import Input from "../components/Input";
+import { MovieType, BookmarkedMovieIds } from "../types";
 import TrendingRow from "../components/TrendingRow";
 import MovieGrid from "../components/MovieGrid";
-type Result = GetBookmarkedMoviesQueryHookResult["fetchMore"];
 
 const Home: ProtectedPage<{
-  allFilms: Movie[];
+  allFilms: MovieType[];
   trendingFilms: TrendingMovie[];
-  nonTrendingFilms: Movie[];
+  nonTrendingFilms: MovieType[];
   searchValue: string;
 }> = ({ allFilms, trendingFilms, nonTrendingFilms, searchValue }) => {
+  const { data, loading, error } = useGetBookmarkedMoviesQuery();
+  let bookmarkedMovieIds: BookmarkedMovieIds = {};
+  if (data) {
+    data.getBookmarkedMovies.forEach((movie) => {
+      bookmarkedMovieIds[movie.id] = true;
+    });
+  }
+
   return (
     <div>
       {/* <TrendingRow
           bookmarkedMovieIds={bookm darkedMovieIds}
           trendingMovies={trendingMovies}
         /> */}
-      <MovieGrid
-        searchValue={searchValue}
-        title="Recommended for you"
-        films={searchValue !== "" ? allFilms : nonTrendingFilms}
-      />
+      <div className="text-[32px] text-white ">
+        <h3 className=" mb-8">Recommended for you</h3>
+        <MovieGrid
+          bookmarkedMovieIds={bookmarkedMovieIds}
+          searchValue={searchValue}
+          films={searchValue !== "" ? allFilms : nonTrendingFilms}
+        />
+      </div>
     </div>
   );
 };
-
 export const getStaticProps: GetStaticProps = async (context) => {
   const allFilms = await prisma.movie.findMany();
   const trendingFilms = allFilms.filter(isTrendingMovie);

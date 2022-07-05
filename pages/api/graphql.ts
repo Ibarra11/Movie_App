@@ -23,7 +23,6 @@ const startServer = apolloServer.start();
 
 export default withIronSessionApiRoute(
   cors(async (req, res) => {
-    console.log(req.session.user);
     if (req.method === "OPTIONS") {
       res.end();
       return false;

@@ -4,7 +4,7 @@ import LoginForm from "../../components/LoginForm";
 
 const Login = () => {
   return (
-    <div className="flex flex-col gap-14 items-center  py-12 px-6 md:gap-16">
+    <div className=" bg-darkBlue h-screen flex flex-col gap-14 items-center  py-12 px-6 md:gap-16">
       <Image
         src="/icons/logo.svg"
         width={32}

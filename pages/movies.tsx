@@ -1,16 +1,28 @@
 import { GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
-import { Movie } from "@prisma/client";
+import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
 import MovieGrid from "../components/MovieGrid";
-import { ProtectedPage } from "../types";
+import { ProtectedPage, BookmarkedMovieIds, MovieType } from "../types";
 const Movies: ProtectedPage<{
-  movies: Movie[];
+  movies: MovieType[];
   searchValue: string;
 }> = ({ movies, searchValue }) => {
+  const { data, loading, error } = useGetBookmarkedMoviesQuery();
+  let bookmarkedMovieIds: BookmarkedMovieIds = {};
+  if (data) {
+    data.getBookmarkedMovies.forEach((movie) => {
+      bookmarkedMovieIds[movie.id] = true;
+    });
+  }
   return (
-    <>
-      <MovieGrid title="Movies" films={movies} searchValue={searchValue} />
-    </>
+    <div>
+      <h3 className="text-[32px] text-white mb-8">Movies</h3>
+      <MovieGrid
+        bookmarkedMovieIds={bookmarkedMovieIds}
+        films={movies}
+        searchValue={searchValue}
+      />
+    </div>
   );
 };
 

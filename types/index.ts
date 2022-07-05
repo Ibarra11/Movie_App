@@ -40,3 +40,7 @@ export interface ErrorFormState {
 export function isTrendingMovie(movie: Movie): movie is TrendingMovie {
   return movie.isTrending;
 }
+
+export type MovieType = Movie & { isBookmarked: boolean };
+
+export type BookmarkedMovieIds = { [key: string]: boolean };

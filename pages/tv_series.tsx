@@ -1,16 +1,28 @@
 import { NextPage, GetStaticProps } from "next";
 import { prisma } from "../lib/prisma";
-import { Movie } from "@prisma/client";
 import MovieGrid from "../components/MovieGrid";
-import { ProtectedPage } from "../types";
-const TvSeries: ProtectedPage<{ tvSeries: Movie[]; searchValue: string }> = ({
-  tvSeries,
-  searchValue,
-}) => {
+import { MovieType, ProtectedPage, BookmarkedMovieIds } from "../types";
+import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
+const TvSeries: ProtectedPage<{
+  tvSeries: MovieType[];
+  searchValue: string;
+}> = ({ tvSeries, searchValue }) => {
+  const { data, loading, error } = useGetBookmarkedMoviesQuery();
+  let bookmarkedMovieIds: BookmarkedMovieIds = {};
+  if (data) {
+    data.getBookmarkedMovies.forEach((movie) => {
+      bookmarkedMovieIds[movie.id] = true;
+    });
+  }
   return (
-    <>
-      <MovieGrid searchValue={searchValue} title="Tv Series" films={tvSeries} />
-    </>
+    <div>
+      <h3 className="text-[32px] text-white mb-8">TV Series</h3>
+      <MovieGrid
+        searchValue={searchValue}
+        bookmarkedMovieIds={bookmarkedMovieIds}
+        films={tvSeries}
+      />
+    </div>
   );
 };
 

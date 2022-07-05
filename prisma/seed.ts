@@ -14,7 +14,6 @@ async function main() {
         year: movie.year,
         category: movie.category,
         rating: movie.rating,
-        isBookmarked: movie.isBookmarked,
         isTrending: movie.isTrending,
         trending_sm: movie.thumbnail.trending?.small,
         trending_lg: movie.thumbnail.trending?.large,
