@@ -21,17 +21,17 @@ const Home: ProtectedPage<{
   }
 
   return (
-    <div>
+    <div className="flex flex-col  h-full">
       {/* <TrendingRow
           bookmarkedMovieIds={bookm darkedMovieIds}
           trendingMovies={trendingMovies}
         /> */}
-      <div className="text-[32px] text-white ">
-        <h3 className=" mb-8">Recommended for you</h3>
+      <div className="relative flex-1 text-[32px] text-white ">
         <MovieGrid
           bookmarkedMovieIds={bookmarkedMovieIds}
           searchValue={searchValue}
           films={searchValue !== "" ? allFilms : nonTrendingFilms}
+          title="Recommended for you"
         />
       </div>
     </div>

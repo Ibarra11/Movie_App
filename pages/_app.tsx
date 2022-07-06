@@ -20,8 +20,9 @@ type CustomAppProps = AppProps & {
 function MyApp({ Component, pageProps }: CustomAppProps) {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
+
   async function checkLoginStatus() {
-    const res = await fetch("/api/auth/user");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth/user`);
     const data = await res.json();
     if (data.isLoggedIn === false) {
       router.push("/account/login");

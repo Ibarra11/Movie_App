@@ -15,12 +15,12 @@ const TvSeries: ProtectedPage<{
     });
   }
   return (
-    <div>
-      <h3 className="text-[32px] text-white mb-8">TV Series</h3>
+    <div className="relative flex-1 text-[32px] text-white ">
       <MovieGrid
         searchValue={searchValue}
         bookmarkedMovieIds={bookmarkedMovieIds}
         films={tvSeries}
+        title="TV Series"
       />
     </div>
   );

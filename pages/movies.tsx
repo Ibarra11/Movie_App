@@ -15,9 +15,9 @@ const Movies: ProtectedPage<{
     });
   }
   return (
-    <div>
-      <h3 className="text-[32px] text-white mb-8">Movies</h3>
+    <div className="relative flex-1 text-[32px] text-white ">
       <MovieGrid
+        title="Movies"
         bookmarkedMovieIds={bookmarkedMovieIds}
         films={movies}
         searchValue={searchValue}

@@ -27,7 +27,8 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-hook-form": "^7.31.2",
-    "react-icons": "^4.3.1"
+    "react-icons": "^4.3.1",
+    "react-spinners": "^0.13.3"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
