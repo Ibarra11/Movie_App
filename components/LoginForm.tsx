@@ -102,7 +102,7 @@ const LoginForm = () => {
           />
         </div>
         <div className="relative flex flex-col gap-3">
-          <label className="relative text-sm text-slate-400" htmlFor="email">
+          <label className="relative text-sm text-slate-400" htmlFor="password">
             Password
             {errors.password?.type === "required" &&
               errorMessage("This field is required")}
