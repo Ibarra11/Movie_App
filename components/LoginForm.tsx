@@ -12,7 +12,7 @@ interface Inputs {
 
 const errorMessage: (arg: string) => React.ReactNode = (message) => {
   return (
-    <span className="absolute text-red text-xs right-0 bottom-0">
+    <span role="alert" className="absolute text-red text-xs right-0 bottom-0">
       {message}
     </span>
   );
@@ -50,7 +50,6 @@ const LoginForm = () => {
               body: JSON.stringify({ user: data.login.id }),
             }
           );
-          console.log(data);
           if (response.ok) {
             router.push("/");
           }

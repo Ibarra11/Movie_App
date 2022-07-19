@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
-import apolloClient from "../lib/apollo";
+import { apolloClient } from "../lib/apollo";
 import Layout from "../components/Layout";
 import { NextComponentType, NextPage } from "next";
 import { Movie } from "../types/apollo-generated";
