@@ -20,7 +20,6 @@ const errorMessage: (arg: string) => React.ReactNode = (message) => {
 
 const LoginForm = () => {
   const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -43,11 +42,14 @@ const LoginForm = () => {
       },
       onCompleted: async (data) => {
         if (data.login) {
-          const response = await fetch("/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user: data.login.id }),
-          });
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_URL}/api/auth/login`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ user: data.login.id }),
+            }
+          );
           console.log(data);
           if (response.ok) {
             router.push("/");

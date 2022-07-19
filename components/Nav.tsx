@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { useRouter } from "next/router";
 import { BiLogOut } from "react-icons/bi";
+
 type Screen = "mobile" | "tablet" | "desktop";
 
 interface LogoType {
@@ -42,6 +43,8 @@ const screens = {
 
 const Nav = () => {
   const router = useRouter();
+  const currentPath = router.pathname;
+
   async function handleLogout() {
     try {
       const response = await fetch(

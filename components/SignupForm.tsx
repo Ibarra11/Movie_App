@@ -104,7 +104,6 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
               validate: {
                 matchesPassword: (e) => {
                   const passwordState = getFieldState("password");
-                  console.log(passwordState);
                   const passwordValue = getValues("password");
                   // Inital check for password
                   if (e !== passwordValue) {

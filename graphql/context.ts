@@ -15,7 +15,6 @@ export async function createContext({
   req: NextApiRequest;
   res: NextApiResponse;
 }): Promise<Context> {
-  console.log(req.session);
   return {
     prisma,
     session: req.session,
