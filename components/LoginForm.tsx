@@ -55,6 +55,7 @@ const LoginForm = () => {
           }
         } else {
           // no user was found
+
           setError("submit", { type: "submit" });
           resetField("email");
           resetField("password");
@@ -79,7 +80,10 @@ const LoginForm = () => {
       <header className="relative">
         <h3 className=" text-4xl text-white text ">Login</h3>
         {errors.submit?.type === "submit" && (
-          <span className="absolute translate-y-3 text-xs text-red">
+          <span
+            role="alert"
+            className="absolute translate-y-3 text-xs text-red"
+          >
             No user found with this email
           </span>
         )}

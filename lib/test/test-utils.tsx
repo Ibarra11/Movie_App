@@ -1,6 +1,6 @@
 import { render as rtlRender } from "@testing-library/react";
 import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "./apollo";
+import { apolloClient } from "../apollo";
 import { ReactNode } from "react";
 // interface render {
 //   ui: ReactNode;
