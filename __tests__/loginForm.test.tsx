@@ -1,108 +1,70 @@
-import {
-  render,
-  screen,
-  waitFor,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MockedProvider } from "@apollo/client/testing";
+import { ApolloProvider } from "@apollo/client";
+import * as nextRouter from "next/router";
 import "whatwg-fetch";
+import { apolloClient } from "../lib/apollo";
 import LoginForm from "../components/LoginForm";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
-// import { apolloClient } from "../lib/apollo";
+const useRouter = jest.spyOn(require("next/router"), "useRouter");
 
-// test("ommiting password results in a error message", async () => {
-//   render(
-//     <MockedProvider>
-//       <LoginForm />
-//     </MockedProvider>
-//   );
-//   const email = screen.getByLabelText(/email/i);
-//   const submitBtn = screen.getByRole("button", { name: /login/i });
+function setup() {
+  render(
+    <ApolloProvider client={apolloClient}>
+      <LoginForm />
+    </ApolloProvider>
+  );
+  const emailInput = screen.getByLabelText(/email/i);
+  const passwordInput = screen.getByLabelText(/password/i);
+  const submitBtn = screen.getByRole("button", { name: /login/i });
+  return { emailInput, passwordInput, submitBtn };
+}
 
-//   await userEvent.type(email, "test@gmail.com");
-//   await userEvent.click(submitBtn);
-//   const alert = screen.getByRole("alert");
-//   expect(alert.textContent).toBe("This field is required");
-// });
-
-// test("ommiting an email results in a error message", async () => {
-//   render(
-//     <MockedProvider>
-//       <LoginForm />
-//     </MockedProvider>
-//   );
-//   const password = screen.getByLabelText(/password/i);
-//   const submitBtn = screen.getByRole("button", { name: /login/i });
-//   await userEvent.type(password, "test12345");
-//   await userEvent.click(submitBtn);
-//   const alert = screen.getByRole("alert");
-//   expect(alert.textContent).toBe("This field is required");
-// });
-
-// test("invalid email input results in a error message", async () => {
-//   render(
-//     <MockedProvider>
-//       <LoginForm />
-//     </MockedProvider>
-//   );
-//   const email = screen.getByLabelText(/email/i);
-//   const password = screen.getByLabelText(/password/i);
-//   const submitBtn = screen.getByRole("button", { name: /login/i });
-//   await userEvent.type(email, "invalidEmail");
-//   await userEvent.type(password, "test12345");
-//   await userEvent.click(submitBtn);
-//   const alert = screen.getByRole("alert");
-//   expect(alert.textContent).toBe("Please enter a valid email address");
-// });
-
-// test("invalid password length results in error message", async () => {
-//   render(
-//     <MockedProvider>
-//       <LoginForm />
-//     </MockedProvider>
-//   );
-//   const email = screen.getByLabelText(/email/i);
-//   const password = screen.getByLabelText(/password/i);
-//   const submitBtn = screen.getByRole("button", { name: /login/i });
-//   await userEvent.type(email, "test@gmail.com");
-//   await userEvent.type(password, "test");
-//   await userEvent.click(submitBtn);
-//   const alert = screen.getByRole("alert");
-//   expect(alert).toHaveTextContent("Password must be atleast 6 characters");
-// });
-
-const client = new ApolloClient({
-  uri: "http://localhost:3000/api/graphql",
-  cache: new InMemoryCache(),
+test("ommiting password results in a error message", async () => {
+  const { emailInput, submitBtn } = setup();
+  await userEvent.type(emailInput, "test@gmail.com");
+  await userEvent.click(submitBtn);
+  const alert = screen.getByRole("alert");
+  expect(alert.textContent).toBe("This field is required");
 });
 
-// test("when user submits credentials, the button should show a loading indicator", async () => {
-//   render(
-//     <ApolloProvider client={client}>
-//       <LoginForm />
-//     </ApolloProvider>
-//   );
-//   const email = screen.getByLabelText(/email/i);
-//   const password = screen.getByLabelText(/password/i);
-//   const submitBtn = screen.getByRole("button", { name: /login/i });
-//   await userEvent.type(email, "test@gmail.com");
-//   await userEvent.type(password, "test123");
+test("ommiting an email results in a error message", async () => {
+  const { passwordInput, submitBtn } = setup();
+  await userEvent.type(passwordInput, "test12345");
+  await userEvent.click(submitBtn);
+  const alert = screen.getByRole("alert");
+  expect(alert.textContent).toBe("This field is required");
+});
+
+test("invalid email input results in a error message", async () => {
+  const { emailInput, passwordInput, submitBtn } = setup();
+  await userEvent.type(emailInput, "invalidEmail");
+  await userEvent.type(passwordInput, "test12345");
+  await userEvent.click(submitBtn);
+  const alert = screen.getByRole("alert");
+  expect(alert.textContent).toBe("Please enter a valid email address");
+});
+
+test("invalid password length results in error message", async () => {
+  const { emailInput, passwordInput, submitBtn } = setup();
+  await userEvent.type(emailInput, "test@gmail.com");
+  await userEvent.type(passwordInput, "test");
+  await userEvent.click(submitBtn);
+  const alert = screen.getByRole("alert");
+  expect(alert).toHaveTextContent("Password must be atleast 6 characters");
+});
+
+// test("should show loading indicator when user submits the login form", async () => {
+//   const { emailInput, passwordInput, submitBtn } = setup();
+//   await userEvent.type(emailInput, "test@gmail.com");
+//   await userEvent.type(passwordInput, "test123");
 //   await userEvent.click(submitBtn);
 //   expect(screen.getByRole("button", { name: /loading/i })).toBeInTheDocument();
 // });
 
 test("when user sumbits credentials that are not in db displays error message", async () => {
-  render(
-    <ApolloProvider client={client}>
-      <LoginForm />
-    </ApolloProvider>
-  );
-  const email = screen.getByLabelText(/email/i);
-  const password = screen.getByLabelText(/password/i);
-  const submitBtn = screen.getByRole("button", { name: /login/i });
-  await userEvent.type(email, "test@gmail.com");
-  await userEvent.type(password, "unknown");
+  const { emailInput, passwordInput, submitBtn } = setup();
+  await userEvent.type(emailInput, "test@gmail.com");
+  await userEvent.type(passwordInput, "unknown");
   await userEvent.click(submitBtn);
 
   // Originally, use waitForElementToBeRemoved for the loading status on the button, but did not work.  I suspect

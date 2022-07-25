@@ -1,4 +1,4 @@
-import { graphql } from "msw";
+import { graphql, rest } from "msw";
 
 export const handlers = [
   graphql.mutation("login", (req, res, ctx) => {
@@ -18,4 +18,10 @@ export const handlers = [
       );
     }
   }),
+  rest.post(
+    `${process.env.NEXT_PUBLIC_URL}/api/auth/login`,
+    (req, res, ctx) => {
+      return res(ctx.status(200));
+    }
+  ),
 ];
