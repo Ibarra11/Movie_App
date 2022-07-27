@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useLoginMutation } from "../types/apollo-generated";
 

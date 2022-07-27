@@ -1,7 +1,15 @@
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/router";
+import { useSignupMutation } from "../types/apollo-generated";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SignupFormInputs, FormState } from "../types";
+
+interface Inputs {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  submit: string;
+}
 
 const errorMessage: (arg: string) => React.ReactNode = (message) => {
   return (
@@ -11,26 +19,41 @@ const errorMessage: (arg: string) => React.ReactNode = (message) => {
   );
 };
 
-interface IProps {
-  onSignup: (arg: SignupFormInputs) => void;
-  formState: FormState;
-}
-
-const SignupForm: (props: IProps) => React.ReactElement = ({
-  onSignup,
-  formState,
-}) => {
+const SignupForm: () => React.ReactElement = () => {
   const {
     register,
     handleSubmit,
     getValues,
     getFieldState,
+    resetField,
     setError,
-    formState: { errors },
-  } = useForm<SignupFormInputs>();
+    formState: { errors, isDirty },
+  } = useForm<Inputs>();
+  const router = useRouter();
+  const [signup, { loading }] = useSignupMutation();
 
-  const onSubmit: SubmitHandler<SignupFormInputs> = (data) => {
-    onSignup(data);
+  const onSubmit: SubmitHandler<Inputs> = (formData) => {
+    const { email, password } = formData;
+    signup({
+      variables: { email, password },
+      onError: (error) => {
+        setError("submit", { type: "submit" });
+        resetField("email");
+        resetField("password");
+        resetField("repeatPassword");
+      },
+      async onCompleted(data) {
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: data.signup.id }),
+        });
+
+        if (response.ok) {
+          router.push("/");
+        }
+      },
+    });
   };
 
   return (
@@ -40,9 +63,12 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
     >
       <header className="relative">
         <h3 className=" text-4xl text-white text ">Sign Up</h3>
-        {formState.state === "error" && (
-          <span className="absolute  text-xs text-red translate-y-3">
-            {formState.message}
+        {errors.submit?.type === "submit" && (
+          <span
+            role="alert"
+            className="absolute  text-xs text-red translate-y-3"
+          >
+            No user found with this email
           </span>
         )}
       </header>
@@ -122,9 +148,7 @@ const SignupForm: (props: IProps) => React.ReactElement = ({
           type="submit"
           className=" bg-red py-4 rounded-md text-center text-white"
         >
-          {formState.state === "loading" && formState.loading
-            ? "Loading"
-            : "Create an account"}
+          {loading ? "loading" : "Sign Up"}
         </button>
         <div className="flex gap-2 justify-center">
           <p className="text-white text-base">Already have an account?</p>
