@@ -6,9 +6,9 @@ const prisma = new PrismaClient();
 const movieData: Movie[] = data;
 
 async function main() {
-  const deleteMovies = prisma.movie.deleteMany({});
-  const deleteUsers = prisma.user.deleteMany({});
-  await prisma.$transaction([deleteMovies, deleteUsers]);
+  // const deleteMovies = prisma.movie.deleteMany({});
+  await prisma.user.deleteMany({});
+
   await prisma.user.upsert({
     where: { email: "test@example.com" },
     update: {},
@@ -18,22 +18,22 @@ async function main() {
     },
   });
 
-  for (const movie of movieData) {
-    await prisma.movie.create({
-      data: {
-        title: movie.title,
-        year: movie.year,
-        category: movie.category,
-        rating: movie.rating,
-        isTrending: movie.isTrending,
-        trending_sm: movie.thumbnail.trending?.small,
-        trending_lg: movie.thumbnail.trending?.large,
-        regular_sm: movie.thumbnail.regular.small,
-        regular_md: movie.thumbnail.regular.medium,
-        regular_lg: movie.thumbnail.regular.large,
-      },
-    });
-  }
+  //   for (const movie of movieData) {
+  //     await prisma.movie.create({
+  //       data: {
+  //         title: movie.title,
+  //         year: movie.year,
+  //         category: movie.category,
+  //         rating: movie.rating,
+  //         isTrending: movie.isTrending,
+  //         trending_sm: movie.thumbnail.trending?.small,
+  //         trending_lg: movie.thumbnail.trending?.large,
+  //         regular_sm: movie.thumbnail.regular.small,
+  //         regular_md: movie.thumbnail.regular.medium,
+  //         regular_lg: movie.thumbnail.regular.large,
+  //       },
+  //     });
+  //   }
 }
 
 async function run() {
