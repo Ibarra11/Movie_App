@@ -6,7 +6,18 @@ const prisma = new PrismaClient();
 const movieData: Movie[] = data;
 
 async function main() {
-  console.log("start seeding");
+  const deleteMovies = prisma.movie.deleteMany({});
+  const deleteUsers = prisma.user.deleteMany({});
+  await prisma.$transaction([deleteMovies, deleteUsers]);
+  await prisma.user.upsert({
+    where: { email: "test@example.com" },
+    update: {},
+    create: {
+      email: "test@example.com",
+      password: "password123",
+    },
+  });
+
   for (const movie of movieData) {
     await prisma.movie.create({
       data: {
@@ -25,12 +36,25 @@ async function main() {
   }
 }
 
-main()
-  .catch((e) => {
-    console.log("test");
+async function run() {
+  // return 1;
+  try {
+    await main();
+    await prisma.$disconnect();
+    return null;
+  } catch (e) {
     console.error(e);
     process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  }
+}
+export default run;
+
+// export default
+//  async () =>
+//   main()
+//     .catch((e) => {
+
+//     })
+//     .finally(async () => {
+//       await prisma.$disconnect();
+//     });
