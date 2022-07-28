@@ -8,12 +8,15 @@ describe("login", () => {
     cy.intercept("/api/graphql").as("api");
     cy.intercept("/api/auth/user").as("isLoggedIn");
     cy.intercept("/api/auth/logout").as("logout");
+
     cy.signup(testUser);
     cy.wait("@api");
+
     cy.findByRole("button", { name: /logout/i }).click();
     cy.wait("@logout");
     cy.wait("@isLoggedIn");
     cy.location("pathname").should("equal", "/account/login");
+
     cy.login(testUser);
     cy.wait("@api");
     cy.location("pathname").should("equal", "/");

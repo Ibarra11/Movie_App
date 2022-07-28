@@ -119,7 +119,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
           className={`flex justify-center gap-6 md:gap-8  xl:h-full  xl:gap-10 xl:flex-col xl:justify-start xl:pt-20`}
         >
           <button
-            aria-label="view movies and tv series"
+            aria-label="show both movies and tv series"
             onClick={() => router.push("/")}
           >
             <Image
@@ -135,7 +135,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
             />
           </button>
           <button
-            aria-label="view movies only"
+            aria-label="show only  movies"
             onClick={() => router.push("/movies")}
           >
             <Image
@@ -151,7 +151,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
             />
           </button>
           <button
-            aria-label="view Tv Series only"
+            aria-label="show only tv series"
             onClick={() => router.push("/tv_series")}
           >
             <Image
@@ -167,7 +167,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
             />
           </button>
           <button
-            aria-label="view bookmarked tv series and movies"
+            aria-label="show bookmarked tv series and movies"
             onClick={() => router.push("/bookmarked")}
           >
             <Image
