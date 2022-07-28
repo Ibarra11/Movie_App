@@ -33,7 +33,7 @@ const screens = {
   tablet: {
     logo: { width: 32, height: 25 },
     nav: { width: 20, height: 20 },
-    logout: { width: 40, height: 40 },
+    logout: { width: 32, height: 32 },
   },
   desktop: {
     avatar: { width: 40, height: 40 },
@@ -84,11 +84,11 @@ const Nav = () => {
         </div>
         {/* Logout */}
         <div className="md:hidden">
-          <button onClick={handleLogout}>
+          <button aria-label="logout" onClick={handleLogout}>
             {NavLayout({ type: "logout", size: "mobile" })}
           </button>
         </div>
-        <div className="hidden md:block xl:hidden">
+        <div className="hidden md:block ">
           <button aria-label="logout" onClick={handleLogout}>
             {NavLayout({ type: "logout", size: "tablet" })}
           </button>
@@ -118,55 +118,70 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
         <div
           className={`flex justify-center gap-6 md:gap-8  xl:h-full  xl:gap-10 xl:flex-col xl:justify-start xl:pt-20`}
         >
-          <Image
+          <button
+            aria-label="view movies and tv series"
             onClick={() => router.push("/")}
-            className={`${
-              currentRoute === "/"
-                ? "filter-icon-white "
-                : "hover:filter-icon-red "
-            }hover:cursor-pointer`}
-            src="/icons/icon-nav-home.svg"
-            width={screens[size][type].width}
-            height={screens[size][type].height}
-            alt="Home"
-          />
-
-          <Image
+          >
+            <Image
+              className={`${
+                currentRoute === "/"
+                  ? "filter-icon-white "
+                  : "hover:filter-icon-red "
+              }hover:cursor-pointer`}
+              src="/icons/icon-nav-home.svg"
+              width={screens[size][type].width}
+              height={screens[size][type].height}
+              alt="Home icon"
+            />
+          </button>
+          <button
+            aria-label="view movies only"
             onClick={() => router.push("/movies")}
-            className={`${
-              currentRoute === "/movies"
-                ? "filter-icon-white "
-                : "hover:filter-icon-red "
-            } hover:cursor-pointer`}
-            src="/icons/icon-nav-movies.svg"
-            width={screens[size][type].width}
-            height={screens[size][type].height}
-            alt="Movies"
-          />
-          <Image
+          >
+            <Image
+              className={`${
+                currentRoute === "/movies"
+                  ? "filter-icon-white "
+                  : "hover:filter-icon-red "
+              } hover:cursor-pointer`}
+              src="/icons/icon-nav-movies.svg"
+              width={screens[size][type].width}
+              height={screens[size][type].height}
+              alt="Movies"
+            />
+          </button>
+          <button
+            aria-label="view Tv Series only"
             onClick={() => router.push("/tv_series")}
-            className={`${
-              currentRoute === "/tv_series"
-                ? "filter-icon-white "
-                : "hover:filter-icon-red "
-            }  hover:cursor-pointer`}
-            src="/icons/icon-nav-tv-series.svg"
-            width={screens[size][type].width}
-            height={screens[size][type].height}
-            alt="Tv series"
-          />
-          <Image
+          >
+            <Image
+              className={`${
+                currentRoute === "/tv_series"
+                  ? "filter-icon-white "
+                  : "hover:filter-icon-red "
+              }  hover:cursor-pointer`}
+              src="/icons/icon-nav-tv-series.svg"
+              width={screens[size][type].width}
+              height={screens[size][type].height}
+              alt="Tv series"
+            />
+          </button>
+          <button
+            aria-label="view bookmarked tv series and movies"
             onClick={() => router.push("/bookmarked")}
-            className={`${
-              currentRoute === "/bookmarked"
-                ? "filter-icon-white "
-                : "hover:filter-icon-red "
-            } hover:cursor-pointer`}
-            src="/icons/icon-nav-bookmark.svg"
-            width={screens[size][type].width}
-            height={screens[size][type].height}
-            alt="Bookmarked movies"
-          />
+          >
+            <Image
+              className={`${
+                currentRoute === "/bookmarked"
+                  ? "filter-icon-white "
+                  : "hover:filter-icon-red "
+              } hover:cursor-pointer`}
+              src="/icons/icon-nav-bookmark.svg"
+              width={screens[size][type].width}
+              height={screens[size][type].height}
+              alt="Bookmarked movies"
+            />
+          </button>
         </div>
       );
     }
