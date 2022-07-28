@@ -1,10 +1,4 @@
-import { faker } from "@faker-js/faker";
-
-function buildUser() {
-  const email = faker.internet.email();
-  const password = faker.internet.password();
-  return { email, password };
-}
+import { buildUser } from "../utils";
 describe("signup form", () => {
   beforeEach(() => {
     cy.task("db:seed");
@@ -19,5 +13,3 @@ describe("signup form", () => {
     });
   });
 });
-
-export {};

@@ -1,4 +1,5 @@
 import { render as rtlRender } from "@testing-library/react";
+import { faker } from "@faker-js/faker";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "../apollo";
 import { ReactNode } from "react";
@@ -7,7 +8,7 @@ import { ReactNode } from "react";
 // }
 
 function render(ui: ReactNode) {
-  return <ApolloProvider client={apolloClient}>{ui}</ApolloProvider>;
+  // return <ApolloProvider client={apolloClient}>{ui}</ApolloProvider>;
 }
 
 export * from "@testing-library/react";

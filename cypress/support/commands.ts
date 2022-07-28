@@ -37,7 +37,7 @@ import "@testing-library/cypress/add-commands";
 //   }
 // }
 
-interface Signup {
+interface Credentials {
   email: string;
   password: string;
 }
@@ -45,7 +45,8 @@ interface Signup {
 declare global {
   namespace Cypress {
     interface Chainable {
-      signup({ email, password }: Signup): Chainable<void>;
+      signup({ email, password }: Credentials): Chainable<void>;
+      login({ email, password }: Credentials): Chainable<void>;
     }
   }
 }
@@ -60,5 +61,15 @@ Cypress.Commands.add("signup", ({ email, password }) => {
   cy.get("@emailInput").type(email);
   cy.get("@passwordInput").type(password);
   cy.get("@repeatPasswordInput").type(password);
+  cy.get("@submitBtn").click();
+});
+
+Cypress.Commands.add("login", ({ email, password }) => {
+  cy.visit("account/login");
+  cy.findByLabelText("Email Address").as("emailInput");
+  cy.findByLabelText("Password").as("passwordInput");
+  cy.findByRole("button", { name: /login to your account/i }).as("submitBtn");
+  cy.get("@emailInput").type(email);
+  cy.get("@passwordInput").type(password);
   cy.get("@submitBtn").click();
 });

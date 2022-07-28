@@ -10,17 +10,17 @@ interface LogoType {
   size: Exclude<Screen, "desktop">;
 }
 
+interface LogoutType {
+  type: "logout";
+  size: Exclude<Screen, "desktop">;
+}
+
 interface NavType {
   type: "nav";
   size: Screen;
 }
 
-interface AvatarType {
-  type: "avatar";
-  size: Screen;
-}
-
-type NavBarElements = LogoType | AvatarType | NavType;
+type NavBarElements = LogoType | NavType | LogoutType;
 
 // Added redundant nav property just so I can apply a larger gap
 // at desktop size.
@@ -28,12 +28,12 @@ const screens = {
   mobile: {
     logo: { width: 25, height: 20 },
     nav: { width: 16, height: 16 },
-    avatar: { width: 24, height: 24 },
+    logout: { width: 24, height: 24 },
   },
   tablet: {
     logo: { width: 32, height: 25 },
     nav: { width: 20, height: 20 },
-    avatar: { width: 40, height: 40 },
+    logout: { width: 40, height: 40 },
   },
   desktop: {
     avatar: { width: 40, height: 40 },
@@ -82,20 +82,15 @@ const Nav = () => {
             {NavLayout({ type: "nav", size: "desktop" })}
           </div>
         </div>
-        {/* Avatar */}
+        {/* Logout */}
         <div className="md:hidden">
           <button onClick={handleLogout}>
-            {NavLayout({ type: "avatar", size: "mobile" })}
+            {NavLayout({ type: "logout", size: "mobile" })}
           </button>
         </div>
         <div className="hidden md:block xl:hidden">
-          <button onClick={handleLogout}>
-            {NavLayout({ type: "avatar", size: "tablet" })}
-          </button>
-        </div>
-        <div className="hidden xl:block">
-          <button onClick={handleLogout}>
-            {NavLayout({ type: "avatar", size: "desktop" })}
+          <button aria-label="logout" onClick={handleLogout}>
+            {NavLayout({ type: "logout", size: "tablet" })}
           </button>
         </div>
       </div>
@@ -175,7 +170,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
         </div>
       );
     }
-    case "avatar": {
+    case "logout": {
       return (
         <BiLogOut
           className="text-white cursor-pointer hover:filter-icon-red"
