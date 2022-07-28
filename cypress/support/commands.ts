@@ -36,3 +36,29 @@ import "@testing-library/cypress/add-commands";
 //     }
 //   }
 // }
+
+interface Signup {
+  email: string;
+  password: string;
+}
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      signup({ email, password }: Signup): Chainable<void>;
+    }
+  }
+}
+
+Cypress.Commands.add("signup", ({ email, password }) => {
+  cy.visit("account/signup");
+  cy.findByLabelText("Email Address").as("emailInput");
+  cy.findByLabelText("Password").as("passwordInput");
+  cy.findByLabelText("Repeat Password").as("repeatPasswordInput");
+  cy.findByRole("button", { name: /sign up/i }).as("submitBtn");
+
+  cy.get("@emailInput").type(email);
+  cy.get("@passwordInput").type(password);
+  cy.get("@repeatPasswordInput").type(password);
+  cy.get("@submitBtn").click();
+});
