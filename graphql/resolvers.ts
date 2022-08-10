@@ -1,6 +1,5 @@
-import bcrypt from "bcrypt";
-
 import { Resolvers } from "./generated-types";
+import { hashPassword, matchPassword } from "../lib/encrypt";
 export const resolvers: Resolvers = {
   Query: {
     getBookmarkedMovies: async (_parent, _, { prisma, session }) => {
@@ -30,12 +29,12 @@ export const resolvers: Resolvers = {
       // let user: User;
 
       try {
-        const hash = await bcrypt.hash(password, saltRounds);
+        const hashedPassword = await hashPassword(password);
 
         const user = await prisma.user.create({
           data: {
             email,
-            password: hash,
+            password: hashedPassword,
           },
           include: {
             bookmarks: true,
@@ -67,7 +66,7 @@ export const resolvers: Resolvers = {
         return null;
       }
 
-      const match = await bcrypt.compare(password, user.password);
+      const match = await matchPassword(password, user.password);
 
       if (match) {
         return user;
