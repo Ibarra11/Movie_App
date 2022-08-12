@@ -18,6 +18,17 @@ export const handlers = [
       );
     }
   }),
+  graphql.mutation("addBookmark", (req, res, ctx) => {
+    const { id } = req.variables;
+    return res(
+      ctx.data({
+        addBookmark: {
+          id,
+          __typename: "Movie",
+        },
+      })
+    );
+  }),
   rest.post(
     `${process.env.NEXT_PUBLIC_URL}/api/auth/login`,
     (req, res, ctx) => {

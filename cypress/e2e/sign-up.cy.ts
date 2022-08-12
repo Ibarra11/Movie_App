@@ -1,4 +1,4 @@
-import { buildUser } from "../utils";
+import { buildUser } from "../utils/utils";
 describe("signup form", () => {
   beforeEach(() => {
     cy.task("db:seed");

@@ -21,41 +21,21 @@ async function main() {
     },
   });
   // I just seed the database different based on if its called direclty in development or I just use it for testing
-  if (require.main === module) {
-    for (const movie of movieData) {
-      await prisma.movie.create({
-        data: {
-          title: movie.title,
-          year: movie.year,
-          category: movie.category,
-          rating: movie.rating,
-          isTrending: movie.isTrending,
-          trending_sm: movie.thumbnail.trending?.small,
-          trending_lg: movie.thumbnail.trending?.large,
-          regular_sm: movie.thumbnail.regular.small,
-          regular_md: movie.thumbnail.regular.medium,
-          regular_lg: movie.thumbnail.regular.large,
-        },
-      });
-    }
-  } else {
-    for (let i = 0; i < 5; i++) {
-      const movie = movieData[i];
-      await prisma.movie.create({
-        data: {
-          title: movie.title,
-          year: movie.year,
-          category: movie.category,
-          rating: movie.rating,
-          isTrending: movie.isTrending,
-          trending_sm: movie.thumbnail.trending?.small,
-          trending_lg: movie.thumbnail.trending?.large,
-          regular_sm: movie.thumbnail.regular.small,
-          regular_md: movie.thumbnail.regular.medium,
-          regular_lg: movie.thumbnail.regular.large,
-        },
-      });
-    }
+  for (const movie of movieData) {
+    await prisma.movie.create({
+      data: {
+        title: movie.title,
+        year: movie.year,
+        category: movie.category,
+        rating: movie.rating,
+        isTrending: movie.isTrending,
+        trending_sm: movie.thumbnail.trending?.small,
+        trending_lg: movie.thumbnail.trending?.large,
+        regular_sm: movie.thumbnail.regular.small,
+        regular_md: movie.thumbnail.regular.medium,
+        regular_lg: movie.thumbnail.regular.large,
+      },
+    });
   }
 }
 // called directly - npx prisma db seed

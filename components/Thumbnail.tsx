@@ -28,7 +28,7 @@ const Thumbnail = ({
   loadingMutation: boolean;
 }) => {
   return (
-    <div className="space-y-2  ">
+    <div className="space-y-2" data-test="thumbnail">
       <div className="group relative   w-full aspect-video hover:cursor-pointer rounded-lg overflow-hidden">
         {/* overlay */}
         <div className="absolute bg-black opacity-0 duration-200 z-10  h-full w-full   group-hover:opacity-50 group-hover:duration-400 "></div>{" "}
@@ -46,7 +46,8 @@ const Thumbnail = ({
           <p className="text-lg text-white font-medium">Play</p>
         </div>
         {/* bookmark icon */}
-        <div
+        <button
+          aria-label={isBookmarked ? "Bookmark movie" : "Unbookmark movie"}
           className=" bookmark-icon-container absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full hover:bg-white hover:duration-200"
           onClick={async () => {
             // just to ensure that only one request is made at a time.
@@ -63,10 +64,10 @@ const Thumbnail = ({
             layout="fixed"
             width={12}
             height={14}
-            alt="bookmark icon"
+            alt=""
             className="filter-bookmark-icon"
           />
-        </div>
+        </button>
         <div className="md:hidden">
           <Image
             layout="fill"
