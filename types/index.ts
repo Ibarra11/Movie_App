@@ -8,7 +8,7 @@ export type TrendingMovie = {
       ? never
       : R
     : never;
-};
+} & { isBookmarked: boolean };
 
 export type HandleChange = (val: string) => void;
 

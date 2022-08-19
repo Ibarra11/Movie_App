@@ -47,8 +47,8 @@ const Thumbnail = ({
         </div>
         {/* bookmark icon */}
         <button
-          aria-label={isBookmarked ? "Bookmark movie" : "Unbookmark movie"}
-          className=" bookmark-icon-container absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full hover:bg-white hover:duration-200"
+          aria-label={isBookmarked ? "Unbookmark movie" : "Bookmark movie"}
+          className="bookmark-icon-container absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full hover:bg-white hover:duration-200"
           onClick={async () => {
             // just to ensure that only one request is made at a time.
             if (!loadingMutation) {

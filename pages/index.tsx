@@ -22,10 +22,10 @@ const Home: ProtectedPage<{
 
   return (
     <div className="flex flex-col  h-full">
-      {/* <TrendingRow
-          bookmarkedMovieIds={bookm darkedMovieIds}
-          trendingMovies={trendingMovies}
-        /> */}
+      <TrendingRow
+        bookmarkedMovieIds={bookmarkedMovieIds}
+        trendingMovies={trendingFilms}
+      />
       <div className="relative flex-1 text-[32px] text-white ">
         <MovieGrid
           bookmarkedMovieIds={bookmarkedMovieIds}
