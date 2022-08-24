@@ -34,58 +34,43 @@ const TrendingRow = ({
 }) => {
   const slider = useRef<null | HTMLDivElement>(null);
   const sliderItem = useRef<null | HTMLDivElement>(null);
-  const slide = useState(false);
-  const sliderCount = useRef(0);
-
-  const [movieData, setMovieData] = useState(trendingMovies);
-  const movies = useRef(trendingMovies);
-
-  // useLayoutEffect(() => {
-  //   if (
-  //     slider.current instanceof HTMLDivElement &&
-  //     sliderItem.current instanceof HTMLDivElement &&
-  //     sliderCount.current > 0
-  //   ) {
-  //     const currentSize = sliderItem.current.clientWidth;
-  //     slider.current.style.transform = `translateX(-${
-  //       currentSize * sliderCount.current
-  //     }px)`;
-  //     slider.current.style.transition = ".4s ease-in-out";
-  //   }
-  // }, [movieData]);
+  const [slideX, setSlideX] = useState(1);
+  const [isActive, setIsActive] = useState(false);
 
   function handleSlide(direction: "prev" | "next") {
-    if (slider.current && sliderCount.current === movieData.length - 2) {
-      const lastMovie = movieData[movieData.length - 1];
-      const currentMovie = movieData[sliderCount.current];
-
-      console.log(movies.current);
-      sliderCount.current = 0;
-    } else if (slider.current && sliderItem.current) {
-      sliderCount.current++;
-      const currentSize = sliderItem.current.clientWidth;
-      // slider.current.style.transform = `translateX(-${
-      //   currentSize * sliderCount.current
-      // }px)`;
-
-      const [firstMovie, ...rest] = movieData;
-      slider.current.style.transform = `translateX(-${
-        sliderItem.current.clientWidth * sliderCount.current
-      }px)`;
-      slider.current.style.transition = ".4s ease-in-out";
-      // setMovieData([...rest, firstMovie]);
+    if (slider.current && sliderItem.current) {
+      let { gap } = getComputedStyle(slider.current);
+      const gapValue = +gap.split(/[a-zA-Z]/)[0];
+      const slideDelta = sliderItem.current.clientWidth + gapValue;
+      let slideAmount;
+      if (direction === "next") {
+        slideAmount = slideDelta * slideX;
+        if (!isActive) {
+          setIsActive(true);
+        }
+        slider.current.style.transform = `translateX(-${slideAmount}px)`;
+        slider.current.style.transition = ".4s ease-in-out";
+        setSlideX((prevSlideX) => prevSlideX + 1);
+      } else {
+        slideAmount = -(slideDelta * (slideX - 1)) + slideDelta;
+        console.log(slideAmount);
+        console.log(slider.current.style.transform);
+        slider.current.style.transform = `translateX(${
+          slideAmount < 0 ? "-" : ""
+        }${Math.abs(slideAmount)}px)`;
+        slider.current.style.transition = ".4s ease-in-out";
+        setSlideX((prevSlideX) => prevSlideX - 1);
+      }
     }
-    // const [firstMovie, ...rest] = movieData;
-    // sliderCount.current++;
-    // setMovieData([...rest, firstMovie]);
   }
+  // Whether the user has interacted with the slider
 
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-white text-4xl">Trending</h3>
-      <div className="relative overflow-hidden  group ">
-        <div ref={slider} className="flex w-full">
-          {movies.current.map((movie) => {
+      <div className="group  relative overflow-hidden  ">
+        <div ref={slider} className="flex w-full gap-9 ">
+          {trendingMovies.map((movie) => {
             return (
               <TrendingThumbnail
                 ref={sliderItem}
@@ -97,13 +82,22 @@ const TrendingRow = ({
           })}
         </div>
         <button
-          className="absolute hidden group-hover:flex  hover:flex items-center justify-center cursor-pointer  top-0 bottom-0 left-0 w-5 lg:w-10 bg-black/50"
+          aria-label="See previous titles"
+          className={`
+            absolute hidden  hover:flex items-center justify-center cursor-pointer  top-0 bottom-0 left-0 w-5 
+          hover:bg-black/50 ${isActive ? "group-hover:flex" : ""}
+            lg:w-10
+          `}
           onClick={() => handleSlide("prev")}
         >
           <AiOutlineLeft size={24} className="text-white" />
         </button>
         <button
-          className="absolute hidden group-hover:flex items-center justify-center cursor-pointer top-0 bottom-0 right-0 w-5 lg:w-10 bg-black/50"
+          aria-label="See more titles"
+          className="
+            absolute hidden items-center justify-center cursor-pointer top-0 bottom-0 right-0 w-5
+            hover:bg-black/50 group-hover:flex 
+            lg:w-10"
           onClick={() => handleSlide("next")}
         >
           <AiOutlineRight size={24} className="text-white " />

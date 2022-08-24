@@ -14,7 +14,10 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
     return (
       <div
         ref={ref}
-        className="relative w-4/6  shrink-0  cursor-pointer lg:w-2/6 lg:h-64 border-2 border-red"
+        className="
+          relative w-4/6 shrink-0 cursor-pointer rounded-lg overflow-hidden
+          lg:w-2/6 lg:h-64 
+        "
       >
         <div className="absolute w-full h-full ">
           <div>
