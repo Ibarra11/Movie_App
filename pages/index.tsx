@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma";
 import { useGetBookmarkedMoviesQuery } from "../types/apollo-generated";
 import { TrendingMovie, ProtectedPage, isTrendingMovie } from "../types";
 import { MovieType, BookmarkedMovieIds } from "../types";
-import TrendingRow from "../components/TrendingRow";
+import TrendingSlider from "../components/TrendingSlider";
 import MovieGrid from "../components/MovieGrid";
 
 const Home: ProtectedPage<{
@@ -22,7 +22,7 @@ const Home: ProtectedPage<{
 
   return (
     <div className="flex flex-col  h-full">
-      <TrendingRow
+      <TrendingSlider
         bookmarkedMovieIds={bookmarkedMovieIds}
         trendingMovies={trendingFilms}
       />

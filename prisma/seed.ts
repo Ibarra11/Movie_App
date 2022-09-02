@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import type { Movie } from "../components/TrendingRow";
+import type { Movie } from "../components/TrendingSlider";
 import { hashPassword } from "../lib/encrypt";
 import data from "../data.json";
 const prisma = new PrismaClient();

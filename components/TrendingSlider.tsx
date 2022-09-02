@@ -25,7 +25,7 @@ export interface Movie {
   };
 }
 
-const TrendingRow = ({
+const TrendingSlider = ({
   trendingMovies,
   bookmarkedMovieIds,
 }: {
@@ -35,26 +35,29 @@ const TrendingRow = ({
   const slider = useRef<null | HTMLDivElement>(null);
   const sliderItem = useRef<null | HTMLDivElement>(null);
   const [slideX, setSlideX] = useState(1);
-  const [isActive, setIsActive] = useState(false);
+  const [isSliderActive, setIsSliderActive] = useState(false);
 
   function handleSlide(direction: "prev" | "next") {
     if (slider.current && sliderItem.current) {
       let { gap } = getComputedStyle(slider.current);
-      const gapValue = +gap.split(/[a-zA-Z]/)[0];
+
+      const gapValue = parseInt(gap.split(/[a-zA-Z]/)[0]);
+
       const slideDelta = sliderItem.current.clientWidth + gapValue;
+      console.log(slideDelta);
       let slideAmount;
       if (direction === "next") {
         slideAmount = slideDelta * slideX;
-        if (!isActive) {
-          setIsActive(true);
+
+        if (!isSliderActive) {
+          setIsSliderActive(true);
         }
+
         slider.current.style.transform = `translateX(-${slideAmount}px)`;
         slider.current.style.transition = ".4s ease-in-out";
         setSlideX((prevSlideX) => prevSlideX + 1);
       } else {
         slideAmount = -(slideDelta * (slideX - 1)) + slideDelta;
-        console.log(slideAmount);
-        console.log(slider.current.style.transform);
         slider.current.style.transform = `translateX(${
           slideAmount < 0 ? "-" : ""
         }${Math.abs(slideAmount)}px)`;
@@ -63,13 +66,12 @@ const TrendingRow = ({
       }
     }
   }
-  // Whether the user has interacted with the slider
 
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-white text-4xl">Trending</h3>
-      <div className="group  relative overflow-hidden  ">
-        <div ref={slider} className="flex w-full gap-9 ">
+      <div className="group  relative overflow-hidden">
+        <div className="relative flex w-full gap-9 " ref={slider}>
           {trendingMovies.map((movie) => {
             return (
               <TrendingThumbnail
@@ -81,23 +83,27 @@ const TrendingRow = ({
             );
           })}
         </div>
+
         <button
           aria-label="See previous titles"
           className={`
             absolute hidden  hover:flex items-center justify-center cursor-pointer  top-0 bottom-0 left-0 w-5 
-          hover:bg-black/50 ${isActive ? "group-hover:flex" : ""}
+          hover:bg-black/50 ${slideX > 1 ? "group-hover:flex" : ""}
             lg:w-10
           `}
           onClick={() => handleSlide("prev")}
+          disabled={slideX === 1}
         >
           <AiOutlineLeft size={24} className="text-white" />
         </button>
         <button
           aria-label="See more titles"
-          className="
+          className={`
             absolute hidden items-center justify-center cursor-pointer top-0 bottom-0 right-0 w-5
-            hover:bg-black/50 group-hover:flex 
-            lg:w-10"
+            hover:bg-black/50  ${
+              slideX <= trendingMovies.length % 3 ? "group-hover:flex" : ""
+            }
+            lg:w-10`}
           onClick={() => handleSlide("next")}
         >
           <AiOutlineRight size={24} className="text-white " />
@@ -107,4 +113,4 @@ const TrendingRow = ({
   );
 };
 
-export default TrendingRow;
+export default TrendingSlider;
