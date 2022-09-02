@@ -40,11 +40,8 @@ const TrendingSlider = ({
   function handleSlide(direction: "prev" | "next") {
     if (slider.current && sliderItem.current) {
       let { gap } = getComputedStyle(slider.current);
-
       const gapValue = parseInt(gap.split(/[a-zA-Z]/)[0]);
-
       const slideDelta = sliderItem.current.clientWidth + gapValue;
-      console.log(slideDelta);
       let slideAmount;
       if (direction === "next") {
         slideAmount = slideDelta * slideX;

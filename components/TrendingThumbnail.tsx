@@ -15,8 +15,8 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
       <div
         ref={ref}
         className="
-          relative w-4/6 shrink-0 cursor-pointer rounded-lg overflow-hidden
-          lg:w-2/6 lg:h-64 
+          relative  shrink-0 cursor-pointer rounded-lg overflow-hidden
+          lg:slider-item-desktop lg:h-64 
         "
       >
         <div className="absolute w-full h-full ">
@@ -59,7 +59,7 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
           className="
           group bookmark-icon-container absolute top-2 right-2 grid place-content-center w-8 h-8 bg-darkBlue/50 
           rounded-full hover:bg-white hover:duration-200
-          lg:top-4  lg:right-6
+          lg:top-4  lg:right-12
           "
         >
           <Image
