@@ -67,8 +67,8 @@ const TrendingSlider = ({
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-white text-4xl">Trending</h3>
-      <div className="group  relative overflow-hidden">
-        <div className="relative flex w-full gap-9 " ref={slider}>
+      <div className="slider-container relative overflow-hidden border-4 border-green-600">
+        <div className="peer isolate relative flex w-full gap-9" ref={slider}>
           {trendingMovies.map((movie) => {
             return (
               <TrendingThumbnail
@@ -84,12 +84,12 @@ const TrendingSlider = ({
         <button
           aria-label="See previous titles"
           className={`
-            absolute hidden  hover:flex items-center justify-center cursor-pointer  top-0 bottom-0 left-0 w-5 
-          hover:bg-black/50 ${slideX > 1 ? "group-hover:flex" : ""}
+            absolute  hidden items-center justify-center cursor-pointer  top-0 bottom-0 left-0 w-5 
+          hover:bg-black/50 hover:flex ${slideX > 1 ? "peer-hover:flex" : ""}
             lg:w-10
           `}
           onClick={() => handleSlide("prev")}
-          disabled={slideX === 1}
+          disabled={!(slideX > 1)}
         >
           <AiOutlineLeft size={24} className="text-white" />
         </button>
@@ -97,10 +97,11 @@ const TrendingSlider = ({
           aria-label="See more titles"
           className={`
             absolute hidden items-center justify-center cursor-pointer top-0 bottom-0 right-0 w-5
-            hover:bg-black/50  ${
-              slideX <= trendingMovies.length % 3 ? "group-hover:flex" : ""
-            }
+           hover:bg-black/50 hover:flex   ${
+             slideX <= trendingMovies.length % 3 ? "peer-hover:flex" : ""
+           }
             lg:w-10`}
+          disabled={!(slideX <= trendingMovies.length % 3)}
           onClick={() => handleSlide("next")}
         >
           <AiOutlineRight size={24} className="text-white " />

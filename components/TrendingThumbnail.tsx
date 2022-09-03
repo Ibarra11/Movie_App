@@ -6,6 +6,8 @@ import empty_bookmark from "/public/icons/icon-bookmark-empty.svg";
 import full_bookmark from "/public/icons/icon-bookmark-full.svg";
 export type Ref = HTMLDivElement;
 
+import ThumbnailOverlay from "./ThumbnailOverlay";
+
 const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
   (
     { title, year, category, rating, isBookmarked, trending_sm, trending_lg },
@@ -28,6 +30,7 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
               alt="Trending movie"
             />
           </div>
+          <ThumbnailOverlay />
         </div>
         <div className="relative h-2/5 top-full p-6 -translate-y-full   from-transparent to-black bg-gradient-to-b">
           <div className="flex items-center justify-between w-full">
@@ -54,10 +57,11 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
             </div>
           </div>
         </div>
+
         <button
           aria-label={isBookmarked ? "Unbookmark movie" : "Bookmark movie"}
           className="
-          group bookmark-icon-container absolute top-2 right-2 grid place-content-center w-8 h-8 bg-darkBlue/50 
+          bookmark-icon-container absolute top-2 right-2 grid place-content-center z-20 w-8 h-8 bg-darkBlue/50 
           rounded-full hover:bg-white hover:duration-200
           lg:top-4  lg:right-12
           "

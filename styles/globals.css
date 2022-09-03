@@ -40,3 +40,7 @@
     width: calc(33% - 18px);
   }
 }
+
+.slider-container:hover .slider-btn-group > button {
+  display: flex;
+}
