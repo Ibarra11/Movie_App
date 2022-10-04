@@ -1,10 +1,28 @@
 import { PrismaClient } from "@prisma/client";
-import type { Movie } from "../components/TrendingSlider";
 import { hashPassword } from "../lib/encrypt";
 import data from "../data.json";
 const prisma = new PrismaClient();
+interface JSONMovieData {
+  title: string;
+  year: number;
+  category: string;
+  rating: string;
+  isBookmarked: boolean;
+  isTrending: boolean;
+  thumbnail: {
+    trending?: {
+      small: string;
+      large: string;
+    };
+    regular: {
+      small: string;
+      medium: string;
+      large: string;
+    };
+  };
+}
 
-const movieData: Movie[] = data;
+const movieData: JSONMovieData[] = data;
 
 async function main() {
   await prisma.movie.deleteMany({});

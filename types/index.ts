@@ -1,6 +1,5 @@
 import { Movie } from "@prisma/client";
 import { NextPage } from "next";
-import { HTMLInputTypeAttribute } from "react";
 
 export type TrendingMovie = {
   [K in keyof Movie]: Movie[K] extends infer R
