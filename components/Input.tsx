@@ -12,8 +12,9 @@ const Input: (props: {
   searchValue: string;
 }) => React.ReactElement = ({ setSearchValue, searchValue }) => {
   const { pathname } = useRouter();
+
   return (
-    <div className="relative mt-16 -translate-y-1/3  flex items-center w-full cursor-pointer isolate overflow-hidden">
+    <div className="h-full relative flex items-center w-full cursor-pointer isolate overflow-hidden">
       <div className="flex absolute">
         <Image
           src="/icons/icon-search.svg"

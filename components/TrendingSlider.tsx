@@ -75,9 +75,12 @@ const TrendingSlider = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-white text-4xl">Trending</h3>
+      <h3 className="text-white text-xl md:text-4xl">Trending</h3>
       <div className="slider-container relative overflow-hidden">
-        <div className="peer isolate relative flex w-full gap-9" ref={slider}>
+        <div
+          className="peer isolate relative flex w-full gap-4 md:gap-10 "
+          ref={slider}
+        >
           {trendingMovies.map((movie, index) => {
             return (
               <TrendingThumbnail

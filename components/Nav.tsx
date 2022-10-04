@@ -43,7 +43,6 @@ const screens = {
 
 const Nav = () => {
   const router = useRouter();
-  const currentPath = router.pathname;
 
   async function handleLogout() {
     try {
@@ -59,8 +58,8 @@ const Nav = () => {
     }
   }
   return (
-    <div className="md:px-6  xl:p-0 xl:py-8 xl:pl-8 ">
-      <div className="bg-semiDarkBlue flex items-center h-14 px-4 md:h-16 md:rounded-lg xl:flex-col xl:w-24 xl:h-[720px] xl:px-0 xl:py-8 xl:rounded-2xl">
+    <div className=" md:mt-6 md:px-6 lg:p-0 lg:mt-0 lg:py-8 lg:pl-8 ">
+      <div className="bg-semiDarkBlue flex items-center h-14 px-4 md:h-16 md:rounded-lg lg:flex-col lg:w-24 lg:h-[720px] lg:px-0 lg:py-8 lg:rounded-2xl">
         {/* Logo */}
         {/* Flex to get rid of the extra space for the image on the bottom */}
         <div className=" flex md:hidden items-center ">
@@ -75,10 +74,10 @@ const Nav = () => {
           <div className="md:hidden">
             {NavLayout({ type: "nav", size: "mobile" })}
           </div>
-          <div className="hidden md:block xl:hidden">
+          <div className="hidden md:block lg:hidden">
             {NavLayout({ type: "nav", size: "tablet" })}
           </div>
-          <div className="hidden xl:block xl:h-full">
+          <div className="hidden lg:block lg:h-full">
             {NavLayout({ type: "nav", size: "desktop" })}
           </div>
         </div>
@@ -116,7 +115,7 @@ function NavLayout(navBarElement: NavBarElements): JSX.Element {
     case "nav": {
       return (
         <div
-          className={`flex justify-center gap-6 md:gap-8  xl:h-full  xl:gap-10 xl:flex-col xl:justify-start xl:pt-20`}
+          className={`flex justify-center gap-6 md:gap-8  lg:h-full  lg:gap-10 lg:flex-col lg:justify-start lg:pt-20`}
         >
           <button
             aria-label="show both movies and tv series"

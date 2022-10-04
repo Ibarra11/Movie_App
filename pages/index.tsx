@@ -22,7 +22,7 @@ const Home: ProtectedPage<{
   }
 
   return (
-    <div className="flex flex-col  h-full">
+    <div className="flex flex-col h-full gap-6 lg:gap-10">
       <TrendingSlider
         bookmarkedMovieIds={bookmarkedMovieIds}
         trendingMovies={trendingFilms}

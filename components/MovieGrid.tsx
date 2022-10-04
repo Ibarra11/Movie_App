@@ -32,15 +32,15 @@ const MovieGrid: (props: {
 
   return isSearching ? (
     <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white">
-      <h3 className="text-[32px] mb-8">{`Searching ${
+      <h3 className=" txt text-[32px] mb-8">{`Searching ${
         title === "Recommended for you" ? "All Films" : title
       }`}</h3>
       <BeatLoader color="white" size={48} />
     </div>
   ) : (
     <>
-      <h3 className="text-[32px] mb-8">{titleToDisplay}</h3>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-x-7 md:gap-y-6 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-8   ">
+      <h3 className=" text-xl md:text-[32px] mb-6 md:mb-8">{titleToDisplay}</h3>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-x-7 md:gap-y-6 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-8">
         {filteredFilms.map((movie) => {
           const isBookmarked = bookmarkedMovieIds[movie.id] ? true : false;
           return (
