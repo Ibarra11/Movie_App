@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
+import { ClipLoader } from "react-spinners";
 import { useSignupMutation } from "../types/apollo-generated";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -148,7 +149,7 @@ const SignupForm: () => React.ReactElement = () => {
           type="submit"
           className=" bg-red py-4 rounded-md text-center text-white"
         >
-          {loading ? "loading" : "Sign Up"}
+          {loading ? <ClipLoader size={16} color="white" /> : "Sign Up"}
         </button>
         <div className="flex gap-2 justify-center">
           <p className="text-white text-base">Already have an account?</p>

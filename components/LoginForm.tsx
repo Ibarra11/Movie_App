@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ClipLoader } from "react-spinners";
 import { useLoginMutation } from "../types/apollo-generated";
 
 interface Inputs {
@@ -131,7 +132,11 @@ const LoginForm = () => {
           type="submit"
           className=" bg-red py-4 rounded-md text-center text-white"
         >
-          {loading ? "loading" : "Login to your account"}
+          {loading ? (
+            <ClipLoader size={16} color="white" />
+          ) : (
+            "Login to your account"
+          )}
         </button>
         <div className="flex gap-2 justify-center">
           <p className="text-white text-base">Don&#39;t have an account?</p>
