@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { Movie } from "../graphql/generated-types";
 import { GetBookmarkedMoviesDocument } from "../types/apollo-generated";
+import {
+  useRemoveBookmarkMutation,
+  useAddBookmarkMutation,
+} from "../types/apollo-generated";
+import { ClipLoader } from "react-spinners";
 import ThumbnailOverlay from "./ThumbnailOverlay";
 import {
   RemoveBookmarkMutationFn,
@@ -19,13 +24,20 @@ const Thumbnail = ({
   regular_sm,
   regular_md,
   regular_lg,
-  onBookmarkMutation,
-  loadingMutation,
 }: Movie & {
   isBookmarked: boolean;
-  onBookmarkMutation: RemoveBookmarkMutationFn | AddBookmarkMutationFn;
-  loadingMutation: boolean;
 }) => {
+  const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =
+    useRemoveBookmarkMutation();
+
+  const [handleAddBookmark, { loading: addBookmarkLoading }] =
+    useAddBookmarkMutation();
+
+  const isLoading = isBookmarked ? removeBookmarkLoading : addBookmarkLoading;
+  const onBookmarkMutation = isBookmarked
+    ? handleRemoveBookmark
+    : handleAddBookmark;
+
   return (
     <div className="space-y-2" data-test="thumbnail">
       <div className="relative w-full aspect-video hover:cursor-pointer rounded-lg overflow-hidden">
@@ -33,10 +45,10 @@ const Thumbnail = ({
         {/* bookmark icon */}
         <button
           aria-label={isBookmarked ? "Unbookmark movie" : "Bookmark movie"}
-          className="bookmark-icon-container absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full hover:bg-white hover:duration-200"
+          className=" bookmark-icon-container absolute grid place-content-center z-10 top-2 right-2 h-8 w-8  bg-darkBlue/50 rounded-full hover:bg-white hover:duration-200"
           onClick={async () => {
             // just to ensure that only one request is made at a time.
-            if (!loadingMutation) {
+            if (!isLoading) {
               onBookmarkMutation({
                 variables: { movieId: id },
                 refetchQueries: [{ query: GetBookmarkedMoviesDocument }],
@@ -44,14 +56,19 @@ const Thumbnail = ({
             }
           }}
         >
-          <Image
-            src={isBookmarked ? icon_bookmark_full : icon_bookmark_empty}
-            layout="fixed"
-            width={12}
-            height={14}
-            alt=""
-            className="filter-bookmark-icon"
-          />
+          {isLoading ? (
+            <ClipLoader size={14} color="white" />
+          ) : (
+            <Image
+              src={isBookmarked ? icon_bookmark_full : icon_bookmark_empty}
+              layout="fixed"
+              width={12}
+              height={14}
+              alt=""
+              aria-hidden="true"
+              className="filter-bookmark-icon"
+            />
+          )}
         </button>
         <div className="md:hidden">
           <Image

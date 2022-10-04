@@ -1,12 +1,6 @@
 import Thumbnail from "./Thumbnail";
 import { useSearch } from "../lib/useSearch";
 import { BeatLoader } from "react-spinners";
-import { Movie } from "../graphql/generated-types";
-import {
-  useGetBookmarkedMoviesQuery,
-  useRemoveBookmarkMutation,
-  useAddBookmarkMutation,
-} from "../types/apollo-generated";
 import { MovieType, BookmarkedMovieIds } from "../types";
 import { ReactElement } from "react";
 
@@ -36,12 +30,6 @@ const MovieGrid: (props: {
       }`
     : title;
 
-  const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =
-    useRemoveBookmarkMutation();
-
-  const [handleAddBookmark, { loading: addBookmarkLoading }] =
-    useAddBookmarkMutation();
-
   return isSearching ? (
     <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white">
       <h3 className="text-[32px] mb-8">{`Searching ${
@@ -60,12 +48,6 @@ const MovieGrid: (props: {
               key={movie.title}
               {...movie}
               isBookmarked={isBookmarked}
-              onBookmarkMutation={
-                isBookmarked ? handleRemoveBookmark : handleAddBookmark
-              }
-              loadingMutation={
-                isBookmarked ? removeBookmarkLoading : addBookmarkLoading
-              }
             />
           );
         })}

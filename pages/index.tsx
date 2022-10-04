@@ -13,6 +13,7 @@ const Home: ProtectedPage<{
   searchValue: string;
 }> = ({ allFilms, trendingFilms, nonTrendingFilms, searchValue }) => {
   const { data, loading, error } = useGetBookmarkedMoviesQuery();
+
   let bookmarkedMovieIds: BookmarkedMovieIds = {};
   if (data) {
     data.getBookmarkedMovies.forEach((movie) => {
