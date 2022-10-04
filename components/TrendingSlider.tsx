@@ -1,5 +1,4 @@
-import { useState, useLayoutEffect, useEffect, useRef } from "react";
-import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
+import { useState, useLayoutEffect, useRef } from "react";
 import { BookmarkedMovieIds, TrendingMovie } from "../types";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 

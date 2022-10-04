@@ -1,7 +1,7 @@
 import { BsFillPlayFill } from "react-icons/bs";
 const ThumbnailOverlay = () => {
   return (
-    <div className="group first-letter:absolute w-full h-full ">
+    <div className="group absolute w-full h-full ">
       {/* overlay */}
       <div className="absolute bg-black opacity-0 duration-200 z-10  h-full w-full  group-hover:opacity-50 group-hover:duration-400 "></div>
 

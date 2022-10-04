@@ -45,7 +45,8 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
   }, [router.pathname]);
 
   return (
-    <div>
+    <>
+      <h1 className="visibility-hidden">Flix</h1>
       <ApolloProvider client={apolloClient}>
         {Component.protected ? (
           <Layout setSearchValue={setSearchValue} searchValue={searchValue}>
@@ -55,7 +56,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
           <Component {...pageProps} />
         )}
       </ApolloProvider>
-    </div>
+    </>
   );
 }
 

@@ -2,9 +2,6 @@ import {
   useRemoveBookmarkMutation,
   useAddBookmarkMutation,
 } from "../../types/apollo-generated";
-interface IProps {
-  isBookmarked: boolean;
-}
 
 export const useBookmarkMutation = (isBookmarked: boolean) => {
   const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =

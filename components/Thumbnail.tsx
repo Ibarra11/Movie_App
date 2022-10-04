@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import { Movie } from "../graphql/generated-types";
 import { GetBookmarkedMoviesDocument } from "../types/apollo-generated";
@@ -24,7 +25,7 @@ const Thumbnail = ({
   const [isLoading, onBookmarkMutation] = useBookmarkMutation(isBookmarked);
 
   return (
-    <div className="space-y-2" data-test="thumbnail">
+    <a href="#" className="space-y-2" data-test="thumbnail">
       <div className="relative w-full aspect-video hover:cursor-pointer rounded-lg overflow-hidden">
         <ThumbnailOverlay />
         {/* bookmark icon */}
@@ -55,7 +56,7 @@ const Thumbnail = ({
             />
           )}
         </button>
-        <div className="md:hidden">
+        <div className="relative border-2 border-red w-full h-full md:hidden">
           <Image
             className="border-2 border-red-500"
             layout="fill"
@@ -64,7 +65,7 @@ const Thumbnail = ({
             alt="Movie 112 thumbnail"
           />
         </div>
-        <div className="hidden md:block lg:hidden">
+        <div className="relative w-full h-full hidden md:block lg:hidden">
           <Image
             layout="fill"
             src={regular_md}
@@ -72,7 +73,7 @@ const Thumbnail = ({
             alt="Movie 112 thumbnail"
           />
         </div>
-        <div className="hidden lg:block ">
+        <div className="relative w-full h-full  hidden lg:block ">
           <Image
             layout="fill"
             src={regular_lg}
@@ -99,7 +100,7 @@ const Thumbnail = ({
           {title}
         </h5>
       </div>
-    </div>
+    </a>
   );
 };
 

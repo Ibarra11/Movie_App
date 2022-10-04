@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { useEffect, useRef } from "react";
 import { TrendingMovie } from "../types";
 import Image from "next/image";
 import { ClipLoader } from "react-spinners";
@@ -13,6 +14,7 @@ import ThumbnailOverlay from "./ThumbnailOverlay";
 const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
   ({ title, year, category, rating, isBookmarked, trending_sm, id }, ref) => {
     const [isLoading, onBookmarkMutation] = useBookmarkMutation(isBookmarked);
+
     return (
       <div
         ref={ref}
@@ -23,12 +25,12 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
         "
       >
         <div className="absolute w-full h-full ">
-          <div>
+          <div className="relative w-full h-full">
             <Image
               layout="fill"
               src={trending_sm}
               objectFit="cover"
-              alt="Trending movie"
+              alt={title}
             />
           </div>
           <ThumbnailOverlay />
