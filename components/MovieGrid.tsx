@@ -40,7 +40,7 @@ const MovieGrid: (props: {
   ) : (
     <>
       <h3 className="text-[32px] mb-8">{titleToDisplay}</h3>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-7 md:gap-y-6 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-8   ">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-x-7 md:gap-y-6 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-8   ">
         {filteredFilms.map((movie) => {
           const isBookmarked = bookmarkedMovieIds[movie.id] ? true : false;
           return (

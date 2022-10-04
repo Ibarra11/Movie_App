@@ -31,6 +31,8 @@ export const useSearch: <T extends { [key: string]: any }>(
           }
         };
       }, 500);
+    } else {
+      setFilteredState(state);
     }
   }, [data, searchValue, state, filterBy]);
 

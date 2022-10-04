@@ -57,6 +57,7 @@ const Thumbnail = ({
         </button>
         <div className="md:hidden">
           <Image
+            className="border-2 border-red-500"
             layout="fill"
             src={regular_sm}
             objectFit="cover"
