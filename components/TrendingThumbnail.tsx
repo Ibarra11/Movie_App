@@ -17,8 +17,9 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
       <div
         ref={ref}
         className="
-          relative  shrink-0 cursor-pointer rounded-lg overflow-hidden
-          lg:slider-item-desktop lg:h-64 
+          relative  shrink-0 cursor-pointer rounded-lg overflow-hidden  h-64 w-full
+          md:slider-item-tablet
+          lg:slider-item-desktop 
         "
       >
         <div className="absolute w-full h-full ">
@@ -61,9 +62,9 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
         <button
           aria-label={isBookmarked ? "Unbookmark movie" : "Bookmark movie"}
           className="
-          bookmark-icon-container absolute top-2 right-2 grid place-content-center z-20 w-8 h-8 bg-darkBlue/50 
+          bookmark-icon-container absolute top-4  right-12  grid place-content-center z-20 w-8 h-8 bg-darkBlue/50 
           rounded-full hover:bg-white hover:duration-200
-          lg:top-4  lg:right-12
+          
           "
         >
           <Image

@@ -39,6 +39,10 @@
   .slider-item-desktop {
     width: calc(33% - 18px);
   }
+
+  .slider-item-tablet {
+    width: calc(50% - 18px);
+  }
 }
 
 .slider-container:hover .slider-btn-group > button {
