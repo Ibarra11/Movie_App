@@ -1,5 +1,5 @@
 import Thumbnail from "./Thumbnail";
-import { useSearch } from "../lib/useSearch";
+import { useSearch } from "../lib/hooks/useSearch";
 import { BeatLoader } from "react-spinners";
 import { MovieType, BookmarkedMovieIds } from "../types";
 import { ReactElement } from "react";

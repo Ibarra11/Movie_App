@@ -1,16 +1,10 @@
 import Image from "next/image";
 import { Movie } from "../graphql/generated-types";
 import { GetBookmarkedMoviesDocument } from "../types/apollo-generated";
-import {
-  useRemoveBookmarkMutation,
-  useAddBookmarkMutation,
-} from "../types/apollo-generated";
+import { useBookmarkMutation } from "../lib/hooks/useBookmarkMutation";
 import { ClipLoader } from "react-spinners";
 import ThumbnailOverlay from "./ThumbnailOverlay";
-import {
-  RemoveBookmarkMutationFn,
-  AddBookmarkMutationFn,
-} from "../types/apollo-generated";
+
 import movie_icon from "/public/icons/icon-category-movie.svg";
 import icon_bookmark_empty from "/public/icons/icon-bookmark-empty.svg";
 import icon_bookmark_full from "/public/icons/icon-bookmark-full.svg";
@@ -27,16 +21,7 @@ const Thumbnail = ({
 }: Movie & {
   isBookmarked: boolean;
 }) => {
-  const [handleRemoveBookmark, { loading: removeBookmarkLoading }] =
-    useRemoveBookmarkMutation();
-
-  const [handleAddBookmark, { loading: addBookmarkLoading }] =
-    useAddBookmarkMutation();
-
-  const isLoading = isBookmarked ? removeBookmarkLoading : addBookmarkLoading;
-  const onBookmarkMutation = isBookmarked
-    ? handleRemoveBookmark
-    : handleAddBookmark;
+  const [isLoading, onBookmarkMutation] = useBookmarkMutation(isBookmarked);
 
   return (
     <div className="space-y-2" data-test="thumbnail">
