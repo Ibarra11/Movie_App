@@ -5,9 +5,10 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "../../lib/session";
 import { resolvers } from "../../graphql/resolvers";
 import { createContext } from "../../graphql/context";
+import { server } from "../../lib/server";
 import Cors from "micro-cors";
 
-const cors = Cors();
+const cors = Cors({ origin: server });
 const typeDefs = loadSchemaSync("./graphql/schema.graphql", {
   loaders: [new GraphQLFileLoader()],
 });
