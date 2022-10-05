@@ -9,10 +9,11 @@ import Cors from "micro-cors";
 import { server } from "../../lib/server";
 
 const cors = Cors();
+console.log("test");
 const typeDefs = loadSchemaSync(`${server}/graphql/schema.graphql`, {
   loaders: [new GraphQLFileLoader()],
 });
-
+console.log("what");
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
