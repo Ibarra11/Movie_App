@@ -56,9 +56,9 @@ const Thumbnail = ({
             />
           )}
         </button>
-        <div className="relative border-2 border-red w-full h-full md:hidden">
+        <div className="relative  w-full h-full md:hidden">
           <Image
-            className="border-2 border-red-500"
+            className=""
             layout="fill"
             src={regular_sm}
             objectFit="cover"
