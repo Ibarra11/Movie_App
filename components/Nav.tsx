@@ -1,7 +1,7 @@
 import Image from "next/image";
-
 import { useRouter } from "next/router";
 import { BiLogOut } from "react-icons/bi";
+import { server } from "../lib/server";
 
 type Screen = "mobile" | "tablet" | "desktop";
 
@@ -46,9 +46,7 @@ const Nav = () => {
 
   async function handleLogout() {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/auth/logout`
-      );
+      const response = await fetch(`${server}/api/auth/logout`);
       await response.json();
       router.push("/account/login");
     } catch (e: unknown) {
