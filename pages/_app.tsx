@@ -19,9 +19,12 @@ const server =
   process.env.dev === "production" ? process.env.NEXT_PUBLIC_URL : "";
 
 function MyApp({ Component, pageProps }: CustomAppProps) {
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
-
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   async function checkLoginStatus() {
     const res = await fetch(`/api/auth/user`);
     const data = await res.json();
@@ -30,7 +33,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     }
   }
 
-  if (Component.protected) {
+  if (Component.protected && isMounted) {
     checkLoginStatus();
   }
 
