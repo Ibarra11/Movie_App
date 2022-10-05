@@ -59,7 +59,7 @@ const Thumbnail = ({
         <div className="relative w-full h-full md:hidden">
           <Image layout="fill" src={regular_sm} objectFit="cover" alt={title} />
         </div>
-        <div className="relative w-full h-full hidden  md:blocklg: lg:hidden">
+        <div className="relative w-full h-full hidden  md:block lg:hidden">
           <Image layout="fill" src={regular_md} objectFit="cover" alt={title} />
         </div>
         <div className="relative w-full h-full  hidden lg:block ">
