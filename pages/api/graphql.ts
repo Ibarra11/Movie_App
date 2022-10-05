@@ -8,7 +8,7 @@ import { createContext } from "../../graphql/context";
 import { server } from "../../lib/server";
 import Cors from "micro-cors";
 
-const cors = Cors({ origin: server });
+const cors = Cors();
 const typeDefs = loadSchemaSync("./graphql/schema.graphql", {
   loaders: [new GraphQLFileLoader()],
 });
