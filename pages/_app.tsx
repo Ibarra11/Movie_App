@@ -7,6 +7,7 @@ import type { AppProps } from "next/app";
 import { apolloClient } from "../lib/apollo";
 import Layout from "../components/Layout";
 import { NextPage } from "next";
+import { typeDefs } from "../lib/typedefs";
 
 type CustomNextPage = NextPage & {
   protected?: boolean;

@@ -6,14 +6,9 @@ import { sessionOptions } from "../../lib/session";
 import { resolvers } from "../../graphql/resolvers";
 import { createContext } from "../../graphql/context";
 import Cors from "micro-cors";
-import { server } from "../../lib/server";
-
+import { typeDefs } from "../../lib/apollo";
 const cors = Cors();
-console.log(process.cwd());
-const typeDefs = loadSchemaSync(`${process.cwd()}/graphql/schema.graphql`, {
-  loaders: [new GraphQLFileLoader()],
-});
-console.log("what");
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
