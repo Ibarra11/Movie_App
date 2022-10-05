@@ -1,6 +1,4 @@
 import { ApolloServer } from "apollo-server-micro";
-import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
-import { loadSchemaSync } from "@graphql-tools/load";
 import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "../../lib/session";
 import { resolvers } from "../../graphql/resolvers";
