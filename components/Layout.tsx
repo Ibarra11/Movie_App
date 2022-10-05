@@ -9,7 +9,7 @@ const Layout: (props: {
   return (
     <div className="bg-darkBlue min-h-screen pb-9 lg:pb-14 flex flex-col gap-6 md:gap-8 lg:flex-row lg:gap-9 ">
       <Nav />
-      <main className="flex flex-col flex-1 gap-6 px-4 md:gap-8 md:px-6 lg:pl-0 lg:pt-16">
+      <main className="relative flex flex-col flex-1 gap-6 px-4 md:gap-8 md:px-6 lg:pl-0 lg:pt-16">
         <Input searchValue={searchValue} setSearchValue={setSearchValue} />
         {children}
       </main>

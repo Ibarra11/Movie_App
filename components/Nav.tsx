@@ -56,7 +56,7 @@ const Nav = () => {
     }
   }
   return (
-    <div className=" md:mt-6 md:px-6 lg:p-0 lg:mt-0 lg:py-8 lg:pl-8 ">
+    <div className=" md:mt-6 md:px-6 lg:p-0 lg:mt-0 lg:py-8 lg:pl-8">
       <div className="bg-semiDarkBlue flex items-center h-14 px-4 md:h-16 md:rounded-lg lg:flex-col lg:w-24 lg:h-[720px] lg:px-0 lg:py-8 lg:rounded-2xl">
         {/* Logo */}
         {/* Flex to get rid of the extra space for the image on the bottom */}

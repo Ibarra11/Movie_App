@@ -25,7 +25,7 @@ const Thumbnail = ({
   const [isLoading, onBookmarkMutation] = useBookmarkMutation(isBookmarked);
 
   return (
-    <a href="#" className="space-y-2" data-test="thumbnail">
+    <a href="#/" className="space-y-2" data-test="thumbnail">
       <div className="relative w-full aspect-video hover:cursor-pointer rounded-lg overflow-hidden">
         <ThumbnailOverlay />
         {/* bookmark icon */}
@@ -56,30 +56,14 @@ const Thumbnail = ({
             />
           )}
         </button>
-        <div className="relative  w-full h-full md:hidden">
-          <Image
-            className=""
-            layout="fill"
-            src={regular_sm}
-            objectFit="cover"
-            alt="Movie 112 thumbnail"
-          />
+        <div className="relative w-full h-full md:hidden">
+          <Image layout="fill" src={regular_sm} objectFit="cover" alt={title} />
         </div>
-        <div className="relative w-full h-full hidden md:block lg:hidden">
-          <Image
-            layout="fill"
-            src={regular_md}
-            objectFit="cover"
-            alt="Movie 112 thumbnail"
-          />
+        <div className="relative w-full h-full hidden  md:blocklg: lg:hidden">
+          <Image layout="fill" src={regular_md} objectFit="cover" alt={title} />
         </div>
         <div className="relative w-full h-full  hidden lg:block ">
-          <Image
-            layout="fill"
-            src={regular_lg}
-            objectFit="cover"
-            alt="Movie 112 thumbnail"
-          />
+          <Image layout="fill" src={regular_lg} objectFit="cover" alt={title} />
         </div>
       </div>
       <div className=" space-y-1">

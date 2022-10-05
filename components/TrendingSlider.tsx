@@ -1,7 +1,6 @@
 import { useState, useLayoutEffect, useRef } from "react";
 import { BookmarkedMovieIds, TrendingMovie } from "../types";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-
 import TrendingThumbnail from "./TrendingThumbnail";
 
 function isInView(element: HTMLDivElement) {
@@ -75,9 +74,9 @@ const TrendingSlider = ({
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-white text-xl md:text-4xl">Trending</h3>
-      <div className="slider-container relative overflow-hidden">
+      <div className="relative overflow-hidden">
         <div
-          className="peer isolate relative flex w-full gap-4 md:gap-10 "
+          className="peer isolate relative flex w-full gap-4 md:gap-10"
           ref={slider}
         >
           {trendingMovies.map((movie, index) => {

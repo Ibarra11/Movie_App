@@ -35,7 +35,7 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
           </div>
           <ThumbnailOverlay />
         </div>
-        <div className="relative h-2/5 top-full p-6 -translate-y-full   from-transparent to-black bg-gradient-to-b">
+        <div className="absolute w-full h-2/5 top-full p-6 -translate-y-full =from-transparent to-black bg-gradient-to-b">
           <div className="flex items-center justify-between w-full">
             <div className="flex flex-col gap-0.5">
               <div className="flex items-center text-slate-300 text-xs">
