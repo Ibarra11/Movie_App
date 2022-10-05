@@ -47,7 +47,7 @@ const Nav = () => {
   async function handleLogout() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}api/auth/logout`
+        `${process.env.NEXT_PUBLIC_URL}/api/auth/logout`
       );
       await response.json();
       router.push("/account/login");
