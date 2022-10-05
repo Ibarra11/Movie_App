@@ -6,7 +6,7 @@ export default withIronSessionApiRoute(loginRoute, sessionOptions);
 
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   const { user } = req.body;
-  console.log(user);
+
   req.session.user = {
     id: user,
   };
