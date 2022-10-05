@@ -14,7 +14,7 @@ const Input: (props: {
   const { pathname } = useRouter();
 
   return (
-    <div className="h-full relative flex items-center w-full cursor-pointer isolate overflow-hidden">
+    <div className="relative flex items-center w-full cursor-pointer isolate overflow-hidden">
       <div className="flex absolute">
         <Image
           src="/icons/icon-search.svg"
