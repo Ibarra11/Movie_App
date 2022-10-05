@@ -3,7 +3,7 @@ import { useSearch } from "../lib/hooks/useSearch";
 import { BeatLoader } from "react-spinners";
 import { MovieType, BookmarkedMovieIds } from "../types";
 import { ReactElement } from "react";
-const isSearching = true;
+
 const MovieGrid: (props: {
   films: MovieType[];
   searchValue: string;
@@ -15,7 +15,11 @@ const MovieGrid: (props: {
     | "Bookmarked Movies"
     | "Bookmarked TV Series";
 }) => ReactElement = ({ films, searchValue, bookmarkedMovieIds, title }) => {
-  const [filteredFilms] = useSearch<MovieType>(films, searchValue, "title");
+  const [filteredFilms, isSearching] = useSearch<MovieType>(
+    films,
+    searchValue,
+    "title"
+  );
 
   const searchState = searchValue !== "";
   const titleToDisplay = searchState
@@ -27,8 +31,8 @@ const MovieGrid: (props: {
     : title;
 
   return isSearching ? (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white">
-      <h3 className=" txt text-[32px] mb-8">{`Searching ${
+    <div className="absolute  top-1/2 left-1/2 -translate-x-1/2  text-center text-white">
+      <h3 className="text-[32px] mb-8">{`Searching ${
         title === "Recommended for you" ? "All Films" : title
       }`}</h3>
       <BeatLoader color="white" size={48} />
