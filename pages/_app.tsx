@@ -23,7 +23,11 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
   useEffect(() => {
     setIsMounted(true);
   }, []);
+  console.log(server);
   async function checkLoginStatus() {
+    console.log("\n");
+    console.log(server);
+    console.log("\n");
     const res = await fetch(`${server}/api/auth/user`);
     const data = await res.json();
     if (data.isLoggedIn === false) {
