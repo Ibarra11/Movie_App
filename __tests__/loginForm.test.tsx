@@ -1,11 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ApolloProvider } from "@apollo/client";
-import * as nextRouter from "next/router";
 import "whatwg-fetch";
 import { apolloClient } from "../lib/apollo";
 import LoginForm from "../components/LoginForm";
-const useRouter = jest.spyOn(require("next/router"), "useRouter");
 
 function setup() {
   render(

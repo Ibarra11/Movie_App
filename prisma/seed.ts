@@ -62,7 +62,6 @@ if (require.main === module) {
 }
 
 async function run() {
-  // return 1;
   try {
     await main();
     return null;

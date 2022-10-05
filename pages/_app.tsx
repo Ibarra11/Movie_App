@@ -5,9 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
 import { apolloClient } from "../lib/apollo";
 import Layout from "../components/Layout";
-import { NextComponentType, NextPage } from "next";
-import { Movie } from "../types/apollo-generated";
-import MovieGrid from "../components/MovieGrid";
+import { NextPage } from "next";
 
 type CustomNextPage = NextPage & {
   protected?: boolean;
@@ -17,12 +15,15 @@ type CustomAppProps = AppProps & {
   Component: CustomNextPage;
 };
 
+const server =
+  process.env.dev === "production" ? process.env.NEXT_PUBLIC_URL : "";
+
 function MyApp({ Component, pageProps }: CustomAppProps) {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
 
   async function checkLoginStatus() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth/user`);
+    const res = await fetch(`/api/auth/user`);
     const data = await res.json();
     if (data.isLoggedIn === false) {
       router.push("/account/login");

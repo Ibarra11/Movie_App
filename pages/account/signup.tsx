@@ -1,9 +1,7 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
 import SignupForm from "../../components/SignupForm";
 
 const Signup = () => {
-  const router = useRouter();
   return (
     <div className=" bg-darkBlue h-screen flex flex-col gap-14 items-center  py-12 px-6 md:gap-16">
       <Image
