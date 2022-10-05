@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
+import { server } from "../lib/server";
 import { ClipLoader } from "react-spinners";
 import { useSignupMutation } from "../types/apollo-generated";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -44,7 +45,7 @@ const SignupForm: () => React.ReactElement = () => {
         resetField("repeatPassword");
       },
       async onCompleted(data) {
-        const response = await fetch("/api/auth/login", {
+        const response = await fetch(`${server}/api/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ user: data.signup.id }),

@@ -6,7 +6,6 @@ import { sessionOptions } from "../../lib/session";
 import { resolvers } from "../../graphql/resolvers";
 import { createContext } from "../../graphql/context";
 import Cors from "micro-cors";
-import { NextApiRequest, NextApiResponse } from "next";
 
 const cors = Cors();
 const typeDefs = loadSchemaSync("./graphql/schema.graphql", {
