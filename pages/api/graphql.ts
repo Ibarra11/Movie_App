@@ -6,9 +6,10 @@ import { sessionOptions } from "../../lib/session";
 import { resolvers } from "../../graphql/resolvers";
 import { createContext } from "../../graphql/context";
 import Cors from "micro-cors";
+import { server } from "../../lib/server";
 
 const cors = Cors();
-const typeDefs = loadSchemaSync("./graphql/schema.graphql", {
+const typeDefs = loadSchemaSync(`${server}/graphql/schema.graphql`, {
   loaders: [new GraphQLFileLoader()],
 });
 
