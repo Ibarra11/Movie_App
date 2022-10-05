@@ -10,7 +10,7 @@ import { server } from "../../lib/server";
 
 const cors = Cors();
 console.log(process.cwd());
-const typeDefs = loadSchemaSync(`/schema.graphql`, {
+const typeDefs = loadSchemaSync(`${process.cwd()}/schema.graphql`, {
   loaders: [new GraphQLFileLoader()],
 });
 console.log("what");
