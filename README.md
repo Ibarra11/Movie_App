@@ -64,6 +64,10 @@ Users should be able to
 
 - Postgres
 
+- Cypress
+
+- Jest Testing Library
+
 - Railway
 
 ### What I learned
