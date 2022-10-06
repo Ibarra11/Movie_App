@@ -42,9 +42,7 @@ Users should be able to
 
 ### Links
 
-- Solution URL: [https://github.com/Ibarra11/Movie_App](https://your-solution-url.com)
-
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [https://flix-ibarra11.vercel.app/](https://flix-ibarra11.vercel.app/)
 
 ## My process
 
