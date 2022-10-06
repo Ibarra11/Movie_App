@@ -25,7 +25,7 @@ const TrendingThumbnail = forwardRef<Ref, TrendingMovie>(
         "
       >
         <div className="absolute w-full h-full ">
-          <div className="relative w-full h-full">
+          <div className="absolute w-full h-full">
             <Image
               layout="fill"
               src={trending_sm}
