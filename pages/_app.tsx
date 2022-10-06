@@ -1,5 +1,6 @@
 import "../styles/globals.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+
 import { useRouter } from "next/router";
 import { server } from "../lib/server";
 import { ApolloProvider } from "@apollo/client";
@@ -49,7 +50,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
 
   return (
     <>
-      <h1 className="visibility-hidden">Flix</h1>
+      <h1 className="visibility-hidden">MovieSpot</h1>
       <ApolloProvider client={apolloClient}>
         {Component.protected ? (
           <Layout setSearchValue={setSearchValue} searchValue={searchValue}>
