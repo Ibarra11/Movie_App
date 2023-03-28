@@ -13,7 +13,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-versin: 18
+          node-version: 18
           cache: "npm"
       - run: npm ci
       - run: npm test
