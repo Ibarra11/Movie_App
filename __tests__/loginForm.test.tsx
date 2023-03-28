@@ -51,14 +51,6 @@ test("invalid password length results in error message", async () => {
   expect(alert).toHaveTextContent("Password must be atleast 6 characters");
 });
 
-// test("should show loading indicator when user submits the login form", async () => {
-//   const { emailInput, passwordInput, submitBtn } = setup();
-//   await userEvent.type(emailInput, "test@gmail.com");
-//   await userEvent.type(passwordInput, "test123");
-//   await userEvent.click(submitBtn);
-//   expect(screen.getByRole("button", { name: /loading/i })).toBeInTheDocument();
-// });
-
 test("when user sumbits credentials that are not in db displays error message", async () => {
   const { emailInput, passwordInput, submitBtn } = setup();
   await userEvent.type(emailInput, "test@gmail.com");
