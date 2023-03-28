@@ -20,6 +20,6 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
       - run: npm ci
-      - run: npm build
+      - run: npm run build
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
